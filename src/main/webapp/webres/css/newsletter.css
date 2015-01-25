@@ -1,0 +1,29 @@
+.newsletter_block {
+    margin: 0;
+    border-bottom: 1px dotted #7f7878; 
+    padding: 20px 0;
+    position: relative;
+}
+.newsletter_block .title_block, .newsletter_block h4 {
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    line-height: 36px;
+}
+.newsletter_block p{
+	padding:0px;
+}
+.newsletter_block input.inputNew {
+}
+
+.newsletter_block .alert-danger, .alert-success {
+	position: absolute;
+	top: -20%;
+	left: 100%;
+	width: 100%;
+}
+.valid{
+    position: absolute;
+    top: 34px;
+    left: 14px;
+}
