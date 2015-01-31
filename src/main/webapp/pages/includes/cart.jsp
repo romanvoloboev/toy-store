@@ -7,31 +7,25 @@
 
             <div class="heading">
                 <h4>Корзина</h4>
-                <a><span id="cart-total">1 товар(ов) - 2000.00&#8372;</span></a>
+                <a><span id="cart-total">1 товар на 2000.00 грн.</span></a>
             </div>
             <div class="content">
                 <div class="mini-cart-info">
                     <table>
                         <tbody>
                         <tr>
-                            <td class="image"><a
-                                    href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">
-                                <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product13-200x150.jpg"
-                                     alt="Pursue pleasure rationally"
-                                     title="Pursue pleasure rationally"></a>
+                            <td class="image">
+                                <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">
+                                    <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product13-200x150.jpg" alt="Pursue pleasure rationally" title="Pursue pleasure rationally">
+                                </a>
                             </td>
                             <td class="name">
-                                <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue
-                                    pleasure rationally</a>
+                                <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a>
                             </td>
                             <td class="quantity">x&nbsp;1</td>
-                            <td class="total">$2000.00&#8372;</td>
+                            <td class="total">2000.00 грн.</td>
                             <td class="remove">
-                                <img src="../webres/image/remove-small.png" alt="Remove" title="Remove"
-                                     onclick="(getURLVar('route') == 'checkout/cart' ||
-                                                         getURLVar('route') == 'checkout/checkout') ?
-                                                         location = 'index.php?route=checkout/cart&amp;remove=45::' :
-                                                         $('#cart').load('index.php?route=module/cart&amp;remove=45::' + ' #cart > *');">
+                                <a href="" onclick=""><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                         </tbody>
@@ -41,12 +35,8 @@
                     <table>
                         <tbody>
                         <tr>
-                            <td class="right"><b>Sub-Total:</b></td>
-                            <td class="right">$2,000.00</td>
-                        </tr>
-                        <tr>
-                            <td class="right"><b>Total:</b></td>
-                            <td class="right">$2,000.00</td>
+                            <td class="right"><b>Итого:</b></td>
+                            <td class="right">2000.00 грн.</td>
                         </tr>
                         </tbody>
                     </table>

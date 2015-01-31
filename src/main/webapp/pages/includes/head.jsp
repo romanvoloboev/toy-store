@@ -17,6 +17,7 @@
 <link href="../../webres/css/testimonial.css" rel="stylesheet">
 <link href="../../webres/css/blog.css" rel="stylesheet">
 <link href="../../webres/css/colorbox.css" rel="stylesheet">
+<link href="../../webres/css/jquery.rating.css" rel="stylesheet">
 
 <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700" rel="stylesheet" type="text/css">
@@ -31,6 +32,7 @@
 <script type="text/javascript" src="../../webres/js/tabs.js"></script>
 <script type="text/javascript" src="../../webres/js/elevatezoom-min.js"></script>
 <script type="text/javascript" src="../../webres/js/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../../webres/js/jquery.rating-2.0.js"></script>
 
 <!--[if lt IE 9]>
 <script src="../../webres/js/html5.js"></script>

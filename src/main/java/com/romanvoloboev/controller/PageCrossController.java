@@ -21,4 +21,18 @@ public class PageCrossController {
         return new ModelAndView("product");
     }
 
+    @RequestMapping("/category")
+    public ModelAndView category() {
+        return new ModelAndView("category");
+    }
+
+    @RequestMapping("/subcategory")
+    public ModelAndView subcategory() {
+        return new ModelAndView("subcategory");
+    }
+
+    @RequestMapping("/profile")
+    public ModelAndView profile() {
+        return new ModelAndView("profile");
+    }
 }

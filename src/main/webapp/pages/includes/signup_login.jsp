@@ -6,39 +6,32 @@
     <div class="container">
         <div class="topbar">
             <div class="row">
-                <div class="col-lg-9 col-md-6 col-sm-5 hidden-xs">
-                    <%--<security:authorize access="isAuthenticated()">--%>
-                        <security:authorize ifNotGranted="IS_AUTHENTICATED_ANONYMOUSLY">
-                        <ul class="links  pull-left">
-                            <li class="hidden-sm hidden-xs">
-                                <a href="http://demopavothemes.com/pav_floral/index.php?route=account/wishlist" id="wishlist-total">
-                                    <span class="fa fa-heart"></span>Желаемые покупки
-                                </a>
+                <div class="col-lg-4 col-md-6 col-sm-7 col-xs-12">
+                    <div class="pull-left">
+                        <div id="search">
+                            <div class="button-search pull-right"><span style="margin-right: 5px" class="fa fa-search"></span></div>
+                            <input type="text" autocomplete="off" name="search" placeholder="Что ищем?">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6 col-sm-5 hidden-xs">
+                    <security:authorize access="isAuthenticated()">
+                        <ul class="links pull-right">
+                            <li>
+                                <a href="/profile"><span class="fa fa-user"></span>Личный кабинет</a>
                             </li>
                             <li>
-                                <a href="http://demopavothemes.com/pav_floral/index.php?route=account/account">
-                                    <span class="fa fa-user"></span>Мой аккаунт
-                                </a>
+                                <a href="/logout"><span class="fa fa-sign-out"></span>Выход</a>
                             </li>
                         </ul>
                     </security:authorize>
-                    <%--<security:authorize access="isAnonymous()">--%>
-                    <security:authorize ifAnyGranted="IS_AUTHENTICATED_ANONYMOUSLY">
-                        <div class="login pull-right hidden-sm hidden-md">
-                            <a href="http://demopavothemes.com/pav_floral/index.php?route=account/login"><b>Войдите</b></a>,
-                            как зарегестрированный пользователь, или <a
-                                href="http://demopavothemes.com/pav_floral/index.php?route=account/register"><b>создайте</b></a>
-                            новый аккаунт.
-                        </div>
+                    <security:authorize access="isAnonymous()">
+                        <ul class="links pull-right">
+                            <li>
+                                <a href="/login"><span class="fa fa-sign-in"></span>Вход в интернет-магазин</a>
+                            </li>
+                        </ul>
                     </security:authorize>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-7 col-xs-12">
-                    <div class="pull-right">
-                        <div id="search">
-                            <div class="button-search pull-right"><span style="margin-right: 5px" class="fa fa-search"></span></div>
-                            <input type="text" name="search" placeholder="Что найти?">
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
