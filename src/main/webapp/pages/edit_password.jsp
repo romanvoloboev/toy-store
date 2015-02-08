@@ -45,38 +45,30 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-md-8" style="padding-bottom: 20px;">
-                                <div class="col-lg-5"><h1>Контактные данные</h1></div>
-                                <div class="col-md-7">
-                                    <ul class="list footer-list" style="padding-top: 8px;">
-                                        <li><a href="/edit_profile">Редактировать</a></li>
-                                        <li style="margin-left: 15px;"><a href="/edit_password">Изменить пароль</a></li>
-                                    </ul>
-                                </div>
+                            <div class="col-lg-12" style="padding-bottom: 20px;"><h1>Смена пароля</h1></div>
+                            <div class="col-md-4">
+                                <form id="change-pass-form" method="POST" action="<c:url value=""/>">
+                                    <fieldset>
+
+                                        <input type="hidden">
+
+                                        <div class="form-group form-inline">
+                                            <input name="old_pass" placeholder="Старый пароль" class="form-control" type="password" required="true">
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="password" name="new_pass" placeholder="Новый пароль" class="form-control" type="password" required="true">
+                                        </div>
+                                        <div class="form-group">
+                                            <input id="confirmPassword" name="new_pass_repeat" placeholder="Новый пароль еще раз" class="form-control" type="password" required="true">
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" id="createBtn" class="btn btn-shopping-cart" disabled="true">
+                                                <span class="fa fa-check"></span> Сохранить
+                                            </button>
+                                        </div>
+                                    </fieldset>
+                                </form>
                             </div>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td style="width: 20%; text-align: right; font-weight: bold;"><p>Ваше имя</p></td>
-                                        <td><p style="margin-left: 20px;">asdasddddddddddda</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 20%; text-align: right; font-weight: bold;"><p>E-mail</p></td>
-                                        <td><p style="margin-left: 20px;">asdddddddddddddddddddd</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 20%; text-align: right; font-weight: bold;"><p>Телефон</p></td>
-                                        <td><p style="margin-left: 20px;">+38(066)019-37-84</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 20%; text-align: right; font-weight: bold;"><p>Адреса доставки</p></td>
-                                        <td>
-                                            <p style="margin-left: 20px;">Никополь Днепропетровская обл. Никопольский р-н, Херсонская, д.117</p>
-                                            <p style="margin-left: 20px;">Никополь Днепропетровская обл. Никопольский р-н, Херсонская, д.117</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>

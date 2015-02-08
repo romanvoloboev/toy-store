@@ -2111,13 +2111,14 @@ ul.box-filter span {
 .wishlist-info tbody .quantity,
 .wishlist-info tbody .price,
 .wishlist-info tbody .total,
+.wishlist-info tbody .stock,
 .wishlist-info tbody .action {
   text-align: right;
 }
 .wishlist-info thead .name,
 .wishlist-info thead .model,
 .wishlist-info thead .stock {
-  text-align: left;
+  text-align: right;
 }
 .wishlist-info thead .quantity,
 .wishlist-info thead .price,
@@ -2125,10 +2126,8 @@ ul.box-filter span {
 .wishlist-info thead .action {
   text-align: right;
 }
-.wishlist-info tbody .name,
-.wishlist-info tbody .model,
-.wishlist-info tbody .stock {
-  text-align: left;
+.wishlist-info tbody .model{
+  text-align: right;
 }
 .wishlist-info thead td {
   color: #4D4D4D;
@@ -2137,17 +2136,21 @@ ul.box-filter span {
   border-bottom: 1px solid #ddd;
 }
 .wishlist-info thead .image {
-  text-align: center;
+  /*text-align: center;*/
 }
 .wishlist-info tbody td {
   vertical-align: top;
   border-bottom: 1px solid #ddd;
 }
+
+.wishlist-info tfoot td {
+    border-bottom: 1px solid #ddd;
+}
 .wishlist-info tbody .action img {
   cursor: pointer;
 }
 .wishlist-info tbody .image {
-  text-align: center;
+  /*text-align: center;*/
 }
 .wishlist-info tbody .image img {
   border: 1px solid #ddd;
@@ -2388,7 +2391,7 @@ ul.box-filter span {
   text-decoration: none;
 }
 .checkout-content {
-  padding: 0px 0px 15px 0px;
+  padding: 0px 0px 0px 0px;
   display: none;
 }
 .checkout-content .buttons {
@@ -3227,3 +3230,42 @@ body,
     width: 20%;
 }
 
+.btn-arrow:after {
+    font-family: 'FontAwesome';
+    content: '\f054';
+    padding-left: 5px;
+    position: relative;
+    font-size: 90%;
+}
+
+.deliveryType:active {
+    color: #a9d04a;
+}
+
+
+@media (max-width: 990px) {
+    #new_address_field #street  {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #new_address_field #house  {
+        padding-right: 0;
+    }
+    #new_address_field #flat  {
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 991px) {
+    #new_address_field #street  {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    #new_address_field #house  {
+        padding-right: 0;
+    }
+    #new_address_field #flat  {
+        padding-right: 0;
+    }
+
+}

@@ -67,7 +67,7 @@
                                                 <p><b>Создайте аккаунт</b></p>
                                                 <fieldset>
                                                     <div class="form-group form-inline">
-                                                        <input name="name" placeholder="ФИО" class="form-control" type="text" required="true">
+                                                        <input name="first_name" placeholder="Ваше имя" class="form-control" type="text" required="true">
                                                     </div>
                                                     <div class="form-group">
                                                         <input id="email" name="email" placeholder="E-Mail" class="form-control" type="email" required="true">
@@ -76,7 +76,7 @@
                                                         <input name="pass" id="password" placeholder="Пароль" class="form-control" type="password" required="true">
                                                     </div>
                                                     <div class="form-group">
-                                                        <input name="reply_pass" id="confirmPassword" placeholder="Повторите пароль" class="form-control" type="password" required="true">
+                                                        <input name="repeat_pass" id="confirmPassword" placeholder="Повторите пароль" class="form-control" type="password" required="true">
                                                     </div>
                                                     <div style="display: none; padding: 8px;" id="passMismatchMsg" class="alert alert-danger" role="alert"></div>
                                                     <div class="form-group">
