@@ -9,7 +9,7 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-    <script src="../webres/js/login_reg_forms.js"></script>
+    <script src="../webres/js/checkout.js"></script>
     <script type="text/javascript">
             $('.checkout-heading a').live('click', function() {
                 $('.checkout-content').slideUp('slow');
@@ -58,7 +58,7 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-lg-12" style="padding-bottom: 20px;"><h1>Оформление заказа</h1></div>
+                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Оформление заказа</h1></div>
                             <div class="col-md-12">
                                 <div class="checkout">
                                     <div id="contacts-data">
@@ -87,27 +87,43 @@
                                     <div id="payment-address">
                                         <div class="checkout-heading">2. Доставка и оплата</div>
                                         <div class="checkout-content">
-                                            <ul class="links">
-                                                <li><a class="deliveryType" href="#">Самовывоз</a></li>
-                                                <li><a class="deliveryType" href="#">Курьер</a></li>
-                                            </ul>
-
-                                            <div class="pickup"></div>
-                                            <div class="courier col-md-6" style="padding-left: 10px; padding-top: 20px;">
+                                            <div class="col-md-2 col-xs-3"><strong>Доставка:</strong></div>
+                                            <div class="col-md-10 col-xs-9">
+                                                <ul class="links">
+                                                    <li><a class="pickupType activeDeliveryType" href="#" onclick="event.preventDefault();">Самовывоз</a></li>
+                                                    <li><a class="courierType"  href="#" onclick="event.preventDefault();">Курьер</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="pickup col-md-6" style="padding: 20px 0 20px 20px;">
                                                 <ul>
                                                     <li>
-                                                        <label><input type="radio" name="courierService" value="express" checked>&nbsp;Мист Экспресс</label>
-                                                    </li>
-                                                    <li>
-                                                        <label><input type="radio" name="courierService" value="postman">&nbsp;Postman</label>
+                                                        <label style="font-weight: normal;">
+                                                            <input type="radio" name="pickupService" value="from_np" checked>&nbsp;из Новой Почты
+                                                        </label>
                                                     </li>
                                                 </ul>
-                                                <label for="address" style="padding-top: 10px;">Адрес получателя</label>
+                                                <label for="np_address" style="padding-top: 10px; font-weight: normal;">Адрес отделения</label>
+                                                <select id="np_address" class="form-control">
+                                                    <option value="1">1</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="courier col-md-6" style="padding: 20px 0 20px 20px; display: none;">
+                                                <ul>
+                                                    <li>
+                                                        <label style="font-weight: normal;"><input type="radio" name="courierService" value="express" checked>&nbsp;Мист Экспресс</label>
+                                                    </li>
+                                                    <li>
+                                                        <label style="font-weight: normal;"><input type="radio" name="courierService" value="postman">&nbsp;Postman</label>
+                                                    </li>
+                                                </ul>
+                                                <label for="address" style="padding-top: 10px; font-weight: normal;">Адрес получателя</label>
                                                 <select id="address" class="form-control">
                                                     <option value="1">1</option>
                                                     <option value="new" class="">Добавить другой...</option>
                                                 </select>
-                                                <div id="new_address_field" style="padding-top: 10px;">
+                                                <div id="new_address_field" style="padding-top: 10px; display: none;">
                                                     <div id="street" class="form-group col-md-8 col-xs-8">
                                                         <input name="street" placeholder="Улица" class="form-control" type="text" required="true">
                                                     </div>
@@ -118,12 +134,27 @@
                                                         <input name="flat_number" placeholder="Кв." class="form-control" type="text" required="true">
                                                     </div>
                                                 </div>
-
                                             </div>
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-2 col-xs-3"><strong>Оплата:</strong></div>
+                                            <div class="col-md-10 col-xs-9">
+                                                <ul class="links">
+                                                    <li><a class="activeDeliveryType" href="#" onclick="event.preventDefault();">Наличными</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="cart col-md-6 col-xs-12" style="padding-top: 20px;">
+                                                <button id="confirmOrder" class="btn btn-shopping-cart">
+                                                    <span class="fa fa-shopping-cart icon"></span> Заказ подтверждаю
+                                                </button>
+                                            </div>
+
                                         </div>
                                     </div>
+                                    <div id="order-success" style="display: none;">
+                                        <p>Благодарим за покупку, мы получили заказ и скоро свяжемся с Вами.</p>
+                                    </div>
                                 </div>
-                                <div class="pav-checkout"></div>
                             </div>
                         </div>
                     </div>

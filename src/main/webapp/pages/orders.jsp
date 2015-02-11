@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-lg-12" style="padding-bottom: 20px;"><h1>История заказов</h1></div>
+                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>История заказов</h1></div>
                             <div class="col-md-12">
                                 <div class="wishlist-info">
                                     <table>

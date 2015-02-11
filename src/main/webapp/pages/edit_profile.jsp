@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-lg-12" style="padding-bottom: 20px;"><h1>Редактирование профиля</h1></div>
+                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Редактирование профиля</h1></div>
                             <div class="col-md-4" style="padding-left: 0;">
                                 <form id="profile-edit-form" method="POST" action="<c:url value=""/>">
                                     <fieldset>

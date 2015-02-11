@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-md-8" style="padding-bottom: 20px;">
+                            <div class="col-md-8" style="padding-bottom: 16px;">
                                 <div class="col-lg-5"><h1>Контактные данные</h1></div>
                                 <div class="col-md-7">
                                     <ul class="list footer-list" style="padding-top: 8px;">

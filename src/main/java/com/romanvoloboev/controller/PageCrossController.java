@@ -1,7 +1,6 @@
 package com.romanvoloboev.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,5 +69,10 @@ public class PageCrossController {
     @RequestMapping("/checkout")
     public ModelAndView checkout() {
         return new ModelAndView("checkout");
+    }
+
+    @RequestMapping("/search_results")
+    public ModelAndView search_results() {
+        return new ModelAndView("search_results");
     }
 }

@@ -682,7 +682,7 @@ body.layout-boxed-lg #page {
 }
 .box .box-heading {
   border-bottom: 3px solid #eeeeee;
-  padding: 0px 0px 20px 0px;
+  padding: 0px 0px 14px 0px;
   font-family: "Montserrat", sans-serif;
   font-size: 14px;
   font-weight: bold;
@@ -3238,7 +3238,7 @@ body,
     font-size: 90%;
 }
 
-.deliveryType:active {
+.deliveryType:active, .activeDeliveryType {
     color: #a9d04a;
 }
 
@@ -3260,12 +3260,15 @@ body,
     #new_address_field #street  {
         padding-left: 0;
         padding-right: 0;
+        margin-bottom: 0;
     }
     #new_address_field #house  {
         padding-right: 0;
+        margin-bottom: 0;
     }
     #new_address_field #flat  {
         padding-right: 0;
+        margin-bottom: 0;
     }
 
 }
