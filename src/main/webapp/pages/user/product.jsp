@@ -231,7 +231,7 @@
                                     <div class="col-lg-5 col-sm-6">
                                         <h1>Occur in which toil</h1>
                                         <div class="review">
-                                            <div><img src="../webres/image/stars-5.png" alt="1 reviews">&nbsp;&nbsp;
+                                            <div><img src="../../webres/image/stars-5.png" alt="1 reviews">&nbsp;&nbsp;
                                                 <a onclick="$('a[href=\'#tab-review\']').trigger('click');">1 отзыв</a>
                                             </div>
                                         </div>
@@ -336,7 +336,7 @@
                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42"><img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product01-160x120.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed"></a>
                                                     </div>
                                                     <h3 class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></h3>
-                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="Based on 1 reviews."></div>
+                                                    <div class="rating"><img src="../../webres/image/stars-4.png" alt="Based on 1 reviews."></div>
                                                     <div class="price-cart">
                                                         <div class="price">
                                                             <span class="price-old">$119.50</span> <span class="price-new">$107.75</span>
@@ -351,7 +351,7 @@
                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42"><img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product01-160x120.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed"></a>
                                                     </div>
                                                     <h3 class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></h3>
-                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="Based on 1 reviews."></div>
+                                                    <div class="rating"><img src="../../webres/image/stars-4.png" alt="Based on 1 reviews."></div>
                                                     <div class="price-cart">
                                                         <div class="price">
                                                             <span class="price-old">$119.50</span> <span class="price-new">$107.75</span>

@@ -9,7 +9,7 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-    <script src="../webres/js/checkout.js"></script>
+    <script src="../../webres/user/js/checkout.js"></script>
     <script type="text/javascript">
             $('.checkout-heading a').live('click', function() {
                 $('.checkout-content').slideUp('slow');

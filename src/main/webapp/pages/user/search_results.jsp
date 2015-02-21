@@ -8,7 +8,7 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-    <script src="../webres/js/login_reg_forms.js"></script>
+    <script src="../../webres/js/login_reg_forms.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
@@ -29,21 +29,7 @@
                 <div class="row">
                     <div id="breadcrumb">
                         <div>
-                            <ol class="breadcrumb" style="margin: 0; padding: 0;">
-                                <li><a href="/">Главная</a></li>
-                                <li><a href="/">Категория</a></li>
-                                <li><a href="/">Подкатегория</a></li>
-                            </ol>
-                        </div>
-                        <div style="float: right; margin-top: -20px;">
-                            <span>Выводить:</span>
-                            <select onchange="location = this.value;">
-                                <option value="http://demopavothemes.com/pav_floral/index.php?route=product/category&amp;path=33&amp;sort=rating&amp;order=DESC">от дешевых к дорогим</option>
-                                <option value="http://demopavothemes.com/pav_floral/index.php?route=product/category&amp;path=33&amp;sort=p.price&amp;order=DESC">от дорогих к дешевым</option>
-                                <option value="http://demopavothemes.com/pav_floral/index.php?route=product/category&amp;path=33&amp;sort=p.price&amp;order=ASC">популярные</option>
-                                <option value="http://demopavothemes.com/pav_floral/index.php?route=product/category&amp;path=33&amp;sort=pd.name&amp;order=DESC">новинки</option>
-                                <option value="http://demopavothemes.com/pav_floral/index.php?route=product/category&amp;path=33&amp;sort=pd.name&amp;order=ASC">по рейтингу</option>
-                            </select>
+                            <h3 style="margin: 0;">Результаты поиска «<span style="color: green;">macbook air 13</span>»</h3>
                         </div>
                     </div>
 
@@ -63,7 +49,7 @@
                                                     </div>
                                                 </div>
                                                 <h3 class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;path=33&amp;product_id=30">Dignissimos ducimus</a></h3>
-                                                <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                <div class="rating"><img src="../../webres/image/stars-5.png" alt="text_reviews"></div>
                                                 <div class="description">Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while we're n.....</div>
                                                 <div class="group-item">
                                                     <div class="price-cart">
@@ -92,7 +78,7 @@
                                                     </div>
                                                 </div>
                                                 <h3 class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;path=33&amp;product_id=30">Dignissimos ducimus</a></h3>
-                                                <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                <div class="rating"><img src="../../webres/image/stars-5.png" alt="text_reviews"></div>
                                                 <div class="description">Canon's press material for the EOS 5D states that it 'defines (a) new D-SLR category', while we're n.....</div>
                                                 <div class="group-item">
                                                     <div class="price-cart">

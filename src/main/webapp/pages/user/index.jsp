@@ -74,13 +74,13 @@
                                                     <div class="image">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product10-480x360.jpg" title="Nemo enim ipsam" alt="Nemo enim ipsam" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product10-480x360.jpg" title="Nemo enim ipsam" alt="Nemo enim ipsam" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Nemo enim ipsam</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                         <div class="description">Intel Core 2 Duo processor Powered by an Intel Core 2...</div>
                                                         <div class="price">$589.50</div>
                                                         <div class="cart">
@@ -98,13 +98,13 @@
                                                     <div class="image">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=40" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product06-480x360.jpg" title="Expound the actua" alt="Expound the actua" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product06-480x360.jpg" title="Expound the actua" alt="Expound the actua" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=40">Expound the actua</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                         <div class="description">iPhone is a revolutionary new mobile phone that allows ...</div>
                                                         <div class="price">$120.68</div>
                                                         <div class="cart">
@@ -125,13 +125,13 @@
                                                         <span class="product-label-special label">Распродажа</span>
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product01-480x360.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product01-480x360.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                         <div class="description">The 30-inch Apple Cinema HD Display delivers an amazing...</div>
                                                         <div class="price">
                                                             <span class="price-old">$119.50</span>
@@ -152,13 +152,13 @@
                                                     <div class="image ">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product17-480x360.jpg" title="The master-builder" alt="The master-builder" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product17-480x360.jpg" title="The master-builder" alt="The master-builder" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49">The master-builder</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                         <div class="description">Samsung Galaxy Tab 10.1, is the world’s thinnest tablet, m...</div>
                                                         <div class="price">$236.99</div>
                                                         <div class="cart">
@@ -178,13 +178,13 @@
                                                     <div class="image ">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46">Voluptate velit esse</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                         <div class="description">Unprecedented power. The next generation of processing tec...</div>
                                                         <div class="price">$1,177.00</div>
                                                         <div class="cart">
@@ -202,13 +202,13 @@
                                                     <div class="image ">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47">Dolorem eum fugiat</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                         <div class="description">Stop your co-workers in their tracks with the stunning new...</div>
                                                         <div class="price">$119.50</div>
                                                         <div class="cart">
@@ -247,13 +247,13 @@
                                                         <span class="product-label-special label">Распродажа</span>
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product01-480x360.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product01-480x360.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                         <div class="description">The 30-inch Apple Cinema HD Display delivers an amazing...</div>
                                                         <div class="price">
                                                             <span class="price-old">$119.50</span>
@@ -273,13 +273,13 @@
                                                         <span class="product-label-special label">Sale</span>
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=30" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product02-480x360.jpg" title="Dignissimos ducimus" alt="Dignissimos ducimus" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product02-480x360.jpg" title="Dignissimos ducimus" alt="Dignissimos ducimus" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=30">Dignissimos ducimus</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                         <div class="description">Canon's press material for the EOS 5D states that it 'defi...</div>
                                                         <div class="price">
                                                             <span class="price-old">$119.50</span>
@@ -302,13 +302,13 @@
                                                     <div class="image ">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product10-480x360.jpg" title="Nemo enim ipsam" alt="Nemo enim ipsam" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product10-480x360.jpg" title="Nemo enim ipsam" alt="Nemo enim ipsam" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Nemo enim ipsam</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                         <div class="description">Intel Core 2 Duo processor Powered by an Intel Core 2...</div>
                                                         <div class="price">$589.50</div>
                                                         <div class="cart">
@@ -324,13 +324,13 @@
                                                     <div class="image ">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47">Dolorem eum fugiat</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                         <div class="description">Stop your co-workers in their tracks with the stunning new...</div>
                                                         <div class="price">$119.50</div>
                                                         <div class="cart">
@@ -350,13 +350,13 @@
                                                     <div class="image">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46">Voluptate velit esse</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                         <div class="description">Unprecedented power. The next generation of processing tec...</div>
                                                         <div class="price">$1,177.00</div>
                                                         <div class="cart">
@@ -372,13 +372,13 @@
                                                     <div class="image">
                                                         <div class="image_container">
                                                             <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=44" class="img front">
-                                                                <img src="../webres/image/cache/data/demo/product12-480x360.jpg" title="Occur in which toil" alt="Occur in which toil" class="img-responsive">
+                                                                <img src="../../webres/user/image/cache/data/demo/product12-480x360.jpg" title="Occur in which toil" alt="Occur in which toil" class="img-responsive">
                                                             </a>
                                                         </div>
                                                     </div>
                                                     <div class="product-meta">
                                                         <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=44">Occur in which toil</a></div>
-                                                        <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                        <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                         <div class="description">MacBook Air is ultrathin, ultraportable, and ultra unli...</div>
                                                         <div class="price">$1,177.00</div>
                                                         <div class="cart">
@@ -409,7 +409,7 @@
                             <div class="content-top">
                                 <div class="box pav-custom">
                                     <div class="box-content">
-                                        <p><img alt="" src="../webres/../webres/image/data/adv.png" style="display: none !important;"></p>
+                                        <p><img alt="" src="../../webres/user/image/data/adv.png" style="display: none !important;"></p>
                                     </div>
                                 </div>
                                 <div class="box-product yellow horizontal box productcarousel">
@@ -428,13 +428,13 @@
                                                                 <div class="image">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product17-480x360.jpg" title="The master-builder" alt="The master-builder" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product17-480x360.jpg" title="The master-builder" alt="The master-builder" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49">The master-builder</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                                     <div class="description">Samsung Galaxy Tab 10.1, is the world’s thinnest tablet, m...</div>
                                                                     <div class="price">$236.99</div>
                                                                     <div class="cart">
@@ -451,13 +451,13 @@
                                                                 <div class="image ">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=48" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product07-480x360.jpg" title="Lorem ipsum dolor" alt="Lorem ipsum dolor" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product07-480x360.jpg" title="Lorem ipsum dolor" alt="Lorem ipsum dolor" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=48">Lorem ipsum dolor</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                                     <div class="description">More room to move.With 80GB or 160GB ...</div>
                                                                     <div class="price">$119.50</div>
                                                                     <div class="cart">
@@ -474,13 +474,13 @@
                                                                 <div class="image ">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47">Dolorem eum fugiat</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                                     <div class="description">Stop your co-workers in their tracks with the stunning new...</div>
                                                                     <div class="price">$119.50</div>
                                                                     <div class="cart">
@@ -497,13 +497,13 @@
                                                                 <div class="image">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46">Voluptate velit esse</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-5.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-5.png" alt="text_reviews"></div>
                                                                     <div class="description">Unprecedented power. The next generation of processing tec...</div>
                                                                     <div class="price">$1,177.00</div>
                                                                     <div class="cart">
@@ -523,13 +523,13 @@
                                                                 <div class="image ">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                                     <div class="description">Latest Intel mobile architecture Power...</div>
                                                                     <div class="price">$2,000.00</div>
                                                                     <div class="cart">
@@ -546,13 +546,13 @@
                                                                 <div class="image ">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                                     <div class="description">Latest Intel mobile architecture Power...</div>
                                                                     <div class="price">$2,000.00</div>
                                                                     <div class="cart">
@@ -569,13 +569,13 @@
                                                                 <div class="image ">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                                     <div class="description">Latest Intel mobile architecture Power...</div>
                                                                     <div class="price">$2,000.00</div>
                                                                     <div class="cart">
@@ -592,13 +592,13 @@
                                                                 <div class="image ">
                                                                     <div class="image_container">
                                                                         <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../webres/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
+                                                                            <img src="../../webres/user/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
                                                                         </a>
                                                                     </div>
                                                                 </div>
                                                                 <div class="product-meta">
                                                                     <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../webres/image/stars-4.png" alt="text_reviews"></div>
+                                                                    <div class="rating"><img src="../../webres/user/image/stars-4.png" alt="text_reviews"></div>
                                                                     <div class="description">Latest Intel mobile architecture Power...</div>
                                                                     <div class="price">$2,000.00</div>
                                                                     <div class="cart">

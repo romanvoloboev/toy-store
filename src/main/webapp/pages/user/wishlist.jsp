@@ -9,7 +9,7 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-    <script src="../webres/js/login_reg_forms.js"></script>
+    <script src="../../webres/js/login_reg_forms.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
@@ -45,53 +45,36 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>История заказов</h1></div>
+                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Список желаний</h1></div>
                             <div class="col-md-12">
                                 <div class="wishlist-info">
                                     <table>
                                         <thead>
                                             <tr>
-                                                <td>Номер заказа</td>
-                                                <td>Дата заказа</td>
-                                                <td>Сумма</td>
-                                                <td>Статус</td>
-                                                <td width="120px;">Детали заказа</td>
+                                                <td class="image">Товар</td>
+                                                <td class="name"></td>
+                                                <td class="price">Цена</td>
+                                                <td class="stock">Статус</td>
+                                                <td class="action"></td>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="image" style="text-align: left;">
-                                                    <span style="font-weight: normal;">88</span>
+                                                <td class="image">
+                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">
+                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product10-200x150.jpg">
+                                                    </a>
                                                 </td>
                                                 <td class="name">
-                                                    <span style="font-weight: normal;">30/01/2015</span>
+                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Название</a>
                                                 </td>
-                                                <td class="price" style="text-align: left;">
-                                                    <span style="font-weight: normal;">1500.00 грн.</span>
+                                                <td class="price">
+                                                    <div class="price">1500.00 грн.</div>
                                                 </td>
-                                                <td class="stock">
-                                                    <span style="font-weight: normal;">Выполнен</span>
-                                                </td>
-                                                <td class="action" style="text-align: center;">
-                                                    <a href="/order_details" title="Посмотреть детали заказа" onclick=""><span class="fa fa-info fa-lg"></span></a>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="image" style="text-align: left;">
-                                                    <span style="font-weight: normal;">88</span>
-                                                </td>
-                                                <td class="name">
-                                                    <span style="font-weight: normal;">30/01/2015</span>
-                                                </td>
-                                                <td class="price" style="text-align: left;">
-                                                    <span style="font-weight: normal;">1500.00 грн.</span>
-                                                </td>
-                                                <td class="stock">
-                                                    <span style="font-weight: normal;">Выполнен</span>
-                                                </td>
-                                                <td class="action" style="text-align: center;">
-                                                    <a href="/order_details" title="Посмотреть детали заказа" onclick=""><span class="fa fa-info fa-lg"></span></a>
+                                                <td class="stock">В наличии</td>
+                                                <td class="action">
+                                                    <a href="" title="Добавить в корзину" onclick=""><i class="fa fa-shopping-cart fa-lg"></i></a>
+                                                    <a href="" style="margin-left: 10px;" title="Удалить из списка" onclick=""><i class="fa fa-times fa-lg"></i></a>
                                                 </td>
                                             </tr>
                                         </tbody>

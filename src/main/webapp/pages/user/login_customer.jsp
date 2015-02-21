@@ -9,7 +9,7 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-    <script src="../webres/js/login_reg_forms.js"></script>
+    <script src="../../webres/user/js/login_reg_forms.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">

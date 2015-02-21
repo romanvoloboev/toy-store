@@ -9,7 +9,7 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-    <script src="../webres/js/login_reg_forms.js"></script>
+    <script src="../../webres/js/login_reg_forms.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
@@ -45,38 +45,19 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Корзина</h1></div>
+                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Детали заказа</h1></div>
                             <div class="col-md-12">
-                                <form action="" method="post">
-                                    <div class="wishlist-info">
-                                        <table>
-                                            <thead>
-                                            <tr>
-                                                <td class="image">Товар</td>
-                                                <td class="name"></td>
-                                                <td class="quantity">Количество</td>
-                                                <td class="price">Сумма</td>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="image">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product10-200x150.jpg">
-                                                    </a>
-                                                </td>
-                                                <td class="name">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Название</a>
-                                                </td>
-                                                <td class="quantity" >
-                                                    <input type="text" name="" value="1" size="1">
-                                                    &nbsp;
-                                                    <a href="" title="Обновить" onclick=""><i class="fa fa-refresh fa-lg"></i></a>
-                                                    &nbsp;
-                                                    <a href="" title="Удалить" onclick=""><i class="fa fa-times-circle fa-lg"></i></a>
-                                                </td>
-                                                <td class="price">1500.00 грн.</td>
-                                            </tr>
+                                <div class="wishlist-info">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <td class="image">Товар</td>
+                                            <td class="name"></td>
+                                            <td class="quantity">Количество</td>
+                                            <td class="price">Сумма</td>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
                                             <tr>
                                                 <td class="image">
                                                     <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">
@@ -86,28 +67,35 @@
                                                 <td class="name">
                                                     <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Название</a>
                                                 </td>
-                                                <td class="quantity" >
-                                                    <input type="text" name="" value="1" size="1">
-                                                    &nbsp;
-                                                    <a href="" title="Обновить" onclick=""><i class="fa fa-refresh fa-lg"></i></a>
-                                                    &nbsp;
-                                                    <a href="" title="Удалить" onclick=""><i class="fa fa-times-circle fa-lg"></i></a>
+                                                <td class="price">
+                                                    <div class="price">1 шт.</div>
                                                 </td>
-                                                <td class="price">1500.00 грн.</td>
+                                                <td class="stock" style="text-align: right">1500.00 грн.</td>
                                             </tr>
-                                            </tbody>
-                                            <tfoot>
+
+                                            <tr>
+                                                <td class="image">
+                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">
+                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product10-200x150.jpg">
+                                                    </a>
+                                                </td>
+                                                <td class="name">
+                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Название</a>
+                                                </td>
+                                                <td class="price">
+                                                    <div class="price">1 шт.</div>
+                                                </td>
+                                                <td class="stock" style="text-align: right">1500.00 грн.</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
                                             <tr>
                                                 <td colspan="2"></td>
                                                 <td style="text-align: right;"><b>Итого:</b></td>
                                                 <td style="text-align: right;">1500.00 грн.</td>
                                             </tr>
-                                            </tfoot>
-                                        </table>
-                                    </div>
-                                </form>
-                                <div class="cart pull-right" style="padding-bottom: 20px;">
-                                    <a href="/checkout" class="btn btn-shopping-cart btn-arrow">Оформить заказ</a>
+                                        </tfoot>
+                                    </table>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
 <div class="pull-left wrap-logo">
     <div id="logo">
         <a href="/">
-            <img src="../../webres/image/logo.png" title="Floral Store" alt="Floral Store">
+            <img src="../../../webres/user/image/logo.png" title="Floral Store" alt="Floral Store">
         </a>
     </div>
 </div>

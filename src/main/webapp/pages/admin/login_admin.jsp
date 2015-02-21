@@ -8,18 +8,18 @@
     <title>Floral Store</title>
     <meta name="description" content="My Store">
 
-    <%@include file="includes/head.jsp"%>
-    <script src="../webres/js/login_reg_forms.js"></script>
+    <%@include file="../user/includes/head.jsp"%>
+    <script src="../../webres/js/login_reg_forms.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
     <section id="header">
-        <%@include file="includes/signup_login.jsp"%>
+        <%@include file="../user/includes/signup_login.jsp"%>
         <section id="header-main">
             <div class="container">
                 <div class="header-wrap">
-                    <%@include file="includes/menu.jsp"%>
-                    <%@include file="includes/cart.jsp"%>
+                    <%@include file="../user/includes/menu.jsp"%>
+                    <%@include file="../user/includes/cart.jsp"%>
                 </div>
             </div>
         </section>
@@ -68,7 +68,7 @@
         </div>
     </section>
 
-    <%@include file="includes/footer.jsp"%>
+    <%@include file="../user/includes/footer.jsp"%>
 </section>
 </body>
 </html>
