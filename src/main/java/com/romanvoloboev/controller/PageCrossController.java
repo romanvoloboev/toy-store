@@ -78,8 +78,56 @@ public class PageCrossController {
 
 
 
-    @RequestMapping("/admin")
+    @RequestMapping("/cp")
     public ModelAndView admin_panel() {
         return new ModelAndView("admin/index");
     }
+
+    @RequestMapping("/cp/category")
+    public ModelAndView showCategory() {
+        return new ModelAndView("/admin/category");
+    }
+
+    @RequestMapping("/cp/category/add")
+    public ModelAndView addCategory() {
+        return new ModelAndView("/admin/category_add");
+    }
+
+    @RequestMapping("/cp/category/edit")
+    public ModelAndView editCategory() {
+        return new ModelAndView("/admin/category_edit");
+    }
+
+
+    @RequestMapping("/cp/order")
+    public ModelAndView showOrders() {
+        return new ModelAndView("/admin/order");
+    }
+
+    @RequestMapping("/cp/order/add")
+    public ModelAndView addOrder() {
+        return new ModelAndView("/admin/order_add");
+    }
+
+    @RequestMapping("/cp/order/edit")
+    public ModelAndView editOrder() {
+        return new ModelAndView("/admin/order_edit");
+    }
+
+
+    @RequestMapping("/cp/product")
+    public ModelAndView showProduct() {
+        return new ModelAndView("/admin/product");
+    }
+
+    @RequestMapping("/cp/product/add")
+    public ModelAndView addProduct() {
+        return new ModelAndView("/admin/product_add");
+    }
+
+    @RequestMapping("/cp/product/edit")
+    public ModelAndView editProduct() {
+        return new ModelAndView("/admin/product_edit");
+    }
+
 }

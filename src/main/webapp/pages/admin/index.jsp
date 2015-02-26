@@ -27,7 +27,7 @@
                         <div class="tile-body"><i class="fa fa-shopping-cart"></i>
                             <h2 class="pull-right">1</h2>
                         </div>
-                        <div class="tile-footer"><a href="">Подробнее...</a></div>
+                        <div class="tile-footer"><a href="<c:url value=""/>">Подробнее...</a></div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -36,7 +36,7 @@
                         <div class="tile-body"><i class="fa fa-credit-card"></i>
                             <h2 class="pull-right">3.7K</h2>
                         </div>
-                        <div class="tile-footer"><a href="">Подробнее...</a></div>
+                        <div class="tile-footer"><a href="<c:url value=""/>">Подробнее...</a></div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-4">
@@ -45,7 +45,7 @@
                         <div class="tile-body"><i class="fa fa-user"></i>
                             <h2 class="pull-right">1</h2>
                         </div>
-                        <div class="tile-footer"><a href="">Подробнее...</a></div>
+                        <div class="tile-footer"><a href="<c:url value=""/>">Подробнее...</a></div>
                     </div>
                 </div>
             </div>
@@ -74,7 +74,7 @@
                                     <td>Complete</td>
                                     <td>03/12/2014</td>
                                     <td class="text-right">$3,699.59</td>
-                                    <td class="text-right"><a href="" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="Подробнее"><i class="fa fa-eye"></i></a></td>
+                                    <td class="text-right"><a href="<c:url value=""/>" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="Подробнее"><i class="fa fa-eye"></i></a></td>
                                 </tr>
                                 </tbody>
                             </table>

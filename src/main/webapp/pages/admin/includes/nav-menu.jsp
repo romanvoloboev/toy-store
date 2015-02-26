@@ -11,23 +11,23 @@
 
     <ul id="menu">
         <li id="dashboard">
-            <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> <span>Панель управления</span></a>
+            <a href="<c:url value="/cp"/>"><i class="fa fa-dashboard fa-fw"></i> <span>Панель управления</span></a>
         </li>
         <li id="sale">
-            <a href=""><i class="fa fa-shopping-cart fa-fw"></i> <span>Заказы</span></a>
+            <a href="<c:url value="/cp/order"/>"><i class="fa fa-shopping-cart fa-fw"></i> <span>Заказы</span></a>
         </li>
         <li id="catalog">
             <a class="parent"><i class="fa fa-tags fa-fw"></i> <span>Каталог</span></a>
             <ul class="collapse">
-                <li><a href="">Категории</a></li>
-                <li><a href="">Товары</a></li>
+                <li><a href="<c:url value="/cp/category"/>">Категории</a></li>
+                <li><a href="<c:url value="/cp/product"/>">Товары</a></li>
             </ul>
         </li>
         <li id="users">
             <a class="parent"><i class="fa fa-users fa-fw"></i> <span>Пользователи</span></a>
             <ul class="collapse">
-                <li><a href="">Администраторы</a></li>
-                <li><a href="">Покупатели</a></li>
+                <li><a href="<c:url value="/cp/admins"/>">Администраторы</a></li>
+                <li><a href="<c:url value="/cp/customers"/>">Покупатели</a></li>
             </ul>
         </li>
         <%--заказов - сортировка по количеству совершенных заказов за промежуток времени--%>

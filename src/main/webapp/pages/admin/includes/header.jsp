@@ -13,18 +13,18 @@
             <ul class="dropdown-menu dropdown-menu-right alerts-dropdown">
                 <li class="dropdown-header">Заказы</li>
                 <li>
-                    <a href="" style="display: block; overflow: auto;">
+                    <a href="<c:url value=""/>" style="display: block; overflow: auto;">
                         <span class="label label-warning pull-right">0</span>Новые
                     </a>
                 </li>
                 <li>
-                    <a href="">
+                    <a href="<c:url value=""/>">
                         <span class="label label-success pull-right">1</span>Выполненые
                     </a>
                 </li>
             </ul>
         </li>
-        <li><a href="/" title="Перейти в магазин"><span class="hidden-xs hidden-sm hidden-md">В магазин</span> <i class="fa fa-building fa-lg"></i></a></li>
-        <li><a href="" title="Выйти"><span class="hidden-xs hidden-sm hidden-md">Выйти</span> <i class="fa fa-sign-out fa-lg"></i></a></li>
+        <li><a href="<c:url value="/"/>" title="Перейти в магазин"><span class="hidden-xs hidden-sm hidden-md">В магазин</span> <i class="fa fa-building fa-lg"></i></a></li>
+        <li><a href="<c:url value=""/>" title="Выйти"><span class="hidden-xs hidden-sm hidden-md">Выйти</span> <i class="fa fa-sign-out fa-lg"></i></a></li>
     </ul>
 </header>

@@ -20,8 +20,13 @@
 <script type="text/javascript" src="../../../webres/admin/js/jquery.flot.js"></script>
 <script type="text/javascript" src="../../../webres/admin/js/jquery.flot.resize.min.js"></script>
 <script type="text/javascript" src="../../../webres/admin/js/moment.js"></script>
+<script type="text/javascript" src="../../../webres/admin/js/summernote.min.js"></script>
 
-
+<script type="text/javascript">
+$('.date').datetimepicker({
+    pickTime: false
+});
+</script>
 
 
 
