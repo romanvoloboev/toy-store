@@ -90,9 +90,10 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <div class="pull-right">
-                    <a href="<c:url value="/cp/order/add"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Добавить"><i class="fa fa-plus"></i></a></div>
                 <h1>Заказы</h1>
+                <div class="pull-right">
+                    <a href="<c:url value="/cp/order/add"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Создать"><i class="fa fa-plus"></i></a>
+                </div>
             </div>
         </div>
         <div class="container-fluid">
@@ -138,7 +139,7 @@
                             </div>
                         </div>
                     </div>
-                    <form method="post" enctype="multipart/form-data" target="_blank" id="form-order">
+                    <div class="form-horizontal">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
@@ -159,15 +160,15 @@
                                     <td class="text-right">$105.00</td>
                                     <td class="text-left">23/02/2015</td>
                                     <td class="text-right">
-                                        <a href="<c:url value=""/>" data-toggle="tooltip" class="btn btn-info" data-original-title="Подробнее"><i class="fa fa-eye"></i></a>
-                                        <a href="<c:url value=""/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                        <a href="<c:url value=""/>" id="button-delete" data-toggle="tooltip" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash-o"></i></a>
+                                        <a href="<c:url value="/cp/order/info"/>" data-toggle="tooltip" class="btn btn-info" data-original-title="Подробнее"><i class="fa fa-eye"></i></a>
+                                        <a href="<c:url value="/cp/order/edit"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
+                                        <a href="<c:url value="/cp/order/delete"/>" id="button-delete" data-toggle="tooltip" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash-o"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

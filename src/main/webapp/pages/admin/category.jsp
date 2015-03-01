@@ -31,7 +31,7 @@
                     <h3 class="panel-title"><i class="fa fa-list"></i> Список категорий</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="/delete" method="post" enctype="multipart/form-data" id="form-category">
+                    <div class="form-horizontal">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
@@ -55,7 +55,7 @@
                                 </tbody>
                             </table>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

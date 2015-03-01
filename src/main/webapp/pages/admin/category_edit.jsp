@@ -56,7 +56,7 @@
                     <h3 class="panel-title"><i class="fa fa-pencil"></i> Создание новой категории</h3>
                 </div>
                 <div class="panel-body">
-                    <form action="/add" method="post" enctype="multipart/form-data" id="form-category" class="form-horizontal">
+                    <div class="form-horizontal">
                         <div class="form-group required">
                             <label class="col-sm-2 control-label" for="input-name">Название категории</label>
                             <div class="col-sm-10">
@@ -71,7 +71,7 @@
                                 <input type="hidden" name="parent_id">
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

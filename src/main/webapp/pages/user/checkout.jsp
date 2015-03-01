@@ -139,7 +139,7 @@
                                             <div class="col-md-2 col-xs-3"><strong>Оплата:</strong></div>
                                             <div class="col-md-10 col-xs-9">
                                                 <ul class="links">
-                                                    <li><a class="activeDeliveryType" href="#" onclick="event.preventDefault();">Наличными</a></li>
+                                                    <li><a class="activeDeliveryType" href="#" onclick="event.preventDefault();">Наличными при получении</a></li>
                                                 </ul>
                                             </div>
 
