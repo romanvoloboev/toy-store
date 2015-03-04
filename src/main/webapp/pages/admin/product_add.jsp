@@ -7,60 +7,15 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
-<script type="text/javascript">
-    $(function() {
-        $('#input-description').summernote({
-            height: 250,
-            toolbar: [
-                ['style', ['bold', 'italic', 'underline', 'clear']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']]
-            ]
-        });
-    });
+    <script type="text/javascript" src="../../webres/admin/js/product_add.js"></script>
 
-    $('input[name=\'category\']').autocomplete({
-        'source': function(request, response) {
-            $.ajax({
-                url: '' +  encodeURIComponent(request),
-                dataType: 'json',
-                success: function(json) {
-                    response($.map(json, function(item) {
-                        return {
-                            label: item['name'],
-                            value: item['category_id']
-                        }
-                    }));
-                }
-            });
-        },
-        'select': function(item) {
-            $('input[name=\'category\']').val('');
-
-            $('#product-category' + item['value']).remove();
-
-            $('#product-category').append('<div id="product-category' + item['value'] + '"><i class="fa fa-minus-circle"></i> ' + item['label'] + '<input type="hidden" name="product_category[]" value="' + item['value'] + '" /></div>');
+    <style type="text/css">
+        .dropzone {
+            border: dashed 2px rgba(72, 72, 67, 0.50);
+            border-radius: 5px;
+            padding: 0;
         }
-    });
-
-    var image_row = 0;
-
-    function addImage() {
-        html  = '<tr id="image-row' + image_row + '">';
-        html += '  <td class="text-left"><a href="" id="thumb-image' + image_row + '"data-toggle="image" class="img-thumbnail"><img src="http://demo.opencart.com/image/cache/no_image-100x100.png" alt="" title="" data-placeholder="http://demo.opencart.com/image/cache/no_image-100x100.png" /><input type="hidden" name="product_image[' + image_row + '][image]" value="" id="input-image' + image_row + '" /></td>';
-        html += '  <td class="text-right"><input type="text" name="product_image[' + image_row + '][sort_order]" value="" placeholder="Sort Order" class="form-control" /></td>';
-        html += '  <td class="text-left"><button type="button" onclick="$(\'#image-row' + image_row  + '\').remove();" data-toggle="tooltip" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
-        html += '</tr>';
-
-        $('#images tbody').append(html);
-
-        image_row++;
-    }
-
-
-
-</script>
-
+    </style>
 </head>
 <body>
 <div id="container">
@@ -71,7 +26,7 @@
         <div class="page-header">
             <div class="container-fluid">
                 <div class="pull-right">
-                    <button type="submit" form="form-product" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Сохранить"><i class="fa fa-save"></i></button>
+                    <button type="submit" id="save-product" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Сохранить"><i class="fa fa-save"></i></button>
                     <a href="<c:url value="/cp/product"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Отмена"><i class="fa fa-reply"></i></a></div>
                 <h1>Продукты</h1>
             </div>
@@ -107,14 +62,6 @@
                                     <div class="col-sm-10">
                                         <input type="text" name="category" value="" placeholder="Выберите категорию товара" id="input-category" class="form-control" autocomplete="off">
                                         <ul class="dropdown-menu"></ul>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-image">Изображение</label>
-                                    <div class="col-sm-10">
-                                        <a href="" id="thumb-image" data-toggle="image" class="img-thumbnail">
-                                            <img src="../../webres/admin/img/upload.png" height="100px" width="100px" alt="Выберите изображение для загрузки" data-placeholder="../../webres/admin/img/upload.png"></a>
-                                        <input type="hidden" name="image" value="" id="input-image">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -160,7 +107,42 @@
                             </div>
 
                             <div class="tab-pane" id="tab-image">
-                                <%--todo image uploading--%>
+                                <div class="col-md-12">
+                                    <div class="row form-group">
+                                        <div class="col-xs-12 col-md-2" id="thumb-image1">
+                                            <div class="panel panel-default">
+                                                <div class="panel-image">
+                                                    <img src="http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_52cf9489095e8_1.JPG" class="panel-image-preview" />
+                                                </div>
+                                                <div class="panel-footer text-center">
+                                                    <button onclick="$('#thumb-image1').remove();" class="btn">
+                                                        <span class="fa fa-times"></span> Удалить
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2" id="thumb-image2">
+                                            <div class="panel panel-default">
+                                                <div class="panel-image">
+                                                    <img src="http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_52cf9489095e8_1.JPG" class="panel-image-preview" />
+                                                </div>
+                                                <div class="panel-footer text-center">
+                                                    <button onclick="$('#thumb-image2').remove();" class="btn">
+                                                        <span class="fa fa-times"></span> Удалить
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2 col-xs-12" style="margin-bottom: 15px; padding-right: 0;">
+                                    <button type="button" id="select-image" class="btn btn-success"><i class="fa fa-folder-open"></i> Добавить</button>
+                                </div>
+                                <div class="col-md-10 col-xs-12" style="padding-top: 8px;"><span style="color: #e2af00;">Вы можете загрузить до 5 изображений, при этом размер каждого не должен превышать 3Мб.</span></div>
+                                <div class="col-md-12 image-previews" style="display: none;">
+                                    <div id="previews" class="dropzone"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

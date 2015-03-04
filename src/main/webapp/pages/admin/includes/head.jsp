@@ -10,6 +10,7 @@
 <link href="../../../webres/admin/css/stylesheet.css" rel="stylesheet">
 <link href="../../../webres/admin/css/font-awesome.min.css" rel="stylesheet">
 <link href="../../../webres/admin/css/summernote.css" rel="stylesheet">
+<link href="../../../webres/admin/css/dropzone.css" rel="stylesheet">
 
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,greek-ext,vietnamese" rel="stylesheet" type="text/css">
 
@@ -21,6 +22,7 @@
 <script type="text/javascript" src="../../../webres/admin/js/jquery.flot.resize.min.js"></script>
 <script type="text/javascript" src="../../../webres/admin/js/moment.js"></script>
 <script type="text/javascript" src="../../../webres/admin/js/summernote.min.js"></script>
+<script type="text/javascript" src="../../../webres/admin/js/dropzone.js"></script>
 
 <script type="text/javascript">
 $('.date').datetimepicker({
