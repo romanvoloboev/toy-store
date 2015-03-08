@@ -1,7 +1,6 @@
 package com.romanvoloboev.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,126 +13,160 @@ import org.springframework.web.servlet.ModelAndView;
 public class PageCrossController {
     @RequestMapping("/")
     public ModelAndView index(){
-        return new ModelAndView("user/index");
+        return new ModelAndView("store/index");
     }
 
     @RequestMapping("/product")
     public ModelAndView product() {
-        return new ModelAndView("user/product");
+        return new ModelAndView("store/product");
     }
 
     @RequestMapping("/category")
     public ModelAndView category() {
-        return new ModelAndView("user/category");
+        return new ModelAndView("store/category");
     }
 
     @RequestMapping("/subcategory")
     public ModelAndView subcategory() {
-        return new ModelAndView("user/subcategory");
+        return new ModelAndView("store/subcategory");
     }
 
     @RequestMapping("/profile")
     public ModelAndView profile() {
-        return new ModelAndView("user/profile");
+        return new ModelAndView("store/profile");
     }
 
     @RequestMapping("/edit_password")
     public ModelAndView passwordChange() {
-        return new ModelAndView("user/edit_password");
+        return new ModelAndView("store/edit_password");
     }
 
     @RequestMapping("/edit_profile")
     public ModelAndView editProfile() {
-        return new ModelAndView("user/edit_profile");
+        return new ModelAndView("store/edit_profile");
     }
 
     @RequestMapping("/wishlist")
     public ModelAndView wishlist() {
-        return new ModelAndView("user/wishlist");
+        return new ModelAndView("store/wishlist");
     }
 
     @RequestMapping("/orders")
     public ModelAndView orders() {
-        return new ModelAndView("user/orders");
+        return new ModelAndView("store/orders");
     }
 
     @RequestMapping("/order_details")
     public ModelAndView orderDetails() {
-        return new ModelAndView("user/order_details");
+        return new ModelAndView("store/order_details");
     }
 
     @RequestMapping("/cart")
     public ModelAndView cart() {
-        return new ModelAndView("user/cart");
+        return new ModelAndView("store/cart");
     }
 
     @RequestMapping("/checkout")
     public ModelAndView checkout() {
-        return new ModelAndView("user/checkout");
+        return new ModelAndView("store/checkout");
     }
 
     @RequestMapping("/search_results")
     public ModelAndView search_results() {
-        return new ModelAndView("user/search_results");
+        return new ModelAndView("store/search_results");
     }
 
 
 
     @RequestMapping("/cp")
     public ModelAndView admin_panel() {
-        return new ModelAndView("admin/index");
+        return new ModelAndView("cp/index");
     }
 
     @RequestMapping("/cp/category")
     public ModelAndView showCategory() {
-        return new ModelAndView("/admin/category");
+        return new ModelAndView("cp/category");
     }
 
-    @RequestMapping("/cp/category/add")
+    @RequestMapping("/cp/new_category")
     public ModelAndView addCategory() {
-        return new ModelAndView("/admin/category_add");
+        return new ModelAndView("cp/category_add");
     }
 
-    @RequestMapping("/cp/category/edit")
+    @RequestMapping("/cp/edit_category")
     public ModelAndView editCategory() {
-        return new ModelAndView("/admin/category_edit");
+        return new ModelAndView("cp/category_edit");
     }
+
 
 
     @RequestMapping("/cp/order")
     public ModelAndView showOrders() {
-        return new ModelAndView("/admin/order");
+        return new ModelAndView("cp/order");
     }
 
-    @RequestMapping("/cp/order/edit")
+    @RequestMapping("/cp/edit_order")
     public ModelAndView editOrder() {
-        return new ModelAndView("/admin/order_edit");
+        return new ModelAndView("cp/order_edit");
     }
 
-    @RequestMapping("/cp/order/info")
+    @RequestMapping("/cp/order_details")
     public ModelAndView orderInfo() {
-        return new ModelAndView("/admin/order_details");
+        return new ModelAndView("cp/order_details");
     }
 
-    @RequestMapping("/cp/order/add")
+    @RequestMapping("/cp/new_order")
     public ModelAndView orderAdd() {
-        return new ModelAndView("/admin/order_add");
+        return new ModelAndView("cp/order_add");
     }
+
 
 
     @RequestMapping("/cp/product")
     public ModelAndView showProduct() {
-        return new ModelAndView("/admin/product");
+        return new ModelAndView("cp/product");
     }
 
-    @RequestMapping("/cp/product/add")
+    @RequestMapping("/cp/new_product")
     public ModelAndView addProduct() {
-        return new ModelAndView("/admin/product_add");
+        return new ModelAndView("cp/product_add");
     }
 
-    @RequestMapping("/cp/product/edit")
+    @RequestMapping("/cp/edit_product")
     public ModelAndView editProduct() {
-        return new ModelAndView("/admin/product_edit");
+        return new ModelAndView("cp/product_edit");
     }
 
+
+
+    @RequestMapping("/cp/customer")
+    public ModelAndView showCustomers() {
+        return new ModelAndView("cp/customer");
+    }
+
+    @RequestMapping("/cp/edit_customer")
+    public ModelAndView editCustomer() {
+        return new ModelAndView("cp/customer_edit");
+    }
+
+    @RequestMapping("/cp/new_customer")
+    public ModelAndView newCustomer() {
+        return new ModelAndView("/cp/customer_add");
+    }
+
+
+    @RequestMapping("/cp/employee")
+    public ModelAndView showAdmins(){
+        return new ModelAndView("cp/employee");
+    }
+
+    @RequestMapping("/cp/edit_employee")
+    public ModelAndView editAdmin() {
+        return new ModelAndView("cp/employee_edit");
+    }
+
+    @RequestMapping("/cp/new_employee")
+    public ModelAndView newAdmin() {
+        return new ModelAndView("cp/employee_add");
+    }
 }

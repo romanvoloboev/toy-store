@@ -14,14 +14,14 @@ public class LoginController {
 
 //    todo: make redesign of admin login page
 
-    @RequestMapping("/admin/login")
+    @RequestMapping("/cp_login")
     public ModelAndView adminLogin() {
-        return new ModelAndView("admin/login_admin");
+        return new ModelAndView("cp/login");
     }
 
     @RequestMapping("/login")
     public ModelAndView customerLogin(){
-        return new ModelAndView("user/login_customer");
+        return new ModelAndView("store/login");
     }
 
 }
