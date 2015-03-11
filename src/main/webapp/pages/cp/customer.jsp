@@ -111,8 +111,8 @@
                                     <option value="0">Отключен</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-1">
-                                <button style="margin-top: 23px;" type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Найти</button>
+                            <div class="form-group col-md-3">
+                                <button style="margin-top: 23px;" type="button" id="button-filter" class="btn btn-primary pull-left"><i class="fa fa-search"></i> Найти</button>
                             </div>
                         </div>
                     </div>

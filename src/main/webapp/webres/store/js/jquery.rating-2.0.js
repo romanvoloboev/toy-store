@@ -11,7 +11,7 @@
 		
 		this.options = $.extend({
 		    fx: 'full',
-            image: '../webres/image/stars.png',
+            image: '../webres/store/image/stars.png',
 			stars: 5,
             minimal: 0,
 			titles: ['голос','голоса','голосов'],

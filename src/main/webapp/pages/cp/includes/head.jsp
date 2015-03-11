@@ -24,11 +24,11 @@
 <script type="text/javascript" src="../../../webres/cp/js/summernote.min.js"></script>
 <script type="text/javascript" src="../../../webres/cp/js/dropzone.js"></script>
 
-<script type="text/javascript">
-$('.date').datetimepicker({
-    pickTime: false
-});
-</script>
+<%--<script type="text/javascript">--%>
+    <%--$(function(){--%>
+        <%--$('.date').datetimepicker();--%>
+    <%--});--%>
+<%--</script>--%>
 
 
 

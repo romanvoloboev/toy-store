@@ -69,8 +69,8 @@
                                 <label class="col-sm-2 control-label" for="account-type">Тип</label>
                                 <div class="col-sm-10">
                                     <select id="account-type" class="form-control">
-                                        <option value="0" selected>Модератор</option>
-                                        <option value="1">Администратор</option>
+                                        <option value="0" selected>Менеджер</option>
+                                        <option value="1">Гл. Администратор</option>
                                     </select>
                                 </div>
                             </div>

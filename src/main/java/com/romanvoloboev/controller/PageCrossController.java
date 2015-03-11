@@ -1,6 +1,7 @@
 package com.romanvoloboev.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -168,5 +169,20 @@ public class PageCrossController {
     @RequestMapping("/cp/new_employee")
     public ModelAndView newAdmin() {
         return new ModelAndView("cp/employee_add");
+    }
+
+    @RequestMapping("/cp/sale_report")
+    public ModelAndView showSalesReport() {
+        return new ModelAndView("/cp/sale_report");
+    }
+
+    @RequestMapping("/cp/product_report")
+    public ModelAndView showProductReport() {
+        return new ModelAndView("/cp/product_report");
+    }
+
+    @RequestMapping("/cp/reviews")
+    public ModelAndView showReviews() {
+        return new ModelAndView("/cp/reviews");
     }
 }

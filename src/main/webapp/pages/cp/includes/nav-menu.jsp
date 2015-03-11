@@ -23,6 +23,9 @@
                 <li><a href="<c:url value="/cp/product"/>">Товары</a></li>
             </ul>
         </li>
+        <li id="reviews">
+            <a href="<c:url value="/cp/reviews"/>"><i class="fa fa-comment fa-fw"></i> <span>Отзывы</span></a>
+        </li>
         <li id="customers">
             <a href="<c:url value="/cp/customer"/>"><i class="fa fa-users fa-fw"></i> <span>Пользователи</span></a>
         </li>
@@ -30,16 +33,13 @@
             <a href="<c:url value="/cp/employee"/>"><i class="fa fa-user-secret fa-fw"></i> <span>Администраторы</span></a>
         </li>
 
-
         <%--заказов - сортировка по количеству совершенных заказов за промежуток времени--%>
         <%--товаров - сортировка по товару, купленного больше всего--%>
-        <%--пользователей - сортировка по количесвту совершенных заказов--%>
         <li id="reports">
             <a class="parent"><i class="fa fa-bar-chart-o fa-fw"></i> <span>Статистика</span></a>
             <ul class="collapse">
-                <li><a href="">Заказов</a></li>
-                <li><a href="">Товаров</a></li>
-                <li><a href="">Пользователей</a></li>
+                <li><a href="<c:url value="/cp/sale_report"/>">Заказов</a></li>
+                <li><a href="<c:url value="/cp/product_report"/>">Товаров</a></li>
             </ul>
         </li>
     </ul>

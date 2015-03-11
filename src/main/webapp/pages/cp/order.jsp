@@ -160,7 +160,7 @@
                                     <td class="text-right">$105.00</td>
                                     <td class="text-left">23/02/2015</td>
                                     <td class="text-right">
-                                        <a href="<c:url value="/cp/order_info"/>" data-toggle="tooltip" class="btn btn-info" data-original-title="Подробнее"><i class="fa fa-eye"></i></a>
+                                        <a href="<c:url value="/cp/order_details"/>" data-toggle="tooltip" class="btn btn-info" data-original-title="Подробнее"><i class="fa fa-eye"></i></a>
                                         <a href="<c:url value="/cp/edit_order"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
                                         <a href="<c:url value="/cp/order/delete"/>" id="button-delete" data-toggle="tooltip" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash-o"></i></a>
                                     </td>
