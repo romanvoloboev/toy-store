@@ -46,11 +46,12 @@
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
                             <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Редактирование профиля</h1></div>
-                            <div class="col-md-4" style="padding-left: 0;">
+                            <div class="col-md-4">
                                 <div class="">
                                     <div class="row">
                                         <input type="hidden">
                                         <div class="form-group col-md-12">
+                                            <label for="input-customer-city">Основная информация</label>
                                             <input name="first_name" placeholder="Имя" class="form-control" type="text" required="true">
                                         </div>
                                         <div class="form-group col-md-12">

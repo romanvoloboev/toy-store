@@ -39,69 +39,69 @@
                 <div class="panel-body">
                     <div class="form-horizontal">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab-general" data-toggle="tab">Основная информация</a></li>
+                            <li class="isActive"><a href="#tab-general" data-toggle="tab">Основная информация</a></li>
                             <li><a href="#tab-image" data-toggle="tab">Изображения</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tab-general">
-                                <div class="form-group required">
-                                    <label class="col-sm-2 control-label" for="input-name1">Название продукта</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="product_description" value="" placeholder="Введите название продукта" id="input-name1" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-description">Описание</label>
-                                    <div class="col-sm-10">
-                                        <textarea name="product_description" placeholder="Введите описание продукта" id="input-description" style="display: none;"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-status">Категория</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="category" value="" placeholder="Выберите категорию товара" id="input-category" class="form-control" autocomplete="off">
-                                        <ul class="dropdown-menu"></ul>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-price">Цена</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="price" value="" placeholder="Введите цену" id="input-price" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-quantity">Количество</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="quantity" value="1" placeholder="Введите количество товара" id="input-quantity" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-length">Размеры</label>
-                                    <div class="col-sm-10">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <input type="text" name="length" value="" placeholder="Длина (см.)" id="input-length" class="form-control">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <input type="text" name="width" value="" placeholder="Ширина (см.)" id="input-width" class="form-control">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <input type="text" name="height" value="" placeholder="Высота (см.)" id="input-height" class="form-control">
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <input type="text" name="weight" value="" placeholder="Вес (кг.)" id="input-weight" class="form-control">
-                                            </div>
+                            <div class="tab-pane isActive" id="tab-general">
+                                <div class="col-md-9" style="padding: 0;">
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="Название товара" id="product-name" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="Код товара" id="product-code" class="form-control">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="input-status">Статус</label>
-                                    <div class="col-sm-10">
-                                        <select name="status" id="input-status" class="form-control">
-                                            <option value="1" selected="selected">Доступен</option>
-                                            <option value="0">Недоступен</option>
-                                        </select>
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="Категория товара" id="product-category" class="form-control" autocomplete="off">
+                                            <ul class="dropdown-menu"></ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" placeholder="Производитель" id="product-brand" class="form-control">
+                                            <ul class="dropdown-menu"></ul>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <textarea placeholder="Описание товара" id="product-description" style="display: none;"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            <input type="text" placeholder="Цена" id="product-price" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" placeholder="Старая цена" id="product-old-price" class="form-control">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="product-age" class="form-control" title="Минимальный возраст">
+                                                <option value="*">--- Ограничение по возрасту ---</option>
+                                                <option value="1">1+</option>
+                                                <option value="2">2+</option>
+                                                <option value="3">3+</option>
+                                                <option value="4">4+</option>
+                                                <option value="5">5+</option>
+                                                <option value="6">6+</option>
+                                                <option value="7">7+</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-3">
+                                            <input type="text" placeholder="Количество" id="input-quantity" class="form-control">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" placeholder="Длина (см.)" id="input-length" class="form-control">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" placeholder="Ширина (см.)" id="input-width" class="form-control">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" placeholder="Высота (см.)" id="input-height" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -150,9 +150,6 @@
             </div>
         </div>
     </div>
-
-
-</div>
 </div>
 </body>
 </html>

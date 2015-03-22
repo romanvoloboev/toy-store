@@ -79,20 +79,20 @@
                     <a href="<c:url value="/cp/new_product"/>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Добавить"><i class="fa fa-plus"></i></a>
                     <button type="button" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash-o"></i></button>
                 </div>
-                <h1>Продукты</h1>
+                <h1>Товары</h1>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-list"></i> Список продуктов</h3>
+                    <h3 class="panel-title"><i class="fa fa-list"></i> Список товаров</h3>
                 </div>
                 <div class="panel-body">
                     <div class="well">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="control-label" for="input-name">Название продукта</label>
+                                    <label class="control-label" for="input-name">Название</label>
                                     <input type="text" name="filter_name" value="" placeholder="Введите название продукта" id="input-name" class="form-control" autocomplete="off">
                                     <ul class="dropdown-menu"></ul>
                                 </div>

@@ -21,6 +21,7 @@
             <ul class="collapse">
                 <li><a href="<c:url value="/cp/category"/>">Категории</a></li>
                 <li><a href="<c:url value="/cp/product"/>">Товары</a></li>
+                <li><a href="<c:url value="/cp/brand"/>">Производители</a></li>
             </ul>
         </li>
         <li id="reviews">

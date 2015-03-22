@@ -171,6 +171,8 @@ public class PageCrossController {
         return new ModelAndView("cp/employee_add");
     }
 
+
+
     @RequestMapping("/cp/sale_report")
     public ModelAndView showSalesReport() {
         return new ModelAndView("/cp/sale_report");
@@ -181,8 +183,27 @@ public class PageCrossController {
         return new ModelAndView("/cp/product_report");
     }
 
+
+
     @RequestMapping("/cp/reviews")
     public ModelAndView showReviews() {
         return new ModelAndView("/cp/reviews");
+    }
+
+
+
+    @RequestMapping("/cp/brand")
+    public ModelAndView showBrands() {
+        return new ModelAndView("cp/brand");
+    }
+
+    @RequestMapping("/cp/new_brand")
+    public ModelAndView addBrands() {
+        return new ModelAndView("cp/brand_add");
+    }
+
+    @RequestMapping("/cp/edit_brand")
+    public ModelAndView editBrands() {
+        return new ModelAndView("cp/brand_edit");
     }
 }

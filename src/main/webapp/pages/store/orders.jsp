@@ -68,25 +68,7 @@
                                                 <td class="price" style="text-align: left;">
                                                     <span style="font-weight: normal;">1500.00 грн.</span>
                                                 </td>
-                                                <td class="stock">
-                                                    <span style="font-weight: normal;">Выполнен</span>
-                                                </td>
-                                                <td class="action" style="text-align: center;">
-                                                    <a href="/order_details" title="Посмотреть детали заказа" onclick=""><span class="fa fa-info fa-lg"></span></a>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="image" style="text-align: left;">
-                                                    <span style="font-weight: normal;">88</span>
-                                                </td>
-                                                <td class="name">
-                                                    <span style="font-weight: normal;">30/01/2015</span>
-                                                </td>
-                                                <td class="price" style="text-align: left;">
-                                                    <span style="font-weight: normal;">1500.00 грн.</span>
-                                                </td>
-                                                <td class="stock">
+                                                <td class="stock" style="text-align: left;">
                                                     <span style="font-weight: normal;">Выполнен</span>
                                                 </td>
                                                 <td class="action" style="text-align: center;">

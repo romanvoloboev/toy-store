@@ -7,6 +7,15 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
+    <script src="../../webres/cp/js/category.js"></script>
+
+    <style type="text/css">
+        .dropzone {
+            border: dashed 2px rgba(72, 72, 67, 0.50);
+            border-radius: 5px;
+            padding: 0;
+        }
+    </style>
 
     <script type="text/javascript">
         $('input[name=\'path\']').autocomplete({
@@ -45,7 +54,6 @@
         <div class="page-header">
             <div class="container-fluid">
                 <div class="pull-right">
-                    <button type="submit" form="form-category" data-toggle="tooltip" class="btn btn-primary" data-original-title="Сохранить"><i class="fa fa-save"></i></button>
                     <a href="<c:url value="/cp/category"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Отмена"><i class="fa fa-reply"></i></a></div>
                 <h1>Категории</h1>
             </div>
@@ -53,22 +61,59 @@
         <div class="container-fluid">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i> Создание новой категории</h3>
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i> Создание категорий и подкатегорий</h3>
                 </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="form-group required">
-                            <label class="col-sm-2 control-label" for="input-name">Название категории</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="category_name" placeholder="Название категории" id="input-name" class="form-control" required="true">
+
+                        <ul class="nav nav-tabs">
+                            <li class="isActive"><a href="#tab-category" data-toggle="tab">Добавление категории</a></li>
+                            <li><a href="#tab-subcategory" data-toggle="tab">Добавление подкатегории</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane isActive" id="tab-category">
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Название категории" id="category-name" class="form-control" required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <button type="button" id="save-category" class="btn btn-success pull-right"><i class="fa fa-check"></i> Сохранить</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label" for="input-parent">Подкатегория</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="path" placeholder="Подкатегория" id="input-parent" class="form-control" autocomplete="off">
-                                <ul class="dropdown-menu"></ul>
-                                <input type="hidden" name="parent_id">
+                            <div class="tab-pane" id="tab-subcategory">
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Название подкатегории" id="subcategory-name" class="form-control" required="true">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <input type="text" placeholder="Родительская категория" id="parent-category" class="form-control" required="true">
+                                        <ul class="dropdown-menu"></ul>
+                                        <input type="hidden" name="parent_id">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="text-center" style="padding-bottom: 10px;">
+                                            <span style="color: #e2af00;">Вы можете загрузить 1 изображение не больше 3Мб.</span>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="button" id="select-image" class="btn btn-warning"><i class="fa fa-folder-open"></i> Выбрать</button>
+                                        </div>
+                                        <div class="image-previews" style="display: none; padding-top: 10px;">
+                                            <div id="previews" class="dropzone"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        <button type="button" id="save-subcategory" class="btn btn-success pull-right"><i class="fa fa-check"></i> Сохранить</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

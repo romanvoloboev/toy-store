@@ -3242,6 +3242,9 @@ body,
     color: #a9d04a;
 }
 
+.activePaymentType {
+    color: #a9d04a;
+}
 
 @media (max-width: 990px) {
     #new_address_field #street  {

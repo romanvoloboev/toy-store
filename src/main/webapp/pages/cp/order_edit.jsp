@@ -44,12 +44,12 @@
                 <div class="panel-body">
                     <div class="form-horizontal">
                         <ul id="order" class="nav nav-tabs nav-justified">
-                            <li class="disabled active"><a href="#tab-customer" data-toggle="tab">1. Данные клиента</a></li>
+                            <li class="disabled isActive"><a href="#tab-customer" data-toggle="tab">1. Данные клиента</a></li>
                             <li class="disabled"><a href="#tab-cart" data-toggle="tab">2. Товары</a></li>
                             <li class="disabled"><a href="#tab-payment" data-toggle="tab">3. Доставка и оплата</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tab-customer">
+                            <div class="tab-pane isActive" id="tab-customer">
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="input-customer">Клиент</label>
                                     <div class="col-sm-10">
@@ -71,9 +71,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group required">
-                                    <label class="col-sm-2 control-label" for="input-email">E-Mail</label>
+                                    <label class="col-sm-2 control-label" for="input-login">E-Mail</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="email" value="spellscape@spellscape.biz" id="input-email" class="form-control">
+                                        <input type="text" name="login" value="spellscape@spellscape.biz" id="input-login" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group required">
@@ -116,7 +116,7 @@
                                     </table>
                                 </div>
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="tab-product">
+                                    <div class="tab-pane isActive" id="tab-product">
                                         <fieldset>
                                             <legend>Добавление товара</legend>
                                             <div class="form-group">

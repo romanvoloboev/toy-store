@@ -39,19 +39,19 @@
                                 </div>
                             </div>
                             <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="email">E-mail</label>
+                                <label class="col-sm-2 control-label" for="login">E-mail</label>
                                 <div class="col-sm-10">
-                                    <input type="email" placeholder="Введите e-mail"  id="email" class="form-control" required="true">
+                                    <input type="login" placeholder="Введите e-mail"  id="login" class="form-control" required="true">
                                 </div>
                             </div>
                             <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="email">Пароль</label>
+                                <label class="col-sm-2 control-label" for="login">Пароль</label>
                                 <div class="col-sm-10">
                                     <input type="password" placeholder="Введите пароль" id="password" class="form-control" required="true">
                                 </div>
                             </div>
                             <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="email">Повторите пароль</label>
+                                <label class="col-sm-2 control-label" for="login">Повторите пароль</label>
                                 <div class="col-sm-10">
                                     <input type="password" placeholder="Введите пароль еще раз" id="password-repeat" class="form-control" required="true">
                                 </div>

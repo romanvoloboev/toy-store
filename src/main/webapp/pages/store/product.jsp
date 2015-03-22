@@ -237,12 +237,10 @@
                                         </div>
                                         <span style="color: green; margin-left: 5px;"><strong><em>Есть в наличии</em></strong></span><br>
                                         <div class="description">
-                                            <span>Код товара: </span>Product 17<br>
+                                            <span>Код товара: </span>1234567<br>
                                             <span>Производитель: </span>BK Toys<br>
                                             <span>Страна: </span>Китай<br>
-                                            <span>Возраст ребенка: </span>3-5<br>
-                                            <span>Пол ребенка: </span>унисекс<br>
-                                            <span>Материал: </span>пластмасса<br>
+                                            <span>Возраст ребенка: </span>3+<br>
                                             <span>Размер: </span>33/22/16
                                         </div>
 
@@ -293,13 +291,13 @@
                                     <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-left: 0; padding-right: 0;">
                                         <div class="inner">
                                             <h2>Оставьте отзыв о товаре</h2>
+
+                                            <%--todo отзыв о товаре может оставлять только зарегеный пользователь--%>
+
                                             <form action="<c:url value=""/>" method="post">
                                                 <fieldset>
                                                     <div class="form-group">
                                                         <input name="name" placeholder="Ваше имя" style="width: 50%;" class="form-control" type="text" required="true">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input name="email" placeholder="E-mail" style="width: 50%;"  class="form-control" type="email" required="true">
                                                     </div>
                                                     <div class="form-group">
                                                         <textarea required name="comment" placeholder="Ваш комментарий"  style="width: 50%; height: 140px;"></textarea>

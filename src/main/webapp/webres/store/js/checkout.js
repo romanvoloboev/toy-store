@@ -13,6 +13,18 @@ $(function(){
         $('.courierType').removeClass('activeDeliveryType');
     });
 
+
+    $('.cashType').on('click', function(){
+        $('.cashType').addClass('activePaymentType');
+        $('.noncashType').removeClass('activePaymentType');
+    });
+
+    $('.noncashType').on('click', function(){
+        $('.noncashType').addClass('activePaymentType');
+        $('.cashType').removeClass('activePaymentType');
+    });
+
+
     $('#address').change(function(){
         var value = $(this).val();
         if (value == 'new') {

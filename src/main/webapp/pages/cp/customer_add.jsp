@@ -39,9 +39,9 @@
                                 </div>
                             </div>
                             <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-email">E-Mail</label>
+                                <label class="col-sm-2 control-label" for="input-login">E-Mail</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="email" placeholder="Введите email" id="input-email" class="form-control">
+                                    <input type="text" name="login" placeholder="Введите login" id="input-login" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group required">

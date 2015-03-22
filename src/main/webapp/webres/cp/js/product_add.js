@@ -1,7 +1,7 @@
 $(function() {
     image_row = 1;
 
-    $('#input-description').summernote({
+    $('#product-description').summernote({
         height: 250,
         toolbar: [
             ['style', ['bold', 'italic', 'underline', 'clear']],

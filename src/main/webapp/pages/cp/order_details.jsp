@@ -30,12 +30,12 @@
                 </div>
                 <div class="panel-body">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab-order" data-toggle="tab">Общая информация</a></li>
+                        <li class="isActive"><a href="#tab-order" data-toggle="tab">Общая информация</a></li>
                         <li><a href="#tab-payment" data-toggle="tab">Доставка и оплата</a></li>
                         <li><a href="#tab-product" data-toggle="tab">Товары</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="tab-order">
+                        <div class="tab-pane isActive" id="tab-order">
                             <table class="table table-bordered">
                                 <tbody><tr>
                                     <td>Номер заказа:</td>

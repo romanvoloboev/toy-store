@@ -59,7 +59,7 @@
                     success: function(json) {
                         response($.map(json, function(item) {
                             return {
-                                label: item['email'],
+                                label: item['login'],
                                 value: item['customer_id']
                             }
                         }));
@@ -100,8 +100,8 @@
                                 <input type="text" name="filter_name" value="" placeholder="Введите имя пользователя" id="input-name" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul>
                             </div>
                             <div class="form-group col-md-3">
-                                <label class="control-label" for="input-email">E-Mail</label>
-                                <input type="text" name="filter_email" value="" placeholder="Введите e-mail" id="input-email" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul>
+                                <label class="control-label" for="input-login">E-Mail</label>
+                                <input type="text" name="filter_email" value="" placeholder="Введите e-mail" id="input-login" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul>
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="control-label" for="input-status">Статус</label>
