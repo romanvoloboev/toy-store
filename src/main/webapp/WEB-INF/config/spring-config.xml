@@ -17,6 +17,8 @@
     <context:annotation-config/>
     <context:component-scan base-package="com.romanvoloboev.controller"/>
     <context:component-scan base-package="com.romanvoloboev.dao"/>
+    <context:component-scan base-package="com.romanvoloboev.bo"/>
+    <context:component-scan base-package="com.romanvoloboev.service"/>
 
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
@@ -25,19 +27,38 @@
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
+    <security:http use-expressions="true" disable-url-rewriting="true" pattern="/admin/**">
+        <security:form-login login-page="/cp_login" login-processing-url="/check_employee" authentication-failure-url="/cp_login?fail=true" default-target-url="/cp"/>
+        <security:logout logout-url="/cp/logout" logout-success-url="/cp_login" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <security:remember-me services-ref="rememberMeEmployeeService" key="key4employee"/>
+        <security:access-denied-handler error-page="/403"/>
+    </security:http>
+
     <security:http use-expressions="true" disable-url-rewriting="true" pattern="/**">
-        <security:form-login login-page="/login" login-processing-url="/check-customer" authentication-failure-url="/login?fail=true" default-target-url="/"/>
+        <security:form-login login-page="/login" login-processing-url="/check_customer" authentication-failure-url="/login?fail=true" default-target-url="/"/>
         <security:logout logout-url="/logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <security:remember-me services-ref="rememberMeCustomerService" key="key4customer"/>
         <security:access-denied-handler error-page="/403"/>
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="roman" authorities="ROLE_USER"/>
-            </security:user-service>
-        </security:authentication-provider>
+        <security:authentication-provider user-service-ref="customerDetailService"/>
+        <security:authentication-provider user-service-ref="employeeDetailService"/>
     </security:authentication-manager>
+
+    <bean id="rememberMeCustomerService" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+        <constructor-arg name="userDetailsService" ref="customerDetailService"/>
+        <constructor-arg name="key" value="key4customer"/>
+        <property name="cookieName" value="toystore-customer"/>
+        <property name="tokenValiditySeconds" value="2678400"/>
+    </bean>
+
+    <bean id="rememberMeEmployeeService" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+        <constructor-arg name="userDetailsService" ref="employeeDetailService"/>
+        <constructor-arg name="key" value="key4employee"/>
+        <property name="cookieName" value="toystore-employee"/>
+        <property name="tokenValiditySeconds" value="2678400"/>
+    </bean>
 
     <bean id="configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="location" value="classpath:hibernate.properties"/>

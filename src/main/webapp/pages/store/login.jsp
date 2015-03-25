@@ -35,7 +35,7 @@
                                     <div class="col-lg-3 col-sm-4 col-xs-12">
                                         <div class="inner">
                                             <h2>У меня уже есть аккаунт</h2>
-                                            <form action="<c:url value=""/>" method="post">
+                                            <form action="<c:url value="/check_customer"/>" method="post">
                                                 <p><b>Войдите как существующий клиент</b></p>
                                                 <fieldset>
                                                     <div class="form-group">

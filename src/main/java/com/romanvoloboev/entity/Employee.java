@@ -6,9 +6,15 @@ import javax.persistence.*;
  * @author Roman Voloboev
  */
 
+@NamedQueries({
+        @NamedQuery(name = Employee.SELECT_BY_LOGIN, query = "SELECT e FROM Employee e WHERE lower(e.login) LIKE :login")
+})
+
 @Entity
 @Table(name = "employee")
 public class Employee {
+    public static final String SELECT_BY_LOGIN = "select_employee_by_login";
+
     private Integer id;
     private String name;
     private String login;

@@ -8,9 +8,15 @@ import java.util.Collection;
  * @author Roman Voloboev
  */
 
+@NamedQueries({
+        @NamedQuery(name = Customer.SELECT_BY_LOGIN, query = "SELECT c FROM Customer c WHERE lower(c.login) LIKE :login")
+})
+
 @Entity
 @Table(name = "customer")
 public class Customer {
+    public static final String SELECT_BY_LOGIN = "select_customer_by_email";
+
     private Integer id;
     private String name;
     private String login;
