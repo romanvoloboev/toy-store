@@ -18,17 +18,17 @@
                     <security:authorize access="isAuthenticated()">
                         <ul class="links pull-right">
                             <li>
-                                <a href="/profile"><span class="fa fa-user"></span>Личный кабинет</a>
+                                <a href="<c:url value="/profile"/>"><span class="fa fa-user"></span>Личный кабинет</a>
                             </li>
                             <li>
-                                <a href="/logout"><span class="fa fa-sign-out"></span>Выход</a>
+                                <a href="<c:url value="/user_logout"/>"><span class="fa fa-sign-out"></span>Выход</a>
                             </li>
                         </ul>
                     </security:authorize>
                     <security:authorize access="isAnonymous()">
                         <ul class="links pull-right">
                             <li>
-                                <a href="/login"><span class="fa fa-sign-in"></span>Вход в интернет-магазин</a>
+                                <a href="<c:url value="/user_login"/>"><span class="fa fa-sign-in"></span>Вход в интернет-магазин</a>
                             </li>
                         </ul>
                     </security:authorize>

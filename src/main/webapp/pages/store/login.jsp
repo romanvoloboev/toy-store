@@ -35,19 +35,18 @@
                                     <div class="col-lg-3 col-sm-4 col-xs-12">
                                         <div class="inner">
                                             <h2>У меня уже есть аккаунт</h2>
-                                            <form action="<c:url value="/check_customer"/>" method="post">
-                                                <p><b>Войдите как существующий клиент</b></p>
+                                            <form action="<c:url value="/check_user"/>" method="post">
+                                                <p><b>Войдите как существующий пользователь</b></p>
                                                 <fieldset>
                                                     <div class="form-group">
-                                                        <input name="j_username" placeholder="E-Mail" class="form-control" type="email" required="true">
+                                                        <input name="username" placeholder="E-Mail" class="form-control" type="email" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input name="j_password" placeholder="Пароль" class="form-control" type="password" required="true">
+                                                        <input name="password" placeholder="Пароль" class="form-control" type="password" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="checkbox">
-                                                            <input name="j_spring_security_remember_me" value="true" checked="checked" type="checkbox">Запомнить
-                                                            меня
+                                                            <input name="remember-me" value="true" checked="checked" type="checkbox">Запомнить меня
                                                         </label>
                                                     </div>
                                                     <div class="form-group">
@@ -62,8 +61,8 @@
                                     </div>
                                     <div class="col-lg-3 col-sm-4 col-sm-offset-2 col-xs-12 col-lg-offset-2">
                                         <div class="inner">
-                                            <h2>Вы новый клиент?</h2>
-                                            <form id="register-form" method="POST" action="<c:url value=""/>">
+                                            <h2>Впервые у нас?</h2>
+                                            <form id="register-form" method="POST" action="">
                                                 <p><b>Создайте аккаунт</b></p>
                                                 <fieldset>
                                                     <div class="form-group form-inline">

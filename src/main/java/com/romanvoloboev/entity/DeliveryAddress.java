@@ -14,26 +14,26 @@ public class DeliveryAddress {
     private String street;
     private short house;
     private short flat;
-    private Customer customer;
+    private User user;
 
     public DeliveryAddress() {
     }
 
-    public DeliveryAddress(Integer id, String city, String street, short house, short flat, Customer customer) {
+    public DeliveryAddress(Integer id, String city, String street, short house, short flat, User user) {
         this.id = id;
         this.city = city;
         this.street = street;
         this.house = house;
         this.flat = flat;
-        this.customer = customer;
+        this.user = user;
     }
 
-    public DeliveryAddress(String city, String street, short house, short flat, Customer customer) {
+    public DeliveryAddress(String city, String street, short house, short flat, User user) {
         this.city = city;
         this.street = street;
         this.house = house;
         this.flat = flat;
-        this.customer = customer;
+        this.user = user;
     }
 
     @Id
@@ -80,11 +80,11 @@ public class DeliveryAddress {
     }
 
     @ManyToOne
-    @JoinColumn(name = "customer")
-    public Customer getCustomer() {
-        return customer;
+    @JoinColumn(name = "user")
+    public User getUser() {
+        return user;
     }
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

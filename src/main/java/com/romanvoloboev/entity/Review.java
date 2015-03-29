@@ -16,28 +16,28 @@ public class Review {
     private Date date;
     private boolean isActive;
     private Product product;
-    private Customer customer;
+    private User user;
 
     public Review() {
     }
 
-    public Review(Integer id, String comment, float rating, Date date, boolean isActive, Product product, Customer customer) {
+    public Review(Integer id, String comment, float rating, Date date, boolean isActive, Product product, User user) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
         this.date = date;
         this.isActive = isActive;
         this.product = product;
-        this.customer = customer;
+        this.user = user;
     }
 
-    public Review(String comment, float rating, Date date, boolean isActive, Product product, Customer customer) {
+    public Review(String comment, float rating, Date date, boolean isActive, Product product, User user) {
         this.comment = comment;
         this.rating = rating;
         this.date = date;
         this.isActive = isActive;
         this.product = product;
-        this.customer = customer;
+        this.user = user;
     }
 
     @Id
@@ -93,11 +93,11 @@ public class Review {
     }
 
     @ManyToOne
-    @JoinColumn(name = "customer")
-    public Customer getCustomer() {
-        return customer;
+    @JoinColumn(name = "user")
+    public User getUser() {
+        return user;
     }
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

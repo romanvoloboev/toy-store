@@ -12,15 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-//    todo: make redesign of admin login page
-
-    @RequestMapping("/cp_login")
-    public ModelAndView adminLogin() {
-        return new ModelAndView("cp/login");
-    }
-
-    @RequestMapping("/login")
-    public ModelAndView customerLogin(){
+    @RequestMapping("/user_login")
+    public ModelAndView userLogin(){
         return new ModelAndView("store/login");
     }
 

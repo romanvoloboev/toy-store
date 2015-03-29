@@ -8,13 +8,13 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:spring-config.xml
+            classpath:spring-config.xml, classpath:hibernate-config.xml
         </param-value>
     </context-param>
 
     <context-param>
         <param-name>webAppRootKey</param-name>
-        <param-value>dirty-fucker</param-value>
+        <param-value>toy-store</param-value>
     </context-param>
 
     <filter>
