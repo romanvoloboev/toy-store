@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/user_login")
+    @RequestMapping("/customer_login")
     public ModelAndView userLogin(){
         return new ModelAndView("store/login");
     }

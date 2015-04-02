@@ -15,20 +15,27 @@
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-6 col-sm-5 hidden-xs">
+
                     <security:authorize access="isAuthenticated()">
                         <ul class="links pull-right">
+                            <security:authorize access="hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')">
+                                <li>
+                                    <a href="<c:url value="/cp"/>"><span class="fa fa-user-secret"></span>Админ панель</a>
+                                </li>
+                            </security:authorize>
                             <li>
                                 <a href="<c:url value="/profile"/>"><span class="fa fa-user"></span>Личный кабинет</a>
                             </li>
                             <li>
-                                <a href="<c:url value="/user_logout"/>"><span class="fa fa-sign-out"></span>Выход</a>
+                                <a href="<c:url value="/customer_logout"/>"><span class="fa fa-sign-out"></span>Выход</a>
                             </li>
                         </ul>
                     </security:authorize>
+
                     <security:authorize access="isAnonymous()">
                         <ul class="links pull-right">
                             <li>
-                                <a href="<c:url value="/user_login"/>"><span class="fa fa-sign-in"></span>Вход в интернет-магазин</a>
+                                <a href="<c:url value="/customer_login"/>"><span class="fa fa-sign-in"></span>Вход в интернет-магазин</a>
                             </li>
                         </ul>
                     </security:authorize>

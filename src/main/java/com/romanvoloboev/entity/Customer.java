@@ -9,13 +9,13 @@ import java.util.Collection;
  */
 
 @NamedQueries({
-        @NamedQuery(name = User.SELECT_BY_EMAIL, query = "SELECT u FROM User u WHERE lower(u.email) LIKE :email")
+        @NamedQuery(name = Customer.SELECT_BY_EMAIL, query = "SELECT c FROM Customer c WHERE lower(c.email) LIKE :email")
 })
 
 @Entity
-@Table(name = "user")
-public class User {
-    public static final String SELECT_BY_EMAIL = "select_user_by_email";
+@Table(name = "customer")
+public class Customer {
+    public static final String SELECT_BY_EMAIL = "select_customer_by_email";
 
     private Integer id;
     private String name;
@@ -29,12 +29,12 @@ public class User {
     private Collection<Booking> bookings = new ArrayList<>();
     private Collection<DeliveryAddress> addresses = new ArrayList<>();
 
-    public User() {
+    public Customer() {
     }
 
-    public User(Integer id, String name, String email, String password, String phone, boolean isActive, Role role,
-                Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
-                Collection<DeliveryAddress> addresses) {
+    public Customer(Integer id, String name, String email, String password, String phone, boolean isActive, Role role,
+                    Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
+                    Collection<DeliveryAddress> addresses) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -48,9 +48,9 @@ public class User {
         this.addresses = addresses;
     }
 
-    public User(String name, String email, String password, String phone, boolean isActive, Role role,
-                Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
-                Collection<DeliveryAddress> addresses) {
+    public Customer(String name, String email, String password, String phone, boolean isActive, Role role,
+                    Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
+                    Collection<DeliveryAddress> addresses) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -123,7 +123,7 @@ public class User {
         this.role = role;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Collection<Review> getReviews() {
         return reviews;
     }
@@ -131,7 +131,7 @@ public class User {
         this.reviews = reviews;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Collection<Booking> getBookings() {
         return bookings;
     }
@@ -139,7 +139,7 @@ public class User {
         this.bookings = bookings;
     }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Collection<DeliveryAddress> getAddresses() {
         return addresses;
     }
@@ -149,7 +149,7 @@ public class User {
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "wish",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     public Collection<Product> getWishes() {
         return wishes;

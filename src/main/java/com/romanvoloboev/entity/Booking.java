@@ -18,13 +18,13 @@ public class Booking {
     private short status;
     private short deliveryService;
     private short paymentType;
-    private User user;
+    private Customer customer;
     private Collection<BookingItem> items = new ArrayList<>();
 
     public Booking() {
     }
 
-    public Booking(Integer id, float amount, Date date, short status, short deliveryService, short paymentType, User user,
+    public Booking(Integer id, float amount, Date date, short status, short deliveryService, short paymentType, Customer customer,
                    Collection<BookingItem> items) {
         this.id = id;
         this.amount = amount;
@@ -32,18 +32,18 @@ public class Booking {
         this.status = status;
         this.deliveryService = deliveryService;
         this.paymentType = paymentType;
-        this.user = user;
+        this.customer = customer;
         this.items = items;
     }
 
-    public Booking(float amount, Date date, short status, short deliveryService, short paymentType, User user,
+    public Booking(float amount, Date date, short status, short deliveryService, short paymentType, Customer customer,
                    Collection<BookingItem> items) {
         this.amount = amount;
         this.date = date;
         this.status = status;
         this.deliveryService = deliveryService;
         this.paymentType = paymentType;
-        this.user = user;
+        this.customer = customer;
         this.items = items;
     }
 
@@ -99,12 +99,12 @@ public class Booking {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user")
-    public User getUser() {
-        return user;
+    @JoinColumn(name = "customer")
+    public Customer getCustomer() {
+        return customer;
     }
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -1,8 +1,7 @@
 package com.romanvoloboev.controller;
 
-import com.sun.javafx.sg.PGShape;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,11 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PageCrossController {
-
-    @RequestMapping("/403")
-    public ModelAndView show403(){
-        return new ModelAndView("store/403");
-    }
 
     @RequestMapping("/")
     public ModelAndView index(){
@@ -85,7 +79,7 @@ public class PageCrossController {
     }
 
 
-
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping("/cp")
     public ModelAndView admin_panel() {
         return new ModelAndView("cp/index");

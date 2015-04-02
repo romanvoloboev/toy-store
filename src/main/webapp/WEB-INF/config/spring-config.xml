@@ -28,19 +28,19 @@
     <security:global-method-security pre-post-annotations="enabled"/>
 
     <security:http use-expressions="true" disable-url-rewriting="true" pattern="/**">
-        <security:form-login login-page="/user_login" login-processing-url="/check_user" authentication-failure-url="/user_login?failed=true" default-target-url="/"/>
-        <security:logout logout-url="/user_logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID"/>
-        <security:remember-me services-ref="rememberMeService" key="key-4-user"/>
-        <security:access-denied-handler error-page="/403"/>
+        <security:form-login login-page="/customer_login" login-processing-url="/check-customer"  authentication-failure-url="/customer_login?failed=true" default-target-url="/"/>
+        <security:logout logout-url="/customer_logout" logout-success-url="/" invalidate-session="true" delete-cookies="JSESSIONID"/>
+        <security:remember-me services-ref="rememberMeService" key="key4customer"/>
+        <security:csrf disabled="true"/>
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider user-service-ref="customUserDetailsService"/>
+        <security:authentication-provider user-service-ref="customerDetailsService"/>
     </security:authentication-manager>
 
     <bean id="rememberMeService" class="org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
-        <constructor-arg name="userDetailsService" ref="customUserDetailsService"/>
-        <constructor-arg name="key" value="key-4-user"/>
+        <constructor-arg name="userDetailsService" ref="customerDetailsService"/>
+        <constructor-arg name="key" value="key4customer"/>
         <property name="cookieName" value="toy-store"/>
         <property name="tokenValiditySeconds" value="2678400"/>
     </bean>
