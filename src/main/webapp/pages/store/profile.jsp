@@ -33,10 +33,10 @@
                                 <div class="box-heading" style="text-align: center;"><span>Личный кабинет</span></div>
                                 <div class="box-content box-content-profile" style="padding: 0; text-align: center;">
                                     <ul>
-                                        <li><a href="/profile">Мои настройки</a></li>
-                                        <li><a href="/wishlist">Список желаний</a></li>
-                                        <li><a href="/orders">История заказов</a></li>
-                                        <li><a href="/cart">Корзина</a></li>
+                                        <li><a href="<c:url value="/profile"/>">Профиль</a></li>
+                                        <li><a href="<c:url value="/wishlist"/>">Список желаний</a></li>
+                                        <li><a href="<c:url value="/orders"/>">История заказов</a></li>
+                                        <li><a href="<c:url value="/cart"/>">Корзина</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -48,8 +48,8 @@
                                 <div class="col-lg-5" style="padding-left: 0;"><h1>Контактные данные</h1></div>
                                 <div class="col-md-7">
                                     <ul class="list footer-list" style="padding-top: 8px;">
-                                        <li><a href="/edit_profile">Редактировать</a></li>
-                                        <li style="margin-left: 15px;"><a href="/edit_password">Изменить пароль</a></li>
+                                        <li><a href="<c:url value="/edit_profile"/>">Редактировать</a></li>
+                                        <li style="margin-left: 15px;"><a href="<c:url value="/edit_password"/>">Изменить пароль</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -57,23 +57,23 @@
                                 <tbody>
                                     <tr>
                                         <td style="width: 20%; text-align: right; font-weight: bold;"><p>Ваше имя</p></td>
-                                        <td><p style="margin-left: 20px;">asdasddddddddddda</p></td>
+                                        <td><p style="margin-left: 20px;">${customer.name}</p></td>
                                     </tr>
                                     <tr>
                                         <td style="width: 20%; text-align: right; font-weight: bold;"><p>E-mail</p></td>
-                                        <td><p style="margin-left: 20px;">asdddddddddddddddddddd</p></td>
+                                        <td><p style="margin-left: 20px;">${customer.email}</p></td>
                                     </tr>
                                     <tr>
                                         <td style="width: 20%; text-align: right; font-weight: bold;"><p>Телефон</p></td>
-                                        <td><p style="margin-left: 20px;">+38(066)019-37-84</p></td>
+                                        <td><p style="margin-left: 20px;">${customer.phone}</p></td>
                                     </tr>
                                     <tr>
-                                        <td style="width: 20%; text-align: right; font-weight: bold;"><p>Адреса доставки</p></td>
+                                        <td style="width: 20%; text-align: right; font-weight: bold;"><p>Адрес доставки</p></td>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${not empty model.address}">
-                                                    <c:forEach items="${model.address}" var="address">
-                                                        <%--<p style="margin-left: 20px;">Никополь Днепропетровская обл. Никопольский р-н, Херсонская, д.117</p>--%>
+                                                <c:when test="${not empty addressesList}">
+                                                    <c:forEach items="${addressesList}" var="a">
+                                                        <p style="margin-left: 20px;">${a.value}</p>
                                                     </c:forEach>
                                                 </c:when>
                                                 <c:otherwise>

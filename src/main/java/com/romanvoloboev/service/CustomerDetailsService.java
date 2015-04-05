@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -29,7 +30,7 @@ public class CustomerDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
-            Customer customer = customerBOImpl.selectByEmail(email);
+            Customer customer = customerBOImpl.selectEntityByEmail(email);
             if(customer != null && customer.isActive()) {
                 List<GrantedAuthority> authorities = new ArrayList<>();
                 if (customer.getRole().toString().equals("ADMIN")) {
@@ -42,7 +43,7 @@ public class CustomerDetailsService implements UserDetailsService {
                 } else {
                     authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
                 }
-                return new org.springframework.security.core.userdetails.User(customer.getEmail(), customer.getPassword(), authorities);
+                return new User(customer.getEmail(), customer.getPassword(), authorities);
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Customer " + email + " not found");

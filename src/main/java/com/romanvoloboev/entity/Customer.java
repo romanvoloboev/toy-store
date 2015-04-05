@@ -1,5 +1,7 @@
 package com.romanvoloboev.entity;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,6 +84,7 @@ public class Customer {
         this.name = name;
     }
 
+    @Email
     @Column(name = "email", length = 50, nullable = false)
     public String getEmail() {
         return email;

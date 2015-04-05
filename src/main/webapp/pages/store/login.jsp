@@ -10,6 +10,44 @@
 
     <%@include file="includes/head.jsp"%>
     <script src="../../webres/store/js/login_reg_forms.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            <c:if test="${failed}">
+            $.bootstrapGrowl("Неверный E-Mail, или пароль. Повторите попытку.",
+                    {
+                        type: 'danger',
+                        align: 'center',
+                        allow_dismiss: false,
+                        width: 'auto',
+                        stackup_spacing: 100
+                    });
+            </c:if>
+
+            <c:if test="${exist}">
+            $.bootstrapGrowl("Пользователь с таким E-Mail уже существует.",
+                    {
+                        type: 'danger',
+                        align: 'center',
+                        allow_dismiss: false,
+                        width: 'auto',
+                        stackup_spacing: 100
+                    });
+            </c:if>
+
+            <c:if test="${error}">
+            $.bootstrapGrowl("Произошла неопределенная ошибка, повторите попытку позже.",
+                    {
+                        type: 'danger',
+                        align: 'center',
+                        allow_dismiss: false,
+                        width: 'auto',
+                        stackup_spacing: 100
+                    });
+            </c:if>
+        });
+    </script>
+
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
@@ -35,13 +73,13 @@
                                     <div class="col-lg-3 col-sm-4 col-xs-12">
                                         <div class="inner">
                                             <h2>У меня уже есть аккаунт</h2>
-                                            <form action="<c:url value="/check-customer"/>" method="post">
+                                            <form action="<c:url value="/check_customer"/>" method="post">
                                                 <p><b>Войдите как существующий пользователь</b></p>
                                                 <fieldset>
-                                                    <div class="form-group">
+                                                    <div class="form-group <c:out value="${failed ? 'has-error':''}"/>">
                                                         <input name="username" placeholder="E-Mail" class="form-control" type="email" required>
                                                     </div>
-                                                    <div class="form-group">
+                                                    <div class="form-group <c:out value="${failed ? 'has-error':''}"/>">
                                                         <input name="password" placeholder="Пароль" class="form-control" type="password" required>
                                                     </div>
                                                     <div class="form-group">
@@ -53,7 +91,6 @@
                                                         <button type="submit" class="btn btn-shopping-cart">
                                                             <span class="fa fa-sign-in"></span> Войти
                                                         </button>
-                                                        <a style="float: right; padding-top: 4px;" href=""><b>Забыли пароль?</b></a>
                                                     </div>
                                                 </fieldset>
                                             </form>
@@ -62,27 +99,27 @@
                                     <div class="col-lg-3 col-sm-4 col-sm-offset-2 col-xs-12 col-lg-offset-2">
                                         <div class="inner">
                                             <h2>Впервые у нас?</h2>
-                                            <form id="register-form" method="POST" action="">
+                                            <form id="register-form" method="POST" action="<c:url value="/customer_sign_up"/>">
                                                 <p><b>Создайте аккаунт</b></p>
                                                 <fieldset>
                                                     <div class="form-group form-inline">
-                                                        <input name="first_name" placeholder="Ваше имя" class="form-control" type="text" required="true">
+                                                        <input name="name" placeholder="Ваше имя" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="text" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input id="email" name="email" placeholder="E-Mail" class="form-control" type="email" required="true">
+                                                        <input name="email" id="email" placeholder="E-Mail" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="email" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input name="pass" id="password" placeholder="Пароль" class="form-control" type="password" required="true">
+                                                        <input name="pass" id="password" placeholder="Пароль" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="password" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input name="repeat_pass" id="confirmPassword" placeholder="Повторите пароль" class="form-control" type="password" required="true">
+                                                        <input id="confirmPassword" placeholder="Повторите пароль" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="password" required>
                                                     </div>
                                                     <div style="display: none; padding: 8px;" id="passMismatchMsg" class="alert alert-danger" role="alert"></div>
                                                     <div class="form-group">
                                                         <p>Регистрируясь, вы соглашаетесь с <a style="color: #0088cc" href="/terms">пользовательским соглашением</a></p>
                                                     </div>
                                                     <div class="form-group">
-                                                        <button type="submit" id="createBtn" class="btn btn-shopping-cart" disabled="true">
+                                                        <button type="submit" id="createBtn" class="btn btn-shopping-cart" disabled>
                                                             <span class="fa fa-check"></span> Зарегистрироваться
                                                         </button>
                                                     </div>

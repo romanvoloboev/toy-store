@@ -6,20 +6,26 @@ import javax.persistence.*;
  * @author Roman Voloboev
  */
 
+@NamedQueries({
+        @NamedQuery(name = DeliveryAddress.SELECT_BY_CUSTOMER, query = "SELECT d FROM DeliveryAddress d INNER JOIN d.customer c WHERE lower(c.email) LIKE :email")
+})
+
 @Entity
 @Table(name = "delivery_address")
 public class DeliveryAddress {
+    public static final String SELECT_BY_CUSTOMER = "select_address_by_customer";
+
     private Integer id;
     private String city;
     private String street;
-    private short house;
-    private short flat;
+    private String house;
+    private String flat;
     private Customer customer;
 
     public DeliveryAddress() {
     }
 
-    public DeliveryAddress(Integer id, String city, String street, short house, short flat, Customer customer) {
+    public DeliveryAddress(Integer id, String city, String street, String house, String flat, Customer customer) {
         this.id = id;
         this.city = city;
         this.street = street;
@@ -28,7 +34,7 @@ public class DeliveryAddress {
         this.customer = customer;
     }
 
-    public DeliveryAddress(String city, String street, short house, short flat, Customer customer) {
+    public DeliveryAddress(String city, String street, String house, String flat, Customer customer) {
         this.city = city;
         this.street = street;
         this.house = house;
@@ -64,18 +70,18 @@ public class DeliveryAddress {
     }
 
     @Column(name = "house", nullable = false)
-    public short getHouse() {
+    public String getHouse() {
         return house;
     }
-    public void setHouse(short house) {
+    public void setHouse(String house) {
         this.house = house;
     }
 
     @Column(name = "flat")
-    public short getFlat() {
+    public String getFlat() {
         return flat;
     }
-    public void setFlat(short flat) {
+    public void setFlat(String flat) {
         this.flat = flat;
     }
 

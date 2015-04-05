@@ -1,12 +1,16 @@
 package com.romanvoloboev.service;
 
 import com.romanvoloboev.entity.Customer;
+import com.romanvoloboev.entity.DeliveryAddress;
 import com.romanvoloboev.entity.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Roman Voloboev

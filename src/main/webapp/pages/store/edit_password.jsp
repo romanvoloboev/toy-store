@@ -34,10 +34,10 @@
                                 <div class="box-heading" style="text-align: center;"><span>Личный кабинет</span></div>
                                 <div class="box-content box-content-profile" style="padding: 0; text-align: center;">
                                     <ul>
-                                        <li><a href="/profile">Мои настройки</a></li>
-                                        <li><a href="/wishlist">Список желаний</a></li>
-                                        <li><a href="/orders">История заказов</a></li>
-                                        <li><a href="/cart">Корзина</a></li>
+                                        <li><a href="<c:url value="/profile"/>">Профиль</a></li>
+                                        <li><a href="<c:url value="/wishlist"/>">Список желаний</a></li>
+                                        <li><a href="<c:url value="/orders"/>">История заказов</a></li>
+                                        <li><a href="<c:url value="/cart"/>">Корзина</a></li>
                                     </ul>
                                 </div>
                             </div>

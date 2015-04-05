@@ -33,6 +33,8 @@
 <script type="text/javascript" src="../../../webres/store/js/elevatezoom-min.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/jquery.rating-2.0.js"></script>
+<script type="text/javascript" src="../../../webres/store/js/bootstrap-growl.min.js"></script>
+<script type="text/javascript" src="../../../webres/store/js/jquery.inputmask.js"></script>
 
 <!--[if lt IE 9]>
 <script src="../../webres/js/html5.js"></script>

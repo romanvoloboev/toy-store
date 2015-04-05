@@ -33,20 +33,13 @@ public class PageCrossController {
         return new ModelAndView("store/subcategory");
     }
 
-    @RequestMapping("/profile")
-    public ModelAndView profile() {
-        return new ModelAndView("store/profile");
-    }
+
 
     @RequestMapping("/edit_password")
     public ModelAndView passwordChange() {
         return new ModelAndView("store/edit_password");
     }
 
-    @RequestMapping("/edit_profile")
-    public ModelAndView editProfile() {
-        return new ModelAndView("store/edit_profile");
-    }
 
     @RequestMapping("/wishlist")
     public ModelAndView wishlist() {
