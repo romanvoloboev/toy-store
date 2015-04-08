@@ -1,7 +1,7 @@
 package com.romanvoloboev.service;
 
+import com.romanvoloboev.entity.Address;
 import com.romanvoloboev.entity.Customer;
-import com.romanvoloboev.entity.DeliveryAddress;
 import com.romanvoloboev.entity.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,5 +32,15 @@ public class CustomerBOImplImplTest {
         customerBO.save(new Customer("Роман Customer", "test3@gmail.com", "password", "123-321-122",
                 true, Role.CUSTOMER, null, null, null, null));
 
+    }
+
+    @Test
+    public void fillCustomerAddress() throws Exception {
+        Customer customer = customerBO.selectEntityByEmail("test1@gmail.com");
+        Collection<Address> addresses = new ArrayList<>();
+        addresses.add(new Address("Никополь", "Херсонская", "117", null, customer));
+        addresses.add(new Address("Никополь", "Электрометталургов", "55", "4", customer));
+        customer.setAddresses(addresses);
+        customerBO.update(customer);
     }
 }

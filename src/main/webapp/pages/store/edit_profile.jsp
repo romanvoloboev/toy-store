@@ -71,9 +71,9 @@
                                         <td style="text-align: left; font-weight: bold;"><p style="margin: 5px 0 5px 0;">Адрес доставки</p></td>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${not empty addressesList}">
-                                                        <c:forEach items="${addressesList}" var="a">
-                                                            <div id="customer-address${a.id}" class="pull-left">${a.value}</div>
+                                                <c:when test="${not empty customer.addressesList}">
+                                                        <c:forEach items="${customer.addressesList}" var="a">
+                                                            <div id="customer-address${a.id}" class="pull-left">г. ${a.city}, ул. ${a.street}, д. ${a.house}<c:if test="${not empty a.flat}">, кв. ${a.flat}</c:if></div>
                                                             <div id="address-remove-btn${a.id}" class="pull-right" style="margin-left: 10px;">
                                                                 <a href="" onclick="event.preventDefault(); removeAddress(${a.id});" data-toggle="tooltip" title=""  data-original-title="Удалить"><i class="fa fa-times fa-lg"></i></a>
                                                             </div>
@@ -90,14 +90,14 @@
                                                                 <ul class="dropdown-menu"></ul>
                                                                 <input type="hidden" name="city_id" value="0">
                                                             </div>
-                                                            <div id="new-street" class="col-md-8 col-sm-8"  style="width: 203px; padding-left: 0; padding-right: 0;">
-                                                                <input placeholder="Улица" class="form-control" type="text" required>
+                                                            <div class="col-md-8 col-sm-8"  style="width: 203px; padding-left: 0; padding-right: 0;">
+                                                                <input id="new-street" placeholder="Улица" class="form-control" type="text" required>
                                                             </div>
-                                                            <div id="new-house" class="col-md-2 col-sm-2" style="width: 45px; padding-right: 0;">
-                                                                <input placeholder="Дом" class="form-control" type="text" required>
+                                                            <div class="col-md-2 col-sm-2" style="width: 45px; padding-right: 0;">
+                                                                <input id="new-house" placeholder="Дом" class="form-control" type="text" required>
                                                             </div>
-                                                            <div id="new-flat" class="col-md-2 col-sm-2"  style="width: 45px; padding-right: 0;">
-                                                                <input placeholder="Кв." class="form-control" type="text" required>
+                                                            <div class="col-md-2 col-sm-2"  style="width: 45px; padding-right: 0;">
+                                                                <input id="new-flat" placeholder="Кв." class="form-control" type="text" required>
                                                             </div>
                                                         </div>
                                                 </c:when>
@@ -108,14 +108,14 @@
                                                             <ul class="dropdown-menu"></ul>
                                                             <input type="hidden" name="city_id" value="0">
                                                         </div>
-                                                        <div id="new-street" class="col-md-8 col-sm-8"  style="width: 203px; padding-left: 0; padding-right: 0;">
-                                                            <input placeholder="Улица" class="form-control" type="text" required>
+                                                        <div class="col-md-8 col-sm-8"  style="width: 203px; padding-left: 0; padding-right: 0;">
+                                                            <input id="new-street" placeholder="Улица" class="form-control" type="text" required>
                                                         </div>
-                                                        <div id="new-house" class="col-md-2 col-sm-2" style="width: 45px; padding-right: 0;">
-                                                            <input placeholder="Дом" class="form-control" type="text" required>
+                                                        <div class="col-md-2 col-sm-2" style="width: 45px; padding-right: 0;">
+                                                            <input id="new-house" placeholder="Дом" class="form-control" type="text" required>
                                                         </div>
-                                                        <div id="new-flat" class="col-md-2 col-sm-2"  style="width: 45px; padding-right: 0;">
-                                                            <input placeholder="Кв." class="form-control" type="text" required>
+                                                        <div class="col-md-2 col-sm-2"  style="width: 45px; padding-right: 0;">
+                                                            <input id="new-flat" placeholder="Кв." class="form-control" type="text" required>
                                                         </div>
                                                     </div>
                                                 </c:otherwise>

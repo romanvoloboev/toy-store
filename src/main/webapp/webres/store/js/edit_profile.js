@@ -20,8 +20,8 @@ $(function(){
             phone = $("#new-phone").val();
             if (phone.indexOf('_') != -1 || phone.indexOf('+38(___)___-__-__') != -1) {
                 // todo: notify about wrong format
+                return;
             }
-            phone = phone.replace('(', '').replace(')', '').replace('-', '').replace('-', '').replace('+', '');
         }
 
         if ($("#new-address-form").css('display') != 'none') {

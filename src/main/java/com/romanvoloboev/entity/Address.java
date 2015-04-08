@@ -7,12 +7,12 @@ import javax.persistence.*;
  */
 
 @NamedQueries({
-        @NamedQuery(name = DeliveryAddress.SELECT_BY_CUSTOMER, query = "SELECT d FROM DeliveryAddress d INNER JOIN d.customer c WHERE lower(c.email) LIKE :email")
+        @NamedQuery(name = Address.SELECT_BY_CUSTOMER, query = "SELECT d FROM Address d INNER JOIN d.customer c WHERE lower(c.email) LIKE :email")
 })
 
 @Entity
-@Table(name = "delivery_address")
-public class DeliveryAddress {
+@Table(name = "address")
+public class Address {
     public static final String SELECT_BY_CUSTOMER = "select_address_by_customer";
 
     private Integer id;
@@ -22,10 +22,10 @@ public class DeliveryAddress {
     private String flat;
     private Customer customer;
 
-    public DeliveryAddress() {
+    public Address() {
     }
 
-    public DeliveryAddress(Integer id, String city, String street, String house, String flat, Customer customer) {
+    public Address(Integer id, String city, String street, String house, String flat, Customer customer) {
         this.id = id;
         this.city = city;
         this.street = street;
@@ -34,7 +34,7 @@ public class DeliveryAddress {
         this.customer = customer;
     }
 
-    public DeliveryAddress(String city, String street, String house, String flat, Customer customer) {
+    public Address(String city, String street, String house, String flat, Customer customer) {
         this.city = city;
         this.street = street;
         this.house = house;
@@ -43,7 +43,7 @@ public class DeliveryAddress {
     }
 
     @Id
-    @SequenceGenerator(name = "sequence", sequenceName = "delivery_address_seq")
+    @SequenceGenerator(name = "sequence", sequenceName = "address_seq")
     @GeneratedValue(generator = "sequence", strategy = GenerationType.AUTO)
     @Column(name = "id")
     public Integer getId() {

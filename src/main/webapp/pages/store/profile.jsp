@@ -71,9 +71,9 @@
                                         <td style="width: 20%; text-align: right; font-weight: bold;"><p>Адрес доставки</p></td>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${not empty addressesList}">
-                                                    <c:forEach items="${addressesList}" var="a">
-                                                        <p style="margin-left: 20px;">${a.value}</p>
+                                                <c:when test="${not empty customer.addressesList}">
+                                                    <c:forEach items="${customer.addressesList}" var="a">
+                                                        <p style="margin-left: 20px;">г. ${a.city}, ул. ${a.street}, д. ${a.house}<c:if test="${not empty a.flat}">, кв. ${a.flat}</c:if></p>
                                                     </c:forEach>
                                                 </c:when>
                                                 <c:otherwise>

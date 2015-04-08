@@ -29,14 +29,14 @@ public class Customer {
     private Collection<Product> wishes = new ArrayList<>();
     private Collection<Review> reviews = new ArrayList<>();
     private Collection<Booking> bookings = new ArrayList<>();
-    private Collection<DeliveryAddress> addresses = new ArrayList<>();
+    private Collection<Address> addresses = new ArrayList<>();
 
     public Customer() {
     }
 
     public Customer(Integer id, String name, String email, String password, String phone, boolean isActive, Role role,
                     Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
-                    Collection<DeliveryAddress> addresses) {
+                    Collection<Address> addresses) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -52,7 +52,7 @@ public class Customer {
 
     public Customer(String name, String email, String password, String phone, boolean isActive, Role role,
                     Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
-                    Collection<DeliveryAddress> addresses) {
+                    Collection<Address> addresses) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -143,10 +143,10 @@ public class Customer {
     }
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<DeliveryAddress> getAddresses() {
+    public Collection<Address> getAddresses() {
         return addresses;
     }
-    public void setAddresses(Collection<DeliveryAddress> addresses) {
+    public void setAddresses(Collection<Address> addresses) {
         this.addresses = addresses;
     }
 
