@@ -1,8 +1,8 @@
 package com.romanvoloboev.service;
 
-import com.romanvoloboev.entity.Address;
-import com.romanvoloboev.entity.Customer;
-import com.romanvoloboev.entity.Role;
+import com.romanvoloboev.model.Address;
+import com.romanvoloboev.model.Customer;
+import com.romanvoloboev.model.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,8 @@ import java.util.Collection;
 
 @ContextConfiguration(locations = {"classpath:spring-config.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CustomerBOImplImplTest {
-    @Autowired private CustomerBOImpl customerBO;
+public class CustomerServiceImplTest {
+    @Autowired private CustomerServiceImpl customerBO;
 
     @Test
     public void testSave() throws Exception {
@@ -36,7 +36,7 @@ public class CustomerBOImplImplTest {
 
     @Test
     public void fillCustomerAddress() throws Exception {
-        Customer customer = customerBO.selectEntityByEmail("test1@gmail.com");
+        Customer customer = customerBO.selectModel("test1@gmail.com");
         Collection<Address> addresses = new ArrayList<>();
         addresses.add(new Address("Никополь", "Херсонская", "117", null, customer));
         addresses.add(new Address("Никополь", "Электрометталургов", "55", "4", customer));

@@ -1,6 +1,6 @@
-package com.romanvoloboev.model;
+package com.romanvoloboev.dto;
 
-import com.romanvoloboev.service.CustomerBOImpl;
+import com.romanvoloboev.service.CustomerServiceImpl;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 
-public class CustomerModel {
+public class CustomerDTO {
     private int id;
     private String name;
     private String email;
@@ -21,10 +21,10 @@ public class CustomerModel {
     private String phone;
     private boolean isActive;
     private short role;
-    private List<AddressModel> addressesList = new ArrayList<>();
+    private List<AddressDTO> addressesList = new ArrayList<>();
 
-    public CustomerModel(int id, String name, String email, String password, String phone,
-                         boolean isActive, short role, List<AddressModel> addressesList) {
+    public CustomerDTO(int id, String name, String email, String password, String phone,
+                       boolean isActive, short role, List<AddressDTO> addressesList) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -45,7 +45,7 @@ public class CustomerModel {
 
     @NotNull
     @Size(min = 3, max = 50, message = "Incorrect name length")
-    @Pattern(regexp = CustomerBOImpl.NAME_PATTERN, message = "Incorrect name format")
+    @Pattern(regexp = CustomerServiceImpl.NAME_PATTERN, message = "Incorrect name format")
     public String getName() {
         return name;
     }
@@ -69,7 +69,7 @@ public class CustomerModel {
         this.password = password;
     }
 
-    @Pattern(regexp = CustomerBOImpl.PHONE_PATTERN)
+    @Pattern(regexp = CustomerServiceImpl.PHONE_PATTERN)
     public String getPhone() {
         return phone;
     }
@@ -93,10 +93,10 @@ public class CustomerModel {
         this.role = role;
     }
 
-    public List<AddressModel> getAddressesList() {
+    public List<AddressDTO> getAddressesList() {
         return addressesList;
     }
-    public void setAddressesList(List<AddressModel> addressesList) {
+    public void setAddressesList(List<AddressDTO> addressesList) {
         this.addressesList = addressesList;
     }
 }

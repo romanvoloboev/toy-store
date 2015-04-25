@@ -1,6 +1,6 @@
-package com.romanvoloboev.model;
+package com.romanvoloboev.dto;
 
-import com.romanvoloboev.service.AddressBOImpl;
+import com.romanvoloboev.service.AddressServiceImpl;
 
 import javax.validation.constraints.Pattern;
 
@@ -8,14 +8,14 @@ import javax.validation.constraints.Pattern;
  * @author Roman Voloboev
  */
 
-public class AddressModel {
+public class AddressDTO {
     private int id;
     private String city;
     private String street;
     private String house;
     private String flat;
 
-    public AddressModel(int id, String city, String street, String house, String flat) {
+    public AddressDTO(int id, String city, String street, String house, String flat) {
         this.id = id;
         this.city = city;
         this.street = street;
@@ -23,7 +23,7 @@ public class AddressModel {
         this.flat = flat;
     }
 
-    public AddressModel(String city, String street, String house, String flat) {
+    public AddressDTO(String city, String street, String house, String flat) {
         this.city = city;
         this.street = street;
         this.house = house;
@@ -37,7 +37,7 @@ public class AddressModel {
         this.id = id;
     }
 
-    @Pattern(regexp = AddressBOImpl.ADDRESS_PATTERN, message = "Incorrect city format")
+    @Pattern(regexp = AddressServiceImpl.ADDRESS_PATTERN, message = "Incorrect city format")
     public String getCity() {
         return city;
     }
@@ -45,7 +45,7 @@ public class AddressModel {
         this.city = city;
     }
 
-    @Pattern(regexp = AddressBOImpl.ADDRESS_PATTERN, message = "Incorrect street format")
+    @Pattern(regexp = AddressServiceImpl.ADDRESS_PATTERN, message = "Incorrect street format")
     public String getStreet() {
         return street;
     }

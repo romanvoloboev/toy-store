@@ -1,4 +1,4 @@
-package com.romanvoloboev.entity;
+package com.romanvoloboev.model;
 
 import org.hibernate.validator.constraints.Email;
 

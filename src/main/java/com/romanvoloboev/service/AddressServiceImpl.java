@@ -1,10 +1,9 @@
 package com.romanvoloboev.service;
 
-import com.romanvoloboev.bo.AddressBO;
 import com.romanvoloboev.dao.DAOImpl;
-import com.romanvoloboev.entity.Address;
-import com.romanvoloboev.entity.Customer;
-import com.romanvoloboev.model.AddressModel;
+import com.romanvoloboev.model.Address;
+import com.romanvoloboev.model.Customer;
+import com.romanvoloboev.dto.AddressDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,7 @@ import java.util.*;
  */
 
 @Service
-public class AddressBOImpl implements AddressBO {
+public class AddressServiceImpl implements AddressService {
     public static final String ADDRESS_PATTERN = "^[а-яА-ЯёЁa-zA-Z ]+$";
 
     @Qualifier("DAOImpl")
@@ -35,7 +34,7 @@ public class AddressBOImpl implements AddressBO {
 
     @Transactional
     @Override
-    public void save(AddressModel addressModel) throws Exception {
+    public void save(AddressDTO addressDTO) throws Exception {
 
     }
 
@@ -53,41 +52,34 @@ public class AddressBOImpl implements AddressBO {
 
     @Transactional(readOnly = true)
     @Override
-    public Address selectEntityById(Integer id) throws Exception {
+    public Address selectModel(Integer id) throws Exception {
        return (Address) dao.getHibernateTemplate().getSessionFactory().getCurrentSession().get(Address.class, id);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Address> selectAddressesList(Customer customer) throws Exception {
+    public List<Address> selectModelList(Customer customer) throws Exception {
         return dao.getHibernateTemplate().getSessionFactory().getCurrentSession().
                 getNamedQuery(Address.SELECT_BY_CUSTOMER).setParameter("email", customer.getEmail()).list();
     }
 
-    @Transactional(readOnly = true)
     @Override
-    public List<AddressModel> makeModelList(Customer customer) throws Exception {
-        List<Address> addresses = selectAddressesList(customer);
-        List<AddressModel> addressModels = new ArrayList<>();
+    public List<AddressDTO> selectDtoList(Customer customer) throws Exception {
+        List<Address> addresses = selectModelList(customer);
+        List<AddressDTO> addressDTOs = new ArrayList<>();
         for (Address address : addresses) {
-            addressModels.add(new AddressModel(address.getId(), address.getCity(), address.getStreet(),
+            addressDTOs.add(new AddressDTO(address.getId(), address.getCity(), address.getStreet(),
                     address.getHouse(), address.getFlat()));
         }
-        return addressModels;
+        return addressDTOs;
     }
 
-
-
-    public boolean isValid(AddressModel addressModel) throws ValidationException {
-        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        return validate(addressModel, validator);
-    }
-
-    public List<Address> makeEntityList(List<AddressModel> addressModelList) throws Exception {
+    @Override
+    public List<Address> selectModelList(List<AddressDTO> addressDTOList) throws Exception {
         List<Address> addresses = new ArrayList<>();
-        for (AddressModel addressModel: addressModelList) {
-            addresses.add(new Address(addressModel.getCity(), addressModel.getStreet(),
-                    addressModel.getHouse(), addressModel.getFlat(), null));
+        for (AddressDTO addressDTO : addressDTOList) {
+            addresses.add(new Address(addressDTO.getCity(), addressDTO.getStreet(),
+                    addressDTO.getHouse(), addressDTO.getFlat(), null));
         }
         return addresses;
     }
@@ -104,6 +96,12 @@ public class AddressBOImpl implements AddressBO {
             throw new ValidationException(errorString.toString());
         }
         return true;
+    }
+
+    @Override
+    public boolean isValid(AddressDTO addressDTO) throws ValidationException {
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        return validate(addressDTO, validator);
     }
 
 }

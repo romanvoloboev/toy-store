@@ -1,8 +1,7 @@
-package com.romanvoloboev.model;
+package com.romanvoloboev.dto;
 
-import com.romanvoloboev.service.CustomerBOImpl;
+import com.romanvoloboev.service.CustomerServiceImpl;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -13,14 +12,14 @@ import java.util.List;
  */
 
 
-public class SimpleCustomerModel {
+public class SimpleCustomerDTO {
     private Integer id;
     private String name;
     private String email;
     private String phone;
-    private List<AddressModel> addressesList = new ArrayList<>();
+    private List<AddressDTO> addressesList = new ArrayList<>();
 
-    public SimpleCustomerModel(Integer id, String name, String email, String phone, List<AddressModel> addressesList) {
+    public SimpleCustomerDTO(Integer id, String name, String email, String phone, List<AddressDTO> addressesList) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -36,7 +35,7 @@ public class SimpleCustomerModel {
     }
 
     @Size(min = 3, max = 50, message = "Incorrect name length")
-    @Pattern(regexp = CustomerBOImpl.NAME_PATTERN, message = "Incorrect name format")
+    @Pattern(regexp = CustomerServiceImpl.NAME_PATTERN, message = "Incorrect name format")
     public String getName() {
         return name;
     }
@@ -51,7 +50,7 @@ public class SimpleCustomerModel {
         this.email = email;
     }
 
-    @Pattern(regexp = CustomerBOImpl.PHONE_PATTERN, message = "Incorrect phone format")
+    @Pattern(regexp = CustomerServiceImpl.PHONE_PATTERN, message = "Incorrect phone format")
     public String getPhone() {
         return phone;
     }
@@ -59,10 +58,10 @@ public class SimpleCustomerModel {
         this.phone = phone;
     }
 
-    public List<AddressModel> getAddressesList() {
+    public List<AddressDTO> getAddressesList() {
         return addressesList;
     }
-    public void setAddressesList(List<AddressModel> addressesList) {
+    public void setAddressesList(List<AddressDTO> addressesList) {
         this.addressesList = addressesList;
     }
 }

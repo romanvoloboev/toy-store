@@ -1,6 +1,6 @@
 package com.romanvoloboev.service;
 
-import com.romanvoloboev.entity.Customer;
+import com.romanvoloboev.model.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,13 +24,13 @@ import java.util.logging.Logger;
 public class CustomerDetailsService implements UserDetailsService {
     private static final Logger LOGGER = Logger.getLogger(CustomerDetailsService.class.getName());
 
-    @Qualifier("customerBOImpl")
-    @Autowired private CustomerBOImpl customerBOImpl;
+    @Qualifier("customerServiceImpl")
+    @Autowired private CustomerService customerService;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         try {
-            Customer customer = customerBOImpl.selectEntityByEmail(email);
+            Customer customer = customerService.selectModel(email);
             if(customer != null && customer.isActive()) {
                 List<GrantedAuthority> authorities = new ArrayList<>();
                 if (customer.getRole().toString().equals("ADMIN")) {
