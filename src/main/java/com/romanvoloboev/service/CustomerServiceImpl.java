@@ -3,7 +3,7 @@ package com.romanvoloboev.service;
 import com.romanvoloboev.dao.DAOImpl;
 import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
-import com.romanvoloboev.model.Role;
+import com.romanvoloboev.model.enums.Role;
 import com.romanvoloboev.dto.AddressDTO;
 import com.romanvoloboev.dto.CustomerDTO;
 import com.romanvoloboev.dto.SimpleCustomerDTO;

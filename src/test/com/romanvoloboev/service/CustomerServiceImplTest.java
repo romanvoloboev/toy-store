@@ -2,7 +2,7 @@ package com.romanvoloboev.service;
 
 import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
-import com.romanvoloboev.model.Role;
+import com.romanvoloboev.model.enums.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

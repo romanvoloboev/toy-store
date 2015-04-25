@@ -1,13 +1,11 @@
 package com.romanvoloboev.controller;
 
 import com.romanvoloboev.model.Customer;
-import com.romanvoloboev.model.Role;
+import com.romanvoloboev.model.enums.Role;
 import com.romanvoloboev.dto.AddressDTO;
 import com.romanvoloboev.dto.SimpleCustomerDTO;
 import com.romanvoloboev.service.AddressService;
 import com.romanvoloboev.service.CustomerService;
-import com.romanvoloboev.service.CustomerServiceImpl;
-import com.romanvoloboev.service.AddressServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;

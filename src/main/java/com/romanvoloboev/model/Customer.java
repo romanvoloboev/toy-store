@@ -1,5 +1,6 @@
 package com.romanvoloboev.model;
 
+import com.romanvoloboev.model.enums.Role;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;

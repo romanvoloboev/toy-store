@@ -1,4 +1,4 @@
-package com.romanvoloboev.model;
+package com.romanvoloboev.model.enums;
 
 /**
  * @author Roman Voloboev
