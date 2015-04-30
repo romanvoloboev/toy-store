@@ -19,28 +19,28 @@ import java.util.Collection;
 @ContextConfiguration(locations = {"classpath:spring-config.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class CustomerServiceImplTest {
-    @Autowired private CustomerServiceImpl customerBO;
+    @Autowired private CustomerService customerService;
 
     @Test
     public void testSave() throws Exception {
-        customerBO.save(new Customer("Роман Admin", "test1@gmail.com", "password", "123-321-122",
+        customerService.save(new Customer("Роман Admin", "test1@gmail.com", "password", "123-321-122",
                 true, Role.ADMIN, null, null, null, null));
 
-        customerBO.save(new Customer("Роман Employee", "test2@gmail.com", "password", "123-321-122",
+        customerService.save(new Customer("Роман Employee", "test2@gmail.com", "password", "123-321-122",
                 true, Role.EMPLOYEE, null, null, null, null));
 
-        customerBO.save(new Customer("Роман Customer", "test3@gmail.com", "password", "123-321-122",
+        customerService.save(new Customer("Роман Customer", "test3@gmail.com", "password", "123-321-122",
                 true, Role.CUSTOMER, null, null, null, null));
 
     }
 
     @Test
     public void fillCustomerAddress() throws Exception {
-        Customer customer = customerBO.selectModel("test1@gmail.com");
+        Customer customer = customerService.selectModel("test1@gmail.com");
         Collection<Address> addresses = new ArrayList<>();
         addresses.add(new Address("Никополь", "Херсонская", "117", null, customer));
         addresses.add(new Address("Никополь", "Электрометталургов", "55", "4", customer));
         customer.setAddresses(addresses);
-        customerBO.update(customer);
+        customerService.save(customer);
     }
 }

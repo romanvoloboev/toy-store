@@ -86,7 +86,7 @@ public class Customer {
     }
 
     @Email
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", length = 50, nullable = false, unique = true)
     public String getEmail() {
         return email;
     }
@@ -118,7 +118,7 @@ public class Customer {
         this.isActive = isActive;
     }
 
-    @Column(name = "role")
+    @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
     public Role getRole() {
         return role;

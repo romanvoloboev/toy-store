@@ -1,6 +1,6 @@
 package com.romanvoloboev.service;
 
-import com.romanvoloboev.dao.DAOImpl;
+import com.romanvoloboev.repository.CustomerRepository;
 import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.model.enums.Role;
@@ -30,44 +30,33 @@ public class CustomerServiceImpl implements CustomerService {
     public static final String PHONE_PATTERN = "\\d{12}";
     public static final String NAME_PATTERN = "^[а-яА-ЯёЁa-zA-Z ]+$";
 
-    @Qualifier("DAOImpl")
-    @Autowired private DAOImpl dao;
+    @Qualifier("customerRepository")
+    @Autowired private CustomerRepository customerRepository;
 
     @Autowired private AddressService addressService;
 
     @Transactional
     @Override
     public void save(Customer customer) throws Exception {
-        dao.save(customer);
+        customerRepository.save(customer);
     }
 
     @Transactional
     @Override
     public void delete(Customer customer) throws Exception {
-        dao.delete(customer);
-    }
-
-    @Transactional
-    @Override
-    public void update(Customer customer) throws Exception {
-        dao.update(customer);
+        customerRepository.delete(customer);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Customer selectModel(String email) throws Exception {
-        try {
-            return (Customer) dao.getHibernateTemplate().getSessionFactory().getCurrentSession().getNamedQuery(Customer.SELECT_BY_EMAIL)
-                    .setParameter("email", email.toLowerCase()).setMaxResults(1).list().get(0);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+        return customerRepository.selectByEmailIgnoreCase(email);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Customer selectModel(Integer id) throws Exception {
-        return (Customer) dao.getHibernateTemplate().getSessionFactory().getCurrentSession().get(Customer.class, id);
+        return customerRepository.findOne(id);
     }
 
     //method for control panel customer adding...
@@ -84,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
             if(customerDTO.getAddressesList() != null) {
                 customer.setAddresses(addressService.selectModelList(customerDTO.getAddressesList()));
             }
-            dao.saveOrUpdate(customer);
+            customerRepository.save(customer);
         }
     }
 
@@ -106,7 +95,7 @@ public class CustomerServiceImpl implements CustomerService {
                     addressService.save(address);
                 }
             }
-            dao.update(customer);
+            customerRepository.save(customer);
         } else {
             throw new ValidationException();
         }
@@ -123,7 +112,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     @Override
     public SimpleCustomerDTO selectDto(Customer customer) throws Exception {
         if (customer == null) {

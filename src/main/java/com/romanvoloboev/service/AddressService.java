@@ -13,9 +13,7 @@ import java.util.List;
 
 public interface AddressService {
     void save(Address address) throws Exception;
-    void save(AddressDTO addressDTO) throws Exception;
     void delete(Address address) throws Exception;
-    void update(Address address) throws Exception;
     Address selectModel(Integer id) throws Exception;
     List<Address> selectModelList(Customer customer) throws Exception;
     List<Address> selectModelList(List<AddressDTO> addressDTOList) throws Exception;

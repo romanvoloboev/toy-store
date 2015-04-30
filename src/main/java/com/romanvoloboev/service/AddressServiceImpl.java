@@ -1,6 +1,6 @@
 package com.romanvoloboev.service;
 
-import com.romanvoloboev.dao.DAOImpl;
+import com.romanvoloboev.repository.AddressRepository;
 import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.dto.AddressDTO;
@@ -23,46 +23,36 @@ import java.util.*;
 public class AddressServiceImpl implements AddressService {
     public static final String ADDRESS_PATTERN = "^[а-яА-ЯёЁa-zA-Z ]+$";
 
-    @Qualifier("DAOImpl")
-    @Autowired private DAOImpl dao;
+    @Qualifier("addressRepository")
+    @Autowired private AddressRepository addressRepository;
 
     @Transactional
     @Override
     public void save(Address address) throws Exception {
-        dao.save(address);
-    }
-
-    @Transactional
-    @Override
-    public void save(AddressDTO addressDTO) throws Exception {
-
+        addressRepository.save(address);
     }
 
     @Transactional
     @Override
     public void delete(Address address) throws Exception {
-        dao.delete(address);
-    }
-
-    @Transactional
-    @Override
-    public void update(Address address) throws Exception {
-        dao.update(address);
+        addressRepository.delete(address);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Address selectModel(Integer id) throws Exception {
-       return (Address) dao.getHibernateTemplate().getSessionFactory().getCurrentSession().get(Address.class, id);
+       return addressRepository.findOne(id);
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<Address> selectModelList(Customer customer) throws Exception {
-        return dao.getHibernateTemplate().getSessionFactory().getCurrentSession().
-                getNamedQuery(Address.SELECT_BY_CUSTOMER).setParameter("email", customer.getEmail()).list();
+        return addressRepository.selectByCustomer(customer);
+//        return dao.getHibernateTemplate().getSessionFactory().getCurrentSession().
+//                getNamedQuery(Address.SELECT_BY_CUSTOMER).setParameter("email", customer.getEmail()).list();
     }
 
+    @Transactional
     @Override
     public List<AddressDTO> selectDtoList(Customer customer) throws Exception {
         List<Address> addresses = selectModelList(customer);
@@ -74,6 +64,7 @@ public class AddressServiceImpl implements AddressService {
         return addressDTOs;
     }
 
+    @Transactional
     @Override
     public List<Address> selectModelList(List<AddressDTO> addressDTOList) throws Exception {
         List<Address> addresses = new ArrayList<>();

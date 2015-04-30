@@ -12,7 +12,6 @@ public interface CustomerService {
     void save(Customer customer) throws Exception;
     void saveByModel(CustomerDTO customerDTO) throws Exception;
     void delete(Customer customer) throws Exception;
-    void update(Customer customer) throws Exception;
     Customer selectModel(String email) throws Exception;
     Customer selectModel(Integer id) throws Exception;
     Customer selectAuth();
