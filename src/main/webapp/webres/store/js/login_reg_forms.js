@@ -25,14 +25,14 @@ $(function(){
                 }
             });
         } else {
-            $('#passMismatchMsg').fadeIn(500).html('<strong>Внимание! </strong>Пароль не совпадает.');
+            $('#passMismatchMsg').fadeIn(500).html('<b>Внимание! </b>Пароль не совпадает.');
         }
         e.preventDefault();
     });
 
     $("#confirmPassword").on('keyup', function() {
         if (!validatePassword()) {
-            $('#passMismatchMsg').fadeIn(500).html('<strong>Внимание! </strong>Пароль не совпадает.');
+            $('#passMismatchMsg').fadeIn(500).html('<b>Внимание! </b>Пароль не совпадает.');
             $('#createBtn').prop("disabled", true);
         } else {
             $('#passMismatchMsg').fadeOut(500);

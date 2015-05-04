@@ -132,7 +132,7 @@
                                     </tbody>
                                 </table>
                                 <div class="form-group col-md-3 col-sm-3 col-sm-offset-7 col-md-offset-7" style="padding-top: 10px; padding-left: 0; padding-right: 0;">
-                                    <button type="submit" id="save" class="btn btn-shopping-cart pull-right">
+                                    <button type="submit" id="save" class="btn btn-shopping-cart pull-right" disabled>
                                         <span class="fa fa-check"></span> Сохранить
                                     </button>
                                 </div>

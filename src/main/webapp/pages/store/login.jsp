@@ -14,35 +14,26 @@
     <script type="text/javascript">
         $(function(){
             <c:if test="${failed}">
-            $.bootstrapGrowl("Неверный E-Mail, или пароль. Повторите попытку.",
+            $.notify("<b>Невереный E-mail/пароль или Ваш аккаунт заблокирован</b>",
                     {
-                        type: 'danger',
-                        align: 'center',
-                        allow_dismiss: false,
-                        width: 'auto',
-                        stackup_spacing: 100
+                        type: "danger",
+                        delay: 2000
                     });
             </c:if>
 
             <c:if test="${exist}">
-            $.bootstrapGrowl("Пользователь с таким E-Mail уже существует.",
+            $.notify("<b>Пользователь с таким E-mail уже существует</b>",
                     {
-                        type: 'danger',
-                        align: 'center',
-                        allow_dismiss: false,
-                        width: 'auto',
-                        stackup_spacing: 100
+                        type: "danger",
+                        delay: 1500
                     });
             </c:if>
 
             <c:if test="${error}">
-            $.bootstrapGrowl("Произошла неопределенная ошибка, повторите попытку позже.",
+            $.notify("<b>Произошла неизвестная ошибка при создании аккаунта... Повторите попытку позже.</b>",
                     {
-                        type: 'danger',
-                        align: 'center',
-                        allow_dismiss: false,
-                        width: 'auto',
-                        stackup_spacing: 100
+                        type: "danger",
+                        delay: 2000
                     });
             </c:if>
         });

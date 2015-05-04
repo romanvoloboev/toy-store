@@ -241,7 +241,7 @@
                                 <div class="carousel-inner">
                                     <div class="item">
                                         <div class="row box-product">
-                                            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="product-block">
                                                     <div class="image ">
                                                         <span class="product-label-special label">Распродажа</span>
@@ -267,7 +267,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
                                                 <div class="product-block">
                                                     <div class="image ">
                                                         <span class="product-label-special label">Sale</span>
@@ -297,7 +297,7 @@
                                     </div>
                                     <div class="item">
                                         <div class="row box-product">
-                                            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
                                                 <div class="product-block">
                                                     <div class="image ">
                                                         <div class="image_container">
@@ -319,7 +319,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
                                                 <div class="product-block">
                                                     <div class="image ">
                                                         <div class="image_container">
@@ -345,7 +345,7 @@
                                     </div>
                                     <div class="item active">
                                         <div class="row box-product">
-                                            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
                                                 <div class="product-block">
                                                     <div class="image">
                                                         <div class="image_container">
@@ -367,7 +367,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-sm-6 col-xs-12 ">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
                                                 <div class="product-block">
                                                     <div class="image">
                                                         <div class="image_container">

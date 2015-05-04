@@ -18,11 +18,13 @@
 <link href="../../../webres/store/css/blog.css" rel="stylesheet">
 <link href="../../../webres/store/css/colorbox.css" rel="stylesheet">
 <link href="../../../webres/store/css/jquery.rating.css" rel="stylesheet">
+<link href="../../../webres/store/css/animate.css" rel="stylesheet">
 
 <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700" rel="stylesheet" type="text/css">
 
-<script type="text/javascript" src="../../../webres/store/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../../../webres/store/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../../webres/store/js/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/jquery-ui-1.8.16.custom.min.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/jquery.cookie.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/sidebarmenu.js"></script>
@@ -33,7 +35,7 @@
 <script type="text/javascript" src="../../../webres/store/js/elevatezoom-min.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/jquery.rating-2.0.js"></script>
-<script type="text/javascript" src="../../../webres/store/js/bootstrap-growl.min.js"></script>
+<script type="text/javascript" src="../../../webres/store/js/bootstrap-notify.min.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/jquery.inputmask.js"></script>
 
 <!--[if lt IE 9]>
@@ -41,3 +43,22 @@
 <script src="../../webres/js/respond.min.js"></script>
 <link rel="stylesheet" type="text/css" href="../../webres/css/ie7.css"/>
 <![endif]-->
+
+<script type="text/javascript">
+    $(function(){
+        $.notifyDefaults({
+            allow_dismiss: false,
+            placement: {
+                from: "top",
+                align: "center"
+            },
+            animate: {
+                enter: 'animated bounceInDown',
+                exit: 'animated bounceOutUp'
+            },
+            offset: {
+                y: 90
+            }
+        });
+    })
+</script>

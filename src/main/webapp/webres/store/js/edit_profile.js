@@ -1,12 +1,44 @@
 $(function(){
+    var globalName = $("#name").val();
 
     $("#new-phone").inputmask('+38(999)999-99-99');
+
+    $("#name").on('keyup', function() {
+        if(this.value != globalName) {
+            $('#save').prop("disabled", false);
+        } else {
+            $('#save').prop("disabled", true);
+        }
+    });
+
+    $("#new-phone").on('keyup', function() {
+        if(this.value.indexOf('_') == -1 ) {
+            $('#save').prop("disabled", false);
+        } else {
+            $('#save').prop("disabled", true);
+        }
+
+    });
+
+    $("#new-address-form > #new-city, #new-street, #new-house").keyup(function() {
+        var $emptyFields = $('#new-address-form > #new-city, #new-street, #new-house').filter(function() {
+            return $.trim(this.value) === "";
+        });
+
+        if (!$emptyFields.length) {
+            $('#save').prop("disabled", false);
+        } else {
+            $('#save').prop("disabled", true);
+        }
+    });
 
     $('#add-new-address-btn').click(function(e){
         e.preventDefault();
         $('#new-address-form').fadeIn(500);
         $('#add-new-address-btn').hide();
     });
+
+
 
     $('#save').click(function(){
         var name = $("#name").val();
@@ -19,7 +51,11 @@ $(function(){
         if ($("#new-phone").css('display') != 'none') {
             phone = $("#new-phone").val();
             if (phone.indexOf('_') != -1) {
-                // todo: notify about wrong format
+                $.notify("<b>Неверный формат телефона</b>",
+                    {
+                        type: "danger",
+                        delay: 1000
+                    });
                 return;
             } else if (phone.indexOf('+38(___)___-__-__') != -1) {
                 phone = '';
@@ -32,31 +68,61 @@ $(function(){
             house = $('#new-house').val().trim();
             flat = $('#new-flat').val().trim();
 
-            if (city.length == 0 || street.length == 0 || house.length == 0) {
-                // todo: notify about wrong format
-                return;
+            if (!(city.length == 0 && street.length == 0 && house.length == 0)) {
+                if (city.length == 0 || street.length == 0 || house.length == 0){
+                    $.notify("<b>Неверный формат адреса</b>",
+                        {
+                            type: "danger",
+                            delay: 1000
+                        });
+                    return;
+                }
             }
         }
 
         $.post('/customer_update_profile', {name: name, phone: phone, city: city, street: street, house: house, flat: flat}, function(response) {
             if(response.status == 'ok') {
-                // todo: notify OK and reload page
+                $.notify("<b>Ваши личные данные успешно изменены</b>",
+                    {
+                        delay: 1500,
+                        onClose: function(){
+                            location.reload();
+                        }
+                    });
+            } else if(response.status == "wrongParams") {
+                $.notify("<b>Вы ввели недопустимые значения имени или адреса</b>",
+                    {
+                        type: "danger",
+                        delay: 1500
+                    });
             } else {
-                // todo: notify ERROR
+                $.notify("<b>Невозможно сохранить данные, повторите попытку позже</b>",
+                    {
+                        type: "danger",
+                        delay: 1000
+                    });
             }
         });
-
 
     });
 });
 
-
 function removeAddress(id){
     $.post('/customer_remove_address', {id:id}, function(response) {
         if(response.status == 'ok') {
-            // todo: notify OK
+            $.notify("<b>Адрес успешно удален</b>",
+                {
+                    delay: 1000,
+                    onClose: function(){
+                        location.reload();
+                    }
+                });
         } else {
-            // todo: notify ERROR
+            $.notify("<b>Невозможно удалить заданый адрес</b>",
+                {
+                    type: "danger",
+                    delay: 1000
+                });
         }
     });
     $("#customer-address"+id).hide();
@@ -66,9 +132,16 @@ function removeAddress(id){
 function removePhone() {
     $.post('/customer_remove_phone', function(response) {
         if(response.status == 'ok') {
-            // todo: notify OK
+            $.notify("<b>Телефон успешно удален</b>",
+                {
+                    delay: 1000
+                });
         } else {
-            // todo: notify ERROR
+            $.notify("<b>Ошибка при удалении телефона, повторите попытку позже</b>",
+                {
+                    type: "danger",
+                    delay: 1000
+                });
         }
     });
     $("#customer-phone").hide();
