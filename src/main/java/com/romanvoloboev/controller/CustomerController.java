@@ -1,9 +1,8 @@
 package com.romanvoloboev.controller;
 
+import com.romanvoloboev.dto.CustomerDTO;
 import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.model.enums.Role;
-import com.romanvoloboev.dto.AddressDTO;
-import com.romanvoloboev.dto.SimpleCustomerDTO;
 import com.romanvoloboev.service.AddressService;
 import com.romanvoloboev.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.ValidationException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,7 +82,7 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("store/profile");
         try {
             Customer customer = customerService.selectAuth();
-            modelAndView.addObject("customer", customerService.selectDto(customer));
+            modelAndView.addObject("customer", customerService.selectSimpleDto(customer));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "", e);
         }
@@ -98,11 +95,70 @@ public class CustomerController {
         ModelAndView modelAndView = new ModelAndView("store/edit_profile");
         try {
             Customer customer = customerService.selectAuth();
-            modelAndView.addObject("customer", customerService.selectDto(customer));
+            modelAndView.addObject("customer", customerService.selectSimpleDto(customer));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "", e);
         }
         return modelAndView;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping("/customer_remove_phone")
+    @ResponseBody
+    public Map<String, String> removePhone() {
+        Map<String, String> response = new HashMap<>();
+        try {
+            Customer customer = customerService.selectAuth();
+            customer.setPhone("");
+            customerService.save(customer);
+            response.put("status", "ok");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            response.put("status", "phoneDeleteError");
+        }
+        return response;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping("/customer_remove_address")
+    @ResponseBody
+    public Map<String, String> removeAddress(@RequestParam("id") Integer id) {
+        Map<String, String> response = new HashMap<>();
+        Customer customer = customerService.selectAuth();
+        try {
+            addressService.removeCustomerAddress(id, customer);
+            response.put("status", "ok");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            response.put("status", "noSuchAddress");
+        }
+        return response;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/customer_change_password", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> changePassword(@RequestParam("old_password")String oldPass, @RequestParam("new_password")String newPass,
+                                              @RequestParam("repeat_new_pass")String repeatNewPass) {
+        Map<String, String> response = new HashMap<>();
+        Customer customer = customerService.selectAuth();
+        if (oldPass.equals(customer.getPassword())) {
+            if (newPass.equals(repeatNewPass)) {
+                customer.setPassword(newPass);
+                try {
+                    customerService.save(customer);
+                    response.put("status", "ok");
+                } catch (Exception e) {
+                    LOGGER.log(Level.SEVERE, e.getMessage());
+                    response.put("status", "unknownError");
+                }
+            } else {
+                response.put("status", "wrongRepeatPassword");
+            }
+        } else {
+            response.put("status", "wrongOldPassword");
+        }
+        return response;
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -112,36 +168,19 @@ public class CustomerController {
                                              @RequestParam("city")String city, @RequestParam("street")String street,
                                              @RequestParam("house")String house, @RequestParam("flat")String flat) {
         Map<String, String> response = new HashMap<>();
-        List<AddressDTO> addressDTOs = null;
         Customer customer = customerService.selectAuth();
-        if (name.equals("")) name = customer.getName();
-        if (phone.equals("")) phone = customer.getPhone();
-        if(!city.equals("") && !street.equals("") && !house.equals("")) {
-            AddressDTO addressDTO = new AddressDTO(city, street, house, flat);
-            try {
-                addressService.isValid(addressDTO);
-                addressDTOs = new ArrayList<>();
-                addressDTOs.add(addressDTO);
-            } catch (ValidationException e) {
-                LOGGER.log(Level.SEVERE, e.getMessage());
-                response.put("status", "wrongAddress");
-                return response;
-            }
-        }
-        SimpleCustomerDTO simpleCustomerDTO = new SimpleCustomerDTO(customer.getId(),
-                name, customer.getEmail(), customerService.stringToPhone(phone), addressDTOs);
+        CustomerDTO customerDTO;
         try {
-            customerService.update(simpleCustomerDTO, customer);
+            customerDTO = customerService.prepareDTO(customer, name, phone, city, street, house, flat);
+            customerService.updateProfile(customerDTO, customer);
+            response.put("status", "ok");
         } catch (ValidationException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
-            response.put("status", "wrongName");
-            return response;
+            response.put("status", "wrongParams");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
-            response.put("status", "error");
-            return response;
+            response.put("status", "unknownError");
         }
-        response.put("status", "ok");
         return response;
     }
 }

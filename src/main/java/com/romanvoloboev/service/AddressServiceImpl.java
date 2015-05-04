@@ -34,6 +34,12 @@ public class AddressServiceImpl implements AddressService {
 
     @Transactional
     @Override
+    public void save(List<Address> addresses) throws Exception {
+        addressRepository.save(addresses);
+    }
+
+    @Transactional
+    @Override
     public void delete(Address address) throws Exception {
         addressRepository.delete(address);
     }
@@ -44,12 +50,21 @@ public class AddressServiceImpl implements AddressService {
        return addressRepository.findOne(id);
     }
 
+    @Transactional
+    @Override
+    public void removeCustomerAddress(Integer id, Customer customer) throws Exception {
+        Address address = addressRepository.getByIdAndCustomer(id, customer);
+        if (address != null) {
+            delete(address);
+        } else {
+            throw new Exception("No specified customer address found");
+        }
+    }
+
     @Transactional(readOnly = true)
     @Override
     public List<Address> selectModelList(Customer customer) throws Exception {
-        return addressRepository.selectByCustomer(customer);
-//        return dao.getHibernateTemplate().getSessionFactory().getCurrentSession().
-//                getNamedQuery(Address.SELECT_BY_CUSTOMER).setParameter("email", customer.getEmail()).list();
+        return addressRepository.getByCustomer(customer);
     }
 
     @Transactional

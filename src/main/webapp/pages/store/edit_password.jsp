@@ -9,7 +9,7 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-    <script src="../../webres/store/js/login_reg_forms.js"></script>
+    <script src="../../webres/store/js/edit_password.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
@@ -45,29 +45,23 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Смена пароля</h1></div>
+                            <div class="col-lg-12" style="padding-bottom: 15px;"><h1>Смена пароля</h1></div>
                             <div class="col-md-4">
-                                <form id="change-pass-form" method="POST" action="<c:url value=""/>">
-                                    <fieldset>
-
-                                        <input type="hidden">
-
-                                        <div class="form-group form-inline">
-                                            <input name="old_pass" placeholder="Старый пароль" class="form-control" type="password" required="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <input id="password" name="new_pass" placeholder="Новый пароль" class="form-control" type="password" required="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <input id="confirmPassword" name="new_pass_repeat" placeholder="Новый пароль еще раз" class="form-control" type="password" required="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" id="createBtn" class="btn btn-shopping-cart" disabled="true">
-                                                <span class="fa fa-check"></span> Сохранить
-                                            </button>
-                                        </div>
-                                    </fieldset>
-                                </form>
+                                <div class="form-group form-inline">
+                                    <input id="oldPassword" placeholder="Старый пароль" class="form-control" type="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="password" placeholder="Новый пароль" class="form-control" type="password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input id="confirmPassword" placeholder="Новый пароль еще раз" class="form-control" type="password" required>
+                                </div>
+                                <div style="display: none; padding: 8px;" id="passMismatchMsg" class="alert alert-danger" role="alert"></div>
+                                <div class="form-group">
+                                    <button type="submit" id="changePassBtn" class="btn btn-shopping-cart" disabled>
+                                        <span class="fa fa-check"></span> Сохранить
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

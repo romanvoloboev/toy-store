@@ -1,12 +1,11 @@
 package com.romanvoloboev.service;
 
+import com.romanvoloboev.dto.CustomerDTO;
 import com.romanvoloboev.repository.CustomerRepository;
 import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.model.enums.Role;
 import com.romanvoloboev.dto.AddressDTO;
-import com.romanvoloboev.dto.CustomerDTO;
-import com.romanvoloboev.dto.SimpleCustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +17,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -27,7 +27,7 @@ import java.util.Set;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    public static final String PHONE_PATTERN = "\\d{12}";
+    public static final String PHONE_PATTERN = "(^$|^\\d{12}$)";
     public static final String NAME_PATTERN = "^[а-яА-ЯёЁa-zA-Z ]+$";
 
     @Qualifier("customerRepository")
@@ -50,7 +50,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     @Override
     public Customer selectModel(String email) throws Exception {
-        return customerRepository.selectByEmailIgnoreCase(email);
+        return customerRepository.getByEmailIgnoreCase(email);
     }
 
     @Transactional(readOnly = true)
@@ -62,13 +62,13 @@ public class CustomerServiceImpl implements CustomerService {
     //method for control panel customer adding...
     @Transactional
     @Override
-    public void saveByModel(CustomerDTO customerDTO) throws Exception {
+    public void saveByDTO(CustomerDTO customerDTO) throws Exception {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
         if (validate(customerDTO, validator)) {
             Customer customer = new Customer(customerDTO.getName(), customerDTO.getEmail(),
-                        customerDTO.getPassword(), customerDTO.getPhone(), customerDTO.isActive(),
-                        getRoleFromModel(customerDTO.getRole()), null, null, null, null);
+                    customerDTO.getPassword(), customerDTO.getPhone(), customerDTO.isActive(),
+                    getRoleFromDTO(customerDTO.getRole()), null, null, null, null);
 
             if(customerDTO.getAddressesList() != null) {
                 customer.setAddresses(addressService.selectModelList(customerDTO.getAddressesList()));
@@ -77,27 +77,44 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
+    @Transactional
+    @Override
+    public CustomerDTO prepareDTO(Customer customer, String name, String phone, String city, String street,
+                                  String house, String flat) throws Exception {
+        List<AddressDTO> addressDTOs = null;
+        if (name.equals("")) name = customer.getName();
+        if (phone.equals("")) phone = customer.getPhone();
+        if(!city.equals("") && !street.equals("") && !house.equals("")) {
+            AddressDTO addressDTO = new AddressDTO(city, street, house, flat);
+            if (addressService.isValid(addressDTO)) {
+                addressDTOs = new ArrayList<>();
+                addressDTOs.add(addressDTO);
+            }
+        }
+        return new CustomerDTO(customer.getId(), name, customer.getEmail(), customer.getPassword(), stringToPhone(phone),
+                customer.isActive(), getRoleFromModel(customer.getRole()), addressDTOs);
+    }
 
     @Transactional
     @Override
-    public void update(SimpleCustomerDTO simpleCustomerDTO, Customer customer) throws Exception {
+    public void updateProfile(CustomerDTO customerDTO, Customer customer) throws Exception {
+        if (customerDTO == null) throw new Exception();
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        if(validate(simpleCustomerDTO, validator)) {
-            customer.setName(simpleCustomerDTO.getName());
-            if (!simpleCustomerDTO.getPhone().equals("")) {
-                customer.setPhone(simpleCustomerDTO.getPhone());
+        if(validate(customerDTO, validator)) {
+            customer.setName(customerDTO.getName());
+            if (!customerDTO.getPhone().equals("")) {
+                customer.setPhone(customerDTO.getPhone());
             }
-            List<AddressDTO> addressDTOs = simpleCustomerDTO.getAddressesList();
+            List<AddressDTO> addressDTOs = customerDTO.getAddressesList();
             if(addressDTOs != null) {
                 Address address;
                 for (AddressDTO addressDTO : addressDTOs) {
-                    address = new Address(addressDTO.getCity(), addressDTO.getStreet(), addressDTO.getHouse(), addressDTO.getFlat(), customer);
+                    address = new Address(addressDTO.getCity(), addressDTO.getStreet(), addressDTO.getHouse(),
+                            addressDTO.getFlat(), customer);
                     addressService.save(address);
                 }
             }
             customerRepository.save(customer);
-        } else {
-            throw new ValidationException();
         }
     }
 
@@ -114,16 +131,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional(readOnly = true)
     @Override
-    public SimpleCustomerDTO selectDto(Customer customer) throws Exception {
+    public CustomerDTO selectSimpleDto(Customer customer) throws Exception {
         if (customer == null) {
             return null;
         } else {
-            return new SimpleCustomerDTO(customer.getId(), customer.getName(), customer.getEmail(),
+            return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(),
                     phoneToString(customer.getPhone()), addressService.selectDtoList(customer));
         }
     }
 
-    public Role getRoleFromModel(short role) throws Exception {
+    private Role getRoleFromDTO(short role) {
         switch (role) {
             case 1:
                 return Role.CUSTOMER;
@@ -136,15 +153,33 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    public String phoneToString(String phone) {
-        return "+" + phone.substring(0, 2) + "(" + phone.substring(2, 5) + ")" +
-                phone.substring(5, 8) + "-" + phone.substring(8, 10) + "-" + phone.substring(10);
+    private short getRoleFromModel(Role role) {
+        switch (role) {
+            case CUSTOMER:
+                return 1;
+            case EMPLOYEE:
+                return 2;
+            case ADMIN:
+                return 3;
+            default:
+                return 1;
+        }
     }
 
-    public String stringToPhone(String phone) {
-        return phone.replace("+", "").replace("(", "").replace(")", "").replace("-", "").replace("-", "");
+    private String phoneToString(String phone) {
+        if (!phone.equals("")) {
+            phone = "+" + phone.substring(0, 2) + "(" + phone.substring(2, 5) + ")" +
+                    phone.substring(5, 8) + "-" + phone.substring(8, 10) + "-" + phone.substring(10);
+        }
+        return phone;
     }
 
+    private String stringToPhone(String phone) {
+        if (!phone.equals("")) {
+            return phone.replace("+", "").replace("(", "").replace(")", "").replace("-", "").replace("-", "");
+        }
+        return phone;
+    }
 
     private boolean validate(Object object, Validator validator) throws ValidationException {
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);

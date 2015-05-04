@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
-    Customer selectByEmailIgnoreCase(String email);
+    Customer getByEmailIgnoreCase(String email);
 }

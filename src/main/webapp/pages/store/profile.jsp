@@ -65,7 +65,17 @@
                                     </tr>
                                     <tr>
                                         <td style="width: 20%; text-align: right; font-weight: bold;"><p>Телефон</p></td>
-                                        <td><p style="margin-left: 20px;">${customer.phone}</p></td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${not empty customer.phone}">
+                                                    <p style="margin-left: 20px;">${customer.phone}</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <p style="margin-left: 20px;">не указан</p>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td style="width: 20%; text-align: right; font-weight: bold;"><p>Адрес доставки</p></td>

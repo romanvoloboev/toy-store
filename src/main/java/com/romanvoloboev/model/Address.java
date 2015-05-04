@@ -6,15 +6,9 @@ import javax.persistence.*;
  * @author Roman Voloboev
  */
 
-@NamedQueries({
-        @NamedQuery(name = Address.SELECT_BY_CUSTOMER, query = "SELECT d FROM Address d INNER JOIN d.customer c WHERE lower(c.email) LIKE :email")
-})
-
 @Entity
 @Table(name = "address")
 public class Address {
-    public static final String SELECT_BY_CUSTOMER = "select_address_by_customer";
-
     private Integer id;
     private String city;
     private String street;

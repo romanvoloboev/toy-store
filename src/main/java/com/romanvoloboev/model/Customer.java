@@ -11,15 +11,9 @@ import java.util.Collection;
  * @author Roman Voloboev
  */
 
-@NamedQueries({
-        @NamedQuery(name = Customer.SELECT_BY_EMAIL, query = "SELECT c FROM Customer c WHERE lower(c.email) LIKE :email")
-})
-
 @Entity
 @Table(name = "customer")
 public class Customer {
-    public static final String SELECT_BY_EMAIL = "select_customer_by_email";
-
     private Integer id;
     private String name;
     private String email;

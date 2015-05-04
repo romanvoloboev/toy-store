@@ -60,11 +60,18 @@
                                     <tr>
                                         <td style="text-align: left; font-weight: bold;"><p style="margin: 5px 0 5px 0;">Телефон</p></td>
                                         <td>
-                                            <div id="customer-phone" class="pull-left">${customer.phone}</div>
+                                            <c:choose>
+                                                <c:when test="${not empty customer.phone}">
+                                                    <div id="customer-phone" class="pull-left">${customer.phone}</div>
+                                                    <div id="remove-phone" class="pull-right" style="margin-left: 10px;">
+                                                        <a onclick="event.preventDefault(); removePhone();" data-toggle="tooltip" data-original-title="Удалить"><i class="fa fa-times fa-lg"></i></a>
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <input id="new-phone" placeholder="+38(___)___-__-__" style="width: 293px;" class="form-control" type="text" required>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <input id="new-phone" placeholder="+38(___)___-__-__" style="width: 293px; display: none;" class="form-control" type="text" required>
-                                            <div id="remove-phone" class="pull-right" style="margin-left: 10px;">
-                                                <a href="" onclick="event.preventDefault(); removePhone();" data-toggle="tooltip" title=""  data-original-title="Удалить"><i class="fa fa-times fa-lg"></i></a>
-                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -75,7 +82,7 @@
                                                         <c:forEach items="${customer.addressesList}" var="a">
                                                             <div id="customer-address${a.id}" class="pull-left">г. ${a.city}, ул. ${a.street}, д. ${a.house}<c:if test="${not empty a.flat}">, кв. ${a.flat}</c:if></div>
                                                             <div id="address-remove-btn${a.id}" class="pull-right" style="margin-left: 10px;">
-                                                                <a href="" onclick="event.preventDefault(); removeAddress(${a.id});" data-toggle="tooltip" title=""  data-original-title="Удалить"><i class="fa fa-times fa-lg"></i></a>
+                                                                <a onclick="event.preventDefault(); removeAddress(${a.id});" data-toggle="tooltip" title=""  data-original-title="Удалить"><i class="fa fa-times fa-lg"></i></a>
                                                             </div>
                                                             <br>
                                                         </c:forEach>
@@ -102,7 +109,7 @@
                                                         </div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <div id="new-address-form">
+                                                    <div id="new-address-form" style="padding-top: 10px;">
                                                         <div class="col-md-12 col-sm-12" style="padding: 0 0 10px 0">
                                                             <input id="new-city" style="width: 293px;" type="text" placeholder="Введите город" class="form-control" autocomplete="off">
                                                             <ul class="dropdown-menu"></ul>

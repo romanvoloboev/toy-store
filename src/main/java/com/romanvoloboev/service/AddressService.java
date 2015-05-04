@@ -13,10 +13,12 @@ import java.util.List;
 
 public interface AddressService {
     void save(Address address) throws Exception;
+    void save(List<Address> addresses) throws Exception;
     void delete(Address address) throws Exception;
     Address selectModel(Integer id) throws Exception;
     List<Address> selectModelList(Customer customer) throws Exception;
     List<Address> selectModelList(List<AddressDTO> addressDTOList) throws Exception;
     List<AddressDTO> selectDtoList(Customer customer) throws Exception;
     boolean isValid(AddressDTO addressDTO) throws ValidationException;
+    void removeCustomerAddress(Integer id, Customer customer) throws Exception;
 }

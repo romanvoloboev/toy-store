@@ -11,6 +11,8 @@ import java.util.List;
  */
 
 public interface AddressRepository extends JpaRepository<Address, Integer> {
-    Address selectById(Integer id);
-    List<Address> selectByCustomer(Customer customer);
+    Address getById(Integer id);
+    List<Address> getByCustomer(Customer customer);
+    Address getByIdAndCustomer(Integer id, Customer customer);
+
 }

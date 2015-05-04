@@ -12,7 +12,6 @@ import java.util.List;
  * @author Roman Voloboev
  */
 
-
 public class CustomerDTO {
     private int id;
     private String name;
@@ -23,8 +22,8 @@ public class CustomerDTO {
     private short role;
     private List<AddressDTO> addressesList = new ArrayList<>();
 
-    public CustomerDTO(int id, String name, String email, String password, String phone,
-                       boolean isActive, short role, List<AddressDTO> addressesList) {
+    public CustomerDTO(int id, String name, String email, String password, String phone, boolean isActive,
+                       short role, List<AddressDTO> addressesList) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -32,6 +31,14 @@ public class CustomerDTO {
         this.phone = phone;
         this.isActive = isActive;
         this.role = role;
+        this.addressesList = addressesList;
+    }
+
+    public CustomerDTO(Integer id, String name, String email, String phone, List<AddressDTO> addressesList) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
         this.addressesList = addressesList;
     }
 
@@ -53,6 +60,7 @@ public class CustomerDTO {
         this.name = name;
     }
 
+    @NotNull
     public String getEmail() {
         return email;
     }
@@ -77,7 +85,6 @@ public class CustomerDTO {
         this.phone = phone;
     }
 
-    @NotNull
     public boolean isActive() {
         return isActive;
     }
