@@ -10,6 +10,14 @@
 
     <%@include file="includes/head.jsp"%>
     <script src="../../webres/store/js/edit_profile.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <script src="../../webres/store/js/city_autocomplete.js"></script>
+    <style type="text/css">
+        .pac-icon {
+            width: 0;
+            background-image: none;
+        }
+    </style>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-account-login" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
@@ -45,8 +53,8 @@
                     </div>
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
-                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Редактирование профиля</h1></div>
-                            <div class="col-md-7">
+                            <div class="col-lg-12" style="padding-bottom: 16px;"><h1>Редактирование личных данных</h1></div>
+                            <div class="col-md-8">
                                 <table>
                                     <tbody>
                                     <tr>
@@ -68,10 +76,10 @@
                                                     </div>
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <input id="new-phone" placeholder="+38(___)___-__-__" style="width: 293px;" class="form-control" type="text" required>
+                                                    <input id="newPhoneInput" placeholder="+38(___)___-__-__" style="width: 293px;" class="form-control" type="text" required>
                                                 </c:otherwise>
                                             </c:choose>
-                                            <input id="new-phone" placeholder="+38(___)___-__-__" style="width: 293px; display: none;" class="form-control" type="text" required>
+                                            <input id="newPhoneInput" placeholder="+38(___)___-__-__" style="width: 293px; display: none;" class="form-control" type="text" required>
                                         </td>
                                     </tr>
                                     <tr>
@@ -93,36 +101,32 @@
 
                                                         <div id="new-address-form" style="display: none;">
                                                             <div class="col-md-12 col-sm-12" style="padding: 0 0 10px 0">
-                                                                <input id="new-city" style="width: 293px;" type="text" placeholder="Введите город" class="form-control" autocomplete="off">
-                                                                <ul class="dropdown-menu"></ul>
-                                                                <input type="hidden" name="city_id" value="0">
+                                                                <input id="newCityInput" style="width: 293px;" type="text" placeholder="Введите город" class="form-control" autocomplete="on">
                                                             </div>
                                                             <div class="col-md-8 col-sm-8"  style="width: 203px; padding-left: 0; padding-right: 0;">
-                                                                <input id="new-street" placeholder="Улица" class="form-control" type="text" required>
+                                                                <input id="newStreetInput" placeholder="Улица" class="form-control" type="text" required>
                                                             </div>
                                                             <div class="col-md-2 col-sm-2" style="width: 45px; padding-right: 0;">
-                                                                <input id="new-house" placeholder="Дом" class="form-control" type="text" required>
+                                                                <input id="newHouseInput" placeholder="Дом" class="form-control" type="text" required>
                                                             </div>
                                                             <div class="col-md-2 col-sm-2"  style="width: 45px; padding-right: 0;">
-                                                                <input id="new-flat" placeholder="Кв." class="form-control" type="text" required>
+                                                                <input id="newFlatInput" placeholder="Кв." class="form-control" type="text" required>
                                                             </div>
                                                         </div>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <div id="new-address-form" style="padding-top: 10px;">
                                                         <div class="col-md-12 col-sm-12" style="padding: 0 0 10px 0">
-                                                            <input id="new-city" style="width: 293px;" type="text" placeholder="Введите город" class="form-control" autocomplete="off">
-                                                            <ul class="dropdown-menu"></ul>
-                                                            <input type="hidden" name="city_id" value="0">
+                                                            <input id="newCityInput" style="width: 293px;" type="text" placeholder="Введите город" class="form-control" autocomplete="on">
                                                         </div>
                                                         <div class="col-md-8 col-sm-8"  style="width: 203px; padding-left: 0; padding-right: 0;">
-                                                            <input id="new-street" placeholder="Улица" class="form-control" type="text" required>
+                                                            <input id="newStreetInput" placeholder="Улица" class="form-control" type="text" required>
                                                         </div>
                                                         <div class="col-md-2 col-sm-2" style="width: 45px; padding-right: 0;">
-                                                            <input id="new-house" placeholder="Дом" class="form-control" type="text" required>
+                                                            <input id="newHouseInput" placeholder="Дом" class="form-control" type="text" required>
                                                         </div>
                                                         <div class="col-md-2 col-sm-2"  style="width: 45px; padding-right: 0;">
-                                                            <input id="new-flat" placeholder="Кв." class="form-control" type="text" required>
+                                                            <input id="newFlatInput" placeholder="Кв." class="form-control" type="text" required>
                                                         </div>
                                                     </div>
                                                 </c:otherwise>
@@ -130,12 +134,22 @@
                                         </td>
                                     </tr>
                                     </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div style="padding-top: 10px;">
+                                                <button type="submit" id="save" class="btn btn-shopping-cart pull-left" disabled>
+                                                    <span class="fa fa-check"></span> Сохранить
+                                                </button>
+                                                <button type="submit" id="cancel" class="btn btn-shopping-cart pull-left" style="margin-left: 10px;">
+                                                    <span class="fa"></span> Отмена
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
                                 </table>
-                                <div class="form-group col-md-3 col-sm-3 col-sm-offset-7 col-md-offset-7" style="padding-top: 10px; padding-left: 0; padding-right: 0;">
-                                    <button type="submit" id="save" class="btn btn-shopping-cart pull-right" disabled>
-                                        <span class="fa fa-check"></span> Сохранить
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>

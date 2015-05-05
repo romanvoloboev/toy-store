@@ -21,7 +21,7 @@ import java.util.*;
 
 @Service
 public class AddressServiceImpl implements AddressService {
-    public static final String ADDRESS_PATTERN = "^[а-яА-ЯёЁa-zA-Z ]+$";
+    public static final String ADDRESS_PATTERN = "^[а-яА-ЯёЁ., ]+$";
 
     @Qualifier("addressRepository")
     @Autowired private AddressRepository addressRepository;

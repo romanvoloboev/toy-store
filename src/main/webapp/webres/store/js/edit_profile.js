@@ -1,7 +1,7 @@
 $(function(){
     var globalName = $("#name").val();
 
-    $("#new-phone").inputmask('+38(999)999-99-99');
+    $("#newPhoneInput").inputmask('+38(999)999-99-99');
 
     $("#name").on('keyup', function() {
         if(this.value != globalName) {
@@ -11,7 +11,7 @@ $(function(){
         }
     });
 
-    $("#new-phone").on('keyup', function() {
+    $("#newPhoneInput").on('keyup', function() {
         if(this.value.indexOf('_') == -1 ) {
             $('#save').prop("disabled", false);
         } else {
@@ -20,8 +20,8 @@ $(function(){
 
     });
 
-    $("#new-address-form > #new-city, #new-street, #new-house").keyup(function() {
-        var $emptyFields = $('#new-address-form > #new-city, #new-street, #new-house').filter(function() {
+    $("#new-address-form > #newCityInput, #newStreetInput, #newHouseInput").keyup(function() {
+        var $emptyFields = $('#new-address-form > #newCityInput, #newStreetInput, #newHouseInput').filter(function() {
             return $.trim(this.value) === "";
         });
 
@@ -38,7 +38,10 @@ $(function(){
         $('#add-new-address-btn').hide();
     });
 
+    $('#cancel').click(function(){
+        history.back();
 
+    });
 
     $('#save').click(function(){
         var name = $("#name").val();
@@ -48,8 +51,8 @@ $(function(){
         var house = '';
         var flat = '';
 
-        if ($("#new-phone").css('display') != 'none') {
-            phone = $("#new-phone").val();
+        if ($("#newPhoneInput").css('display') != 'none') {
+            phone = $("#newPhoneInput").val();
             if (phone.indexOf('_') != -1) {
                 $.notify("<b>Неверный формат телефона</b>",
                     {
@@ -63,10 +66,10 @@ $(function(){
         }
 
         if ($("#new-address-form").css('display') != 'none') {
-            city = $('#new-city').val().trim();
-            street = $('#new-street').val().trim();
-            house = $('#new-house').val().trim();
-            flat = $('#new-flat').val().trim();
+            city = $('#newCityInput').val().trim();
+            street = $('#newStreetInput').val().trim();
+            house = $('#newHouseInput').val().trim();
+            flat = $('#newFlatInput').val().trim();
 
             if (!(city.length == 0 && street.length == 0 && house.length == 0)) {
                 if (city.length == 0 || street.length == 0 || house.length == 0){
@@ -146,5 +149,5 @@ function removePhone() {
     });
     $("#customer-phone").hide();
     $("#remove-phone").hide();
-    $("#new-phone").show();
+    $("#newPhoneInput").show();
 }

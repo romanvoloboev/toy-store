@@ -47,7 +47,7 @@ public class Address {
         this.id = id;
     }
 
-    @Column(name = "city", length = 50, nullable = false)
+    @Column(name = "city", length = 100, nullable = false)
     public String getCity() {
         return city;
     }

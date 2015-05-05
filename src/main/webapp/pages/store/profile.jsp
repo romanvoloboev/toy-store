@@ -45,8 +45,8 @@
                     <div class="col-lg-10 col-sm-10 col-xs-12" style="padding-top: 15px;">
                         <div id="content" class="user-settings">
                             <div class="col-md-8" style="padding-bottom: 16px;">
-                                <div class="col-lg-5" style="padding-left: 0;"><h1>Контактные данные</h1></div>
-                                <div class="col-md-7">
+                                <div class="col-md-5 col-lg-4 col-sm-6" style="padding-left: 0;"><h1>Личные данные</h1></div>
+                                <div class="col-md-7 col-lg-8 col-sm-6" style="padding-left: 0;">
                                     <ul class="list footer-list" style="padding-top: 8px;">
                                         <li><a href="<c:url value="/edit_profile"/>">Редактировать</a></li>
                                         <li style="margin-left: 15px;"><a href="<c:url value="/edit_password"/>">Изменить пароль</a></li>
