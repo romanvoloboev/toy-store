@@ -7,6 +7,7 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
+    <script src="../../webres/cp/js/brand.js"></script>
 </head>
 <body>
 <div id="container">
@@ -16,42 +17,32 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <div class="pull-right">
-                    <button type="submit" id="save" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Сохранить"><i class="fa fa-save"></i></button>
-                    <a href="<c:url value="/cp/brand"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Назад"><i class="fa fa-reply"></i></a>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-plus"></i>&nbsp;Редактирование производителя</h4>
                 </div>
-                <h1>Производители</h1>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <a href="<c:url value="/cp/brand"/>" data-toggle="tooltip" class="btn btn-default" data-original-title="Назад"><i class="fa fa-reply"></i>&nbsp;Отмена</a>
+                </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i> Редактирование производителя</h3>
-                </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-sm-1 control-label" for="brand-name">Название</label>
-                                <div class="col-sm-4">
-                                    <input type="text" id="brand-name" class="form-control">
-                                </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <input type="hidden" id="brand-id" value="${brand.id}"/>
+                                <input type="text" value="${brand.name}" id="brand-name" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-1 control-label" for="brand-country">Страна</label>
-                                <div class="col-sm-4">
-                                    <input type="text" id="brand-country" class="form-control">
-                                    <ul class="dropdown-menu"></ul>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <input type="text" value="${brand.country}" id="brand-country" class="form-control" required>
                             </div>
-                            <div class="form-group">
-                                <label class="col-sm-1 control-label" for="brand-status">Статус</label>
-                                <div class="col-sm-4">
-                                    <select name="status" id="brand-status" class="form-control">
-                                        <option value="1">Активен</option>
-                                        <option value="0">Отключен</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <button type="button" id="update-brand" class="btn btn-success pull-right"><i class="fa fa-check"></i> Сохранить</button>
                             </div>
                         </div>
                     </div>

@@ -7,7 +7,7 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
-
+    <script src="../../webres/cp/js/brand.js"></script>
 </head>
 <body>
 <div id="container">
@@ -17,45 +17,44 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <h1>Производители</h1>
-                <div class="pull-right">
-                    <a href="<c:url value="/cp/new_brand"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Добавить"><i class="fa fa-plus"></i></a>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-list"></i>&nbsp;Управление</h4>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <a href="<c:url value="/cp/brand/add"/>" data-toggle="tooltip" class="btn btn-success" data-original-title="Добавить производителя"><i class="fa fa-plus"></i>&nbsp;Добавить производителя</a>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-list"></i> Список производителей</h3>
-                </div>
                 <div class="panel-body">
-                    <div class="form-horizontal">
+                    <div class="form-horizontal col-sm-12 col-md-9 col-lg-9" style="padding: 0;">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <td class="text-left">
-                                        Название
-                                    </td>
-                                    <td class="text-left">
-                                        Страна
-                                    </td>
-                                    <td class="text-left">
-                                        Статус
-                                    </td>
-                                    <td class="text-center">Действие</td>
+                                    <th class="text-left col-sm-4 col-md-4 col-lg-4">Название</th>
+                                    <th class="text-left col-sm-4 col-md-4 col-lg-4">Страна</th>
+                                    <th class="text-center col-sm-4 col-md-4 col-lg-4">Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-left">name</td>
-                                    <td class="text-left">фывфывввввввв</td>
-                                    <td class="text-left">доступен</td>
-                                    <td class="text-center">
-                                        <a href="<c:url value="/cp/edit_brand"/>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                        <a href="<c:url value="/cp/remove_brand"/>" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                <c:forEach items="${brand}" var="b">
+                                    <tr>
+                                        <td class="text-left">${b.name}</td>
+                                        <td class="text-left">${b.country}</td>
+                                        <td class="text-center">
+                                            <button type="button" onclick="changeBrandStatus(${b.id})" data-toggle="tooltip" class="btn <c:out value="${b.active ? 'btn-default' : 'btn-warning'}"/>"
+                                                    title="<c:out value="${b.active ? 'Скрыть производителя' : 'Активировать производителя'}"/>">
+                                                <span class="fa <c:out value="${b.active ? 'fa-eye' : 'fa-eye-slash'}"/>"></span>
+                                            </button>
+                                            <a href="<c:url value="/cp/brand/edit?id=${b.id}"/>" data-toggle="tooltip" class="btn btn-default" title="Редактировать производителя"><i class="fa fa-pencil"></i></a>
+                                            <button type="button" onclick="deleteBrand(${b.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить производителя">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>

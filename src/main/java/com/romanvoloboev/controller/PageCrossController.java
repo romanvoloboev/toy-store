@@ -166,18 +166,4 @@ public class PageCrossController {
 
 
 
-    @RequestMapping("/cp/brand")
-    public ModelAndView showBrands() {
-        return new ModelAndView("cp/brand");
-    }
-
-    @RequestMapping("/cp/new_brand")
-    public ModelAndView addBrands() {
-        return new ModelAndView("cp/brand_add");
-    }
-
-    @RequestMapping("/cp/edit_brand")
-    public ModelAndView editBrands() {
-        return new ModelAndView("cp/brand_edit");
-    }
 }
