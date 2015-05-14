@@ -39,12 +39,12 @@
                 <div class="panel-body">
                     <div class="form-horizontal">
                         <ul class="nav nav-tabs">
-                            <li class="isActive"><a href="#tab-general" data-toggle="tab">Основная информация</a></li>
+                            <li class="active"><a href="#tab-general" data-toggle="tab">Основная информация</a></li>
                             <li><a href="#tab-image" data-toggle="tab">Изображения</a></li>
                         </ul>
 
                         <div class="tab-content">
-                            <div class="tab-pane isActive" id="tab-general">
+                            <div class="tab-pane active" id="tab-general">
                                 <div class="col-md-9" style="padding: 0;">
                                     <div class="form-group">
                                         <div class="col-md-6">

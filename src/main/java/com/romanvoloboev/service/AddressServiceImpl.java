@@ -5,7 +5,6 @@ import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.dto.AddressDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,6 @@ import java.util.*;
 public class AddressServiceImpl implements AddressService {
     public static final String ADDRESS_PATTERN = "^[а-яА-ЯёЁ., ]+$";
 
-    @Qualifier("addressRepository")
     @Autowired private AddressRepository addressRepository;
 
     @Transactional
@@ -63,14 +61,14 @@ public class AddressServiceImpl implements AddressService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Address> selectModelList(Customer customer) throws Exception {
+    public List<Address> selectModels(Customer customer) throws Exception {
         return addressRepository.getByCustomer(customer);
     }
 
     @Transactional
     @Override
-    public List<AddressDTO> selectDtoList(Customer customer) throws Exception {
-        List<Address> addresses = selectModelList(customer);
+    public List<AddressDTO> selectDTOs(Customer customer) throws Exception {
+        List<Address> addresses = selectModels(customer);
         List<AddressDTO> addressDTOs = new ArrayList<>();
         for (Address address : addresses) {
             addressDTOs.add(new AddressDTO(address.getId(), address.getCity(), address.getStreet(),
@@ -81,7 +79,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Transactional
     @Override
-    public List<Address> selectModelList(List<AddressDTO> addressDTOList) throws Exception {
+    public List<Address> selectModels(List<AddressDTO> addressDTOList) throws Exception {
         List<Address> addresses = new ArrayList<>();
         for (AddressDTO addressDTO : addressDTOList) {
             addresses.add(new Address(addressDTO.getCity(), addressDTO.getStreet(),

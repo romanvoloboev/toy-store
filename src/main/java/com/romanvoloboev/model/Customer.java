@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Roman Voloboev
@@ -19,25 +19,25 @@ public class Customer {
     private String email;
     private String password;
     private String phone;
-    private boolean isActive;
+    private boolean active;
     private Role role;
-    private Collection<Product> wishes = new ArrayList<>();
-    private Collection<Review> reviews = new ArrayList<>();
-    private Collection<Booking> bookings = new ArrayList<>();
-    private Collection<Address> addresses = new ArrayList<>();
+    private List<Product> wishes = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
+    private List<Booking> bookings = new ArrayList<>();
+    private List<Address> addresses = new ArrayList<>();
 
     public Customer() {
     }
 
-    public Customer(Integer id, String name, String email, String password, String phone, boolean isActive, Role role,
-                    Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
-                    Collection<Address> addresses) {
+    public Customer(Integer id, String name, String email, String password, String phone, boolean active, Role role,
+                    List<Product> wishes, List<Review> reviews, List<Booking> bookings,
+                    List<Address> addresses) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
-        this.isActive = isActive;
+        this.active = active;
         this.role = role;
         this.wishes = wishes;
         this.reviews = reviews;
@@ -45,14 +45,14 @@ public class Customer {
         this.addresses = addresses;
     }
 
-    public Customer(String name, String email, String password, String phone, boolean isActive, Role role,
-                    Collection<Product> wishes, Collection<Review> reviews, Collection<Booking> bookings,
-                    Collection<Address> addresses) {
+    public Customer(String name, String email, String password, String phone, boolean active, Role role,
+                    List<Product> wishes, List<Review> reviews, List<Booking> bookings,
+                    List<Address> addresses) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
-        this.isActive = isActive;
+        this.active = active;
         this.role = role;
         this.wishes = wishes;
         this.reviews = reviews;
@@ -106,10 +106,10 @@ public class Customer {
 
     @Column(name = "is_active")
     public boolean isActive() {
-        return isActive;
+        return active;
     }
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Column(name = "role", nullable = false)
@@ -122,26 +122,26 @@ public class Customer {
     }
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
-    public void setReviews(Collection<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<Booking> getBookings() {
+    public List<Booking> getBookings() {
         return bookings;
     }
-    public void setBookings(Collection<Booking> bookings) {
+    public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
-    public void setAddresses(Collection<Address> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 
@@ -149,10 +149,10 @@ public class Customer {
     @JoinTable(name = "wish",
             joinColumns = @JoinColumn(name = "customer_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    public Collection<Product> getWishes() {
+    public List<Product> getWishes() {
         return wishes;
     }
-    public void setWishes(Collection<Product> wishes) {
+    public void setWishes(List<Product> wishes) {
         this.wishes = wishes;
     }
 }

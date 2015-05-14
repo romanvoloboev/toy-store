@@ -2,7 +2,7 @@ package com.romanvoloboev.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Roman Voloboev
@@ -13,22 +13,22 @@ import java.util.Collection;
 public class Category {
     private Integer id;
     private String name;
-    private boolean isActive;
-    private Collection<Subcategory> subcategories = new ArrayList<>();
+    private boolean active;
+    private List<Subcategory> subcategories = new ArrayList<>();
 
     public Category() {
     }
 
-    public Category(Integer id, String name, boolean isActive, Collection<Subcategory> subcategories) {
+    public Category(Integer id, String name, boolean active, List<Subcategory> subcategories) {
         this.id = id;
         this.name = name;
-        this.isActive = isActive;
+        this.active = active;
         this.subcategories = subcategories;
     }
 
-    public Category(String name, boolean isActive, Collection<Subcategory> subcategories) {
+    public Category(String name, boolean active, List<Subcategory> subcategories) {
         this.name = name;
-        this.isActive = isActive;
+        this.active = active;
         this.subcategories = subcategories;
     }
 
@@ -53,17 +53,17 @@ public class Category {
 
     @Column(name = "is_active")
     public boolean isActive() {
-        return isActive;
+        return active;
     }
     public void setActive(boolean isActive) {
-        this.isActive = isActive;
+        this.active = isActive;
     }
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<Subcategory> getSubcategories() {
+    public List<Subcategory> getSubcategories() {
         return subcategories;
     }
-    public void setSubcategories(Collection<Subcategory> subcategories) {
+    public void setSubcategories(List<Subcategory> subcategories) {
         this.subcategories = subcategories;
     }
 }

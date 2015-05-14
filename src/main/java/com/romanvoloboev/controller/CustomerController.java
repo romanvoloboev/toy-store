@@ -6,7 +6,6 @@ import com.romanvoloboev.model.enums.Role;
 import com.romanvoloboev.service.AddressService;
 import com.romanvoloboev.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +28,8 @@ import java.util.logging.Logger;
 @Controller
 public class CustomerController {
     private static final Logger LOGGER = Logger.getLogger(CustomerController.class.getName());
-    
-    @Qualifier("customerServiceImpl")
+
     @Autowired private CustomerService customerService;
-    
-    @Qualifier("addressServiceImpl")
     @Autowired private AddressService addressService;
 
     @PreAuthorize("isAnonymous()")
@@ -48,10 +44,12 @@ public class CustomerController {
         return modelAndView;
     }
 
+    //todo: params validation with DTO
     @PreAuthorize("isAnonymous()")
-    @RequestMapping("/customer_sign_up")
+    @RequestMapping(value = "/customer_sign_up", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> signUp(@RequestParam("name")String name, @RequestParam("email")String email,
+    public Map<String, String> signUp(@RequestParam("name")String name,
+                                      @RequestParam("email")String email,
                                       @RequestParam("pass")String password) {
         Map<String, String> response = new HashMap<>();
         try {
@@ -70,7 +68,7 @@ public class CustomerController {
                 return response;
             }
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "", e);
+            LOGGER.log(Level.SEVERE, e.getMessage());
             response.put("status", "error");
             return response;
         }
@@ -84,7 +82,7 @@ public class CustomerController {
             Customer customer = customerService.selectAuth();
             modelAndView.addObject("customer", customerService.selectSimpleDto(customer));
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "", e);
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return modelAndView;
     }
@@ -97,7 +95,7 @@ public class CustomerController {
             Customer customer = customerService.selectAuth();
             modelAndView.addObject("customer", customerService.selectSimpleDto(customer));
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "", e);
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return modelAndView;
     }
@@ -120,7 +118,7 @@ public class CustomerController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @RequestMapping("/customer_remove_address")
+    @RequestMapping(value = "/customer_remove_address", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> removeAddress(@RequestParam("id") Integer id) {
         Map<String, String> response = new HashMap<>();
@@ -138,7 +136,8 @@ public class CustomerController {
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/customer_change_password", method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, String> changePassword(@RequestParam("old_password")String oldPass, @RequestParam("new_password")String newPass,
+    public Map<String, String> changePassword(@RequestParam("old_password")String oldPass,
+                                              @RequestParam("new_password")String newPass,
                                               @RequestParam("repeat_new_pass")String repeatNewPass) {
         Map<String, String> response = new HashMap<>();
         Customer customer = customerService.selectAuth();

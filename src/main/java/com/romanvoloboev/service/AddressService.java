@@ -16,9 +16,9 @@ public interface AddressService {
     void save(List<Address> addresses) throws Exception;
     void delete(Address address) throws Exception;
     Address selectModel(Integer id) throws Exception;
-    List<Address> selectModelList(Customer customer) throws Exception;
-    List<Address> selectModelList(List<AddressDTO> addressDTOList) throws Exception;
-    List<AddressDTO> selectDtoList(Customer customer) throws Exception;
+    List<Address> selectModels(Customer customer) throws Exception;
+    List<Address> selectModels(List<AddressDTO> addressDTOList) throws Exception;
+    List<AddressDTO> selectDTOs(Customer customer) throws Exception;
     boolean isValid(AddressDTO addressDTO) throws ValidationException;
     void removeCustomerAddress(Integer id, Customer customer) throws Exception;
 }

@@ -2,8 +2,8 @@ package com.romanvoloboev.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Roman Voloboev
@@ -19,13 +19,13 @@ public class Booking {
     private short deliveryService;
     private short paymentType;
     private Customer customer;
-    private Collection<BookingItem> items = new ArrayList<>();
+    private List<BookingItem> items = new ArrayList<>();
 
     public Booking() {
     }
 
     public Booking(Integer id, float amount, Date date, short status, short deliveryService, short paymentType, Customer customer,
-                   Collection<BookingItem> items) {
+                   List<BookingItem> items) {
         this.id = id;
         this.amount = amount;
         this.date = date;
@@ -37,7 +37,7 @@ public class Booking {
     }
 
     public Booking(float amount, Date date, short status, short deliveryService, short paymentType, Customer customer,
-                   Collection<BookingItem> items) {
+                   List<BookingItem> items) {
         this.amount = amount;
         this.date = date;
         this.status = status;
@@ -108,10 +108,10 @@ public class Booking {
     }
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<BookingItem> getItems() {
+    public List<BookingItem> getItems() {
         return items;
     }
-    public void setItems(Collection<BookingItem> items) {
+    public void setItems(List<BookingItem> items) {
         this.items = items;
     }
 }

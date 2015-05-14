@@ -8,6 +8,7 @@ $(function(){
     $('#register-form').submit(function(e){
         if (validatePassword()) {
             $.post('/customer_sign_up', $('#register-form').serialize(), function(response){
+                //redirect to profile after registration
                 if(response.status == 'ok') {
                     $.ajax({
                         url: '/check_customer',

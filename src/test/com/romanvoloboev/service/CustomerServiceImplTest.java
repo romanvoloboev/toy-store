@@ -10,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,7 +38,7 @@ public class CustomerServiceImplTest {
     @Test
     public void fillCustomerAddress() throws Exception {
         Customer customer = customerService.selectModel("test1@gmail.com");
-        Collection<Address> addresses = new ArrayList<>();
+        List<Address> addresses = new ArrayList<>();
         addresses.add(new Address("Никополь", "Херсонская", "117", null, customer));
         addresses.add(new Address("Никополь", "Электрометталургов", "55", "4", customer));
         customer.setAddresses(addresses);
@@ -49,7 +48,7 @@ public class CustomerServiceImplTest {
     @Test
     public  void getAddresses() throws Exception {
         Customer customer = customerService.selectModel("test1@gmail.com");
-        List<Address> addressList = addressService.selectModelList(customer);
+        List<Address> addressList = addressService.selectModels(customer);
         for (Address address:addressList) {
             System.out.println(address.getCity() +", " +address.getStreet() +", " +address.getHouse());
         }

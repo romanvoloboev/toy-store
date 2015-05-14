@@ -14,28 +14,28 @@ public class Review {
     private String comment;
     private float rating;
     private Date date;
-    private boolean isActive;
+    private boolean active;
     private Product product;
     private Customer customer;
 
     public Review() {
     }
 
-    public Review(Integer id, String comment, float rating, Date date, boolean isActive, Product product, Customer customer) {
+    public Review(Integer id, String comment, float rating, Date date, boolean active, Product product, Customer customer) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
         this.date = date;
-        this.isActive = isActive;
+        this.active = active;
         this.product = product;
         this.customer = customer;
     }
 
-    public Review(String comment, float rating, Date date, boolean isActive, Product product, Customer customer) {
+    public Review(String comment, float rating, Date date, boolean active, Product product, Customer customer) {
         this.comment = comment;
         this.rating = rating;
         this.date = date;
-        this.isActive = isActive;
+        this.active = active;
         this.product = product;
         this.customer = customer;
     }
@@ -77,10 +77,10 @@ public class Review {
 
     @Column(name = "is_active", nullable = false)
     public boolean isActive() {
-        return isActive;
+        return active;
     }
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @ManyToOne

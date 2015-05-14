@@ -2,7 +2,7 @@ package com.romanvoloboev.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Roman Voloboev
@@ -14,24 +14,24 @@ public class Brand {
     private Integer id;
     private String name;
     private String country;
-    private boolean isActive;
-    private Collection<Product> products = new ArrayList<>();
+    private boolean active;
+    private List<Product> products = new ArrayList<>();
 
     public Brand() {
     }
 
-    public Brand(Integer id, String name, String country, boolean isActive, Collection<Product> products) {
+    public Brand(Integer id, String name, String country, boolean active, List<Product> products) {
         this.id = id;
         this.name = name;
         this.country = country;
-        this.isActive = isActive;
+        this.active = active;
         this.products = products;
     }
 
-    public Brand(String name, String country, boolean isActive, Collection<Product> products) {
+    public Brand(String name, String country, boolean active, List<Product> products) {
         this.name = name;
         this.country = country;
-        this.isActive = isActive;
+        this.active = active;
         this.products = products;
     }
 
@@ -65,17 +65,17 @@ public class Brand {
 
     @Column(name = "is_active")
     public boolean isActive() {
-        return isActive;
+        return active;
     }
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<Product> getProducts() {
+    public List<Product> getProducts() {
         return products;
     }
-    public void setProducts(Collection<Product> products) {
+    public void setProducts(List<Product> products) {
         this.products = products;
     }
 }

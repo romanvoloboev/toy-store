@@ -2,8 +2,8 @@ package com.romanvoloboev.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Roman Voloboev
@@ -21,23 +21,23 @@ public class Product {
     private float price;
     private float oldPrice;
     private short allowAge;
-    private boolean isActive;
+    private boolean active;
     private float rating;
     private short width;
     private short height;
     private short length;
     private Brand brand;
     private Subcategory subcategory;
-    private Collection<Image> images = new ArrayList<>();
-    private Collection<Review> reviews = new ArrayList<>();
+    private List<Image> images = new ArrayList<>();
+    private List<Review> reviews = new ArrayList<>();
 
     public Product() {
     }
 
     public Product(Integer id, String name, String description, Date date, short quantity, String code, float price,
-                   float oldPrice, short allowAge, boolean isActive, float rating, short width,
-                   short height, short length, Brand brand, Subcategory subcategory, Collection<Image> images,
-                   Collection<Review> reviews) {
+                   float oldPrice, short allowAge, boolean active, float rating, short width,
+                   short height, short length, Brand brand, Subcategory subcategory, List<Image> images,
+                   List<Review> reviews) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -47,7 +47,7 @@ public class Product {
         this.price = price;
         this.oldPrice = oldPrice;
         this.allowAge = allowAge;
-        this.isActive = isActive;
+        this.active = active;
         this.rating = rating;
         this.width = width;
         this.height = height;
@@ -59,9 +59,9 @@ public class Product {
     }
 
     public Product(String name, String description, Date date, short quantity, String code, float price, float oldPrice,
-                   short allowAge, boolean isActive, float rating, short width, short height,
-                   short length, Brand brand, Subcategory subcategory, Collection<Image> images,
-                   Collection<Review> reviews) {
+                   short allowAge, boolean active, float rating, short width, short height,
+                   short length, Brand brand, Subcategory subcategory, List<Image> images,
+                   List<Review> reviews) {
         this.name = name;
         this.description = description;
         this.date = date;
@@ -70,7 +70,7 @@ public class Product {
         this.price = price;
         this.oldPrice = oldPrice;
         this.allowAge = allowAge;
-        this.isActive = isActive;
+        this.active = active;
         this.rating = rating;
         this.width = width;
         this.height = height;
@@ -158,10 +158,10 @@ public class Product {
 
     @Column(name = "is_active", nullable = false)
     public boolean isActive() {
-        return isActive;
+        return active;
     }
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Column(name = "rating", nullable = false)
@@ -218,18 +218,18 @@ public class Product {
     @JoinTable(name = "product_image",
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "image_id"))
-    public Collection<Image> getImages() {
+    public List<Image> getImages() {
         return images;
     }
-    public void setImages(Collection<Image> images) {
+    public void setImages(List<Image> images) {
         this.images = images;
     }
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Collection<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
-    public void setReviews(Collection<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 }

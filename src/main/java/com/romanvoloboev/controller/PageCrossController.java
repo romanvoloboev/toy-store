@@ -34,13 +34,6 @@ public class PageCrossController {
     }
 
 
-
-    @RequestMapping("/edit_password")
-    public ModelAndView passwordChange() {
-        return new ModelAndView("store/edit_password");
-    }
-
-
     @RequestMapping("/wishlist")
     public ModelAndView wishlist() {
         return new ModelAndView("store/wishlist");
@@ -78,20 +71,7 @@ public class PageCrossController {
         return new ModelAndView("cp/index");
     }
 
-    @RequestMapping("/cp/category")
-    public ModelAndView showCategory() {
-        return new ModelAndView("cp/category");
-    }
 
-    @RequestMapping("/cp/new_category")
-    public ModelAndView addCategory() {
-        return new ModelAndView("cp/category_add");
-    }
-
-    @RequestMapping("/cp/edit_category")
-    public ModelAndView editCategory() {
-        return new ModelAndView("cp/category_edit");
-    }
 
 
 

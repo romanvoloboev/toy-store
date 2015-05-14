@@ -7,7 +7,6 @@ import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.model.enums.Role;
 import com.romanvoloboev.dto.AddressDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -30,9 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
     public static final String PHONE_PATTERN = "(^$|^\\d{12}$)";
     public static final String NAME_PATTERN = "^[а-яА-ЯёЁa-zA-Z ]+$";
 
-    @Qualifier("customerRepository")
     @Autowired private CustomerRepository customerRepository;
-
     @Autowired private AddressService addressService;
 
     @Transactional
@@ -71,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
                     getRoleFromDTO(customerDTO.getRole()), null, null, null, null);
 
             if(customerDTO.getAddressesList() != null) {
-                customer.setAddresses(addressService.selectModelList(customerDTO.getAddressesList()));
+                customer.setAddresses(addressService.selectModels(customerDTO.getAddressesList()));
             }
             customerRepository.save(customer);
         }
@@ -136,14 +133,12 @@ public class CustomerServiceImpl implements CustomerService {
             return null;
         } else {
             return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(),
-                    phoneToString(customer.getPhone()), addressService.selectDtoList(customer));
+                    phoneToString(customer.getPhone()), addressService.selectDTOs(customer));
         }
     }
 
     private Role getRoleFromDTO(short role) {
         switch (role) {
-            case 1:
-                return Role.CUSTOMER;
             case 2:
                 return Role.EMPLOYEE;
             case 3:
@@ -155,8 +150,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     private short getRoleFromModel(Role role) {
         switch (role) {
-            case CUSTOMER:
-                return 1;
             case EMPLOYEE:
                 return 2;
             case ADMIN:
