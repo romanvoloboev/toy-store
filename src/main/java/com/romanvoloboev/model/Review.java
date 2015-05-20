@@ -12,7 +12,7 @@ import java.util.Date;
 public class Review {
     private Integer id;
     private String comment;
-    private float rating;
+    private Float rating;
     private Date date;
     private boolean active;
     private Product product;
@@ -21,7 +21,7 @@ public class Review {
     public Review() {
     }
 
-    public Review(Integer id, String comment, float rating, Date date, boolean active, Product product, Customer customer) {
+    public Review(Integer id, String comment, Float rating, Date date, boolean active, Product product, Customer customer) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
@@ -31,7 +31,7 @@ public class Review {
         this.customer = customer;
     }
 
-    public Review(String comment, float rating, Date date, boolean active, Product product, Customer customer) {
+    public Review(String comment, Float rating, Date date, boolean active, Product product, Customer customer) {
         this.comment = comment;
         this.rating = rating;
         this.date = date;
@@ -60,10 +60,10 @@ public class Review {
     }
 
     @Column(name = "rating")
-    public float getRating() {
+    public Float getRating() {
         return rating;
     }
-    public void setRating(float rating) {
+    public void setRating(Float rating) {
         this.rating = rating;
     }
 

@@ -16,16 +16,19 @@ public class Product {
     private String name;
     private String description;
     private Date date;
-    private short quantity;
+    private Short quantity;
     private String code;
-    private float price;
-    private float oldPrice;
-    private short allowAge;
+    private Double price;
     private boolean active;
-    private float rating;
-    private short width;
-    private short height;
-    private short length;
+    private Double promotionPrice;
+    private Date promotionStart;
+    private Date promotionEnd;
+    private boolean promotion;
+    private Double rating;
+    private String material;
+    private String width;
+    private String height;
+    private String length;
     private Brand brand;
     private Subcategory subcategory;
     private List<Image> images = new ArrayList<>();
@@ -34,10 +37,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer id, String name, String description, Date date, short quantity, String code, float price,
-                   float oldPrice, short allowAge, boolean active, float rating, short width,
-                   short height, short length, Brand brand, Subcategory subcategory, List<Image> images,
-                   List<Review> reviews) {
+    public Product(Integer id, String name, String description, Date date, Short quantity, String code, Double price,
+                   boolean active, Double promotionPrice, Date promotionStart, Date promotionEnd, boolean promotion,
+                   Double rating, String material, String width, String height, String length, Brand brand, Subcategory
+                           subcategory, List<Image> images, List<Review> reviews) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -45,10 +48,13 @@ public class Product {
         this.quantity = quantity;
         this.code = code;
         this.price = price;
-        this.oldPrice = oldPrice;
-        this.allowAge = allowAge;
         this.active = active;
+        this.promotionPrice = promotionPrice;
+        this.promotionStart = promotionStart;
+        this.promotionEnd = promotionEnd;
+        this.promotion = promotion;
         this.rating = rating;
+        this.material = material;
         this.width = width;
         this.height = height;
         this.length = length;
@@ -58,20 +64,23 @@ public class Product {
         this.reviews = reviews;
     }
 
-    public Product(String name, String description, Date date, short quantity, String code, float price, float oldPrice,
-                   short allowAge, boolean active, float rating, short width, short height,
-                   short length, Brand brand, Subcategory subcategory, List<Image> images,
-                   List<Review> reviews) {
+    public Product(String name, String description, Date date, Short quantity, String code, Double price, boolean active,
+                   Double promotionPrice, Date promotionStart, Date promotionEnd, boolean promotion, Double rating,
+                   String material, String width, String height, String length, Brand brand, Subcategory subcategory,
+                   List<Image> images, List<Review> reviews) {
         this.name = name;
         this.description = description;
         this.date = date;
         this.quantity = quantity;
         this.code = code;
         this.price = price;
-        this.oldPrice = oldPrice;
-        this.allowAge = allowAge;
         this.active = active;
+        this.promotionPrice = promotionPrice;
+        this.promotionStart = promotionStart;
+        this.promotionEnd = promotionEnd;
+        this.promotion = promotion;
         this.rating = rating;
+        this.material = material;
         this.width = width;
         this.height = height;
         this.length = length;
@@ -117,10 +126,10 @@ public class Product {
     }
 
     @Column(name = "quantity", nullable = false)
-    public short getQuantity() {
+    public Short getQuantity() {
         return quantity;
     }
-    public void setQuantity(short quantity) {
+    public void setQuantity(Short quantity) {
         this.quantity = quantity;
     }
 
@@ -133,30 +142,22 @@ public class Product {
     }
 
     @Column(name = "price", nullable = false)
-    public float getPrice() {
+    public Double getPrice() {
         return price;
     }
-    public void setPrice(float price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    @Column(name = "old_price")
-    public float getOldPrice() {
-        return oldPrice;
+    @Column(name = "promo_price")
+    public Double getPromotionPrice() {
+        return promotionPrice;
     }
-    public void setOldPrice(float oldPrice) {
-        this.oldPrice = oldPrice;
-    }
-
-    @Column(name = "allow_age")
-    public short getAllowAge() {
-        return allowAge;
-    }
-    public void setAllowAge(short allowAge) {
-        this.allowAge = allowAge;
+    public void setPromotionPrice(Double promotionPrice) {
+        this.promotionPrice = promotionPrice;
     }
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "is_active")
     public boolean isActive() {
         return active;
     }
@@ -164,36 +165,68 @@ public class Product {
         this.active = active;
     }
 
+    @Column(name = "promotion_start")
+    public Date getPromotionStart() {
+        return promotionStart;
+    }
+    public void setPromotionStart(Date promotionStart) {
+        this.promotionStart = promotionStart;
+    }
+
+    @Column(name = "promotion_end")
+    public Date getPromotionEnd() {
+        return promotionEnd;
+    }
+    public void setPromotionEnd(Date promotionEnd) {
+        this.promotionEnd = promotionEnd;
+    }
+
+    @Column(name = "has_promo")
+    public boolean isPromotion() {
+        return promotion;
+    }
+    public void setPromotion(boolean promotion) {
+        this.promotion = promotion;
+    }
+
     @Column(name = "rating", nullable = false)
-    public float getRating() {
+    public Double getRating() {
         return rating;
     }
-    public void setRating(float rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
     @Column(name = "width")
-    public short getWidth() {
+    public String getWidth() {
         return width;
     }
-    public void setWidth(short width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
     @Column(name = "height")
-    public short getHeight() {
+    public String getHeight() {
         return height;
     }
-    public void setHeight(short height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
     @Column(name = "length")
-    public short getLength() {
+    public String getLength() {
         return length;
     }
-    public void setLength(short length) {
+    public void setLength(String length) {
         this.length = length;
+    }
+
+    @Column(name = "material")
+    public String getMaterial() {
+        return material;
+    }
+    public void setMaterial(String material) {
+        this.material = material;
     }
 
     @ManyToOne
@@ -225,7 +258,7 @@ public class Product {
         this.images = images;
     }
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     public List<Review> getReviews() {
         return reviews;
     }

@@ -1,9 +1,11 @@
 package com.romanvoloboev.controller;
 
+import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.dto.SubcategoryDTO;
 import com.romanvoloboev.service.CategoryServiceImpl;
 import com.romanvoloboev.service.SubcategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.print.attribute.standard.Media;
 import javax.validation.ValidationException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -59,9 +63,9 @@ public class SubcategoryController {
     public ModelAndView editSubcategory(@RequestParam("id")int id) {
         ModelAndView modelAndView = new ModelAndView("/cp/subcategory_edit");
         try {
-                SubcategoryDTO subcategoryDTO = subcategoryService.selectDTO(id);
-                modelAndView.addObject("subcategory", subcategoryDTO);
-                modelAndView.addObject("category", categoryService.selectSimpleDTO(subcategoryDTO.getCategory()));
+            SubcategoryDTO subcategoryDTO = subcategoryService.selectDTO(id);
+            modelAndView.addObject("subcategory", subcategoryDTO);
+            modelAndView.addObject("category", categoryService.selectSimpleDTO(subcategoryDTO.getCategory()));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
             //todo: return error_page..
@@ -94,6 +98,21 @@ public class SubcategoryController {
             LOGGER.log(Level.SEVERE, e.getMessage());
             response.put("status", "error");
         }
+        return response;
+    }
+
+    @RequestMapping(value = "/cp/subcategory/load_by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, List<SimpleDTO>> loadByNameAndStatus(@RequestParam(value = "name", defaultValue = "")String name,
+                                                            @RequestParam("active")boolean active) {
+        Map<String, List<SimpleDTO>> response = new HashMap<>();
+        List<SimpleDTO> subcategories = null;
+        try {
+            subcategories = subcategoryService.selectSimpleDTOs(name, active);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
+        response.put("suggestions", subcategories);
         return response;
     }
 }

@@ -1,10 +1,9 @@
 package com.romanvoloboev.dto;
 
 import com.romanvoloboev.service.ProductServiceImpl;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,59 +18,61 @@ public class ProductDTO {
     private String date;
     private short quantity;
     private String code;
-    private float price;
-    private float oldPrice;
-    private short allowAge;
-    private boolean isActive;
-    private float rating;
-    private short width;
-    private short height;
-    private short length;
+    private double price;
+    private boolean active;
+    private boolean promotion;
+    private double promotionPrice;
+    private String promotionStart;
+    private String promotionEnd;
+    private double rating;
+    private String material;
+    private String width;
+    private String height;
+    private String length;
     private int brand;
+    private String brandName;
     private int subcategory;
-    private int[] images;
+    private String subcategoryName;
+    private long[] images;
     private List<ReviewDTO> reviewsList = new ArrayList<>();
 
-    public ProductDTO(int id, String name, String description, String date, short quantity, String code, float price,
-                      float oldPrice, short allowAge, boolean isActive, short width, short height, short length, int brand, int subcategory, int[] images) {
+    // default constructor needs for decode the JSON @RequestBody
+    public ProductDTO() {
+    }
+
+    public ProductDTO(int id, String name, String description, short quantity, String code, double price, boolean promotion, double promotionPrice,
+                      String promotionStart, String promotionEnd, String material, String width, String height,
+                      String length, int brand, String brandName, int subcategory, String subcategoryName, long[] images) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.date = date;
         this.quantity = quantity;
         this.code = code;
         this.price = price;
-        this.oldPrice = oldPrice;
-        this.allowAge = allowAge;
-        this.isActive = isActive;
+        this.promotion = promotion;
+        this.promotionPrice = promotionPrice;
+        this.promotionStart = promotionStart;
+        this.promotionEnd = promotionEnd;
+        this.material = material;
         this.width = width;
         this.height = height;
         this.length = length;
         this.brand = brand;
+        this.brandName = brandName;
         this.subcategory = subcategory;
+        this.subcategoryName = subcategoryName;
         this.images = images;
     }
 
-    public ProductDTO(int id, String name, String description, String date, short quantity, String code, float price,
-                      float oldPrice, short allowAge, boolean isActive, float rating, short width, short height, short length, int brand, int subcategory, int[] images, List<ReviewDTO> reviewsList) {
+    public ProductDTO(int id, String name, double price, double promotionPrice, short quantity, long[] images, boolean active, boolean promotion) {
         this.id = id;
         this.name = name;
-        this.description = description;
-        this.date = date;
-        this.quantity = quantity;
-        this.code = code;
         this.price = price;
-        this.oldPrice = oldPrice;
-        this.allowAge = allowAge;
-        this.isActive = isActive;
-        this.rating = rating;
-        this.width = width;
-        this.height = height;
-        this.length = length;
-        this.brand = brand;
-        this.subcategory = subcategory;
+        this.promotionPrice = promotionPrice;
+        this.quantity = quantity;
         this.images = images;
-        this.reviewsList = reviewsList;
+        this.active = active;
+        this.promotion = promotion;
     }
 
     @NotNull
@@ -101,7 +102,7 @@ public class ProductDTO {
         this.description = description;
     }
 
-    @NotNull
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     public String getDate() {
         return date;
     }
@@ -110,8 +111,6 @@ public class ProductDTO {
     }
 
     @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect quantity format")
-    @Size(min = 1, max = 3, message = "Incorrect quantity length")
     public short getQuantity() {
         return quantity;
     }
@@ -120,7 +119,6 @@ public class ProductDTO {
     }
 
     @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect code format")
     @Size(min = 1, max = 16, message = "Incorrect code length")
     public String getCode() {
         return code;
@@ -130,82 +128,79 @@ public class ProductDTO {
     }
 
     @NotNull
-    @Pattern(regexp = ProductServiceImpl.FLOAT_PATTERN, message = "Incorrect price format")
-    @Size(min = 1, max = 9, message = "Incorrect quantity length")
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    @Pattern(regexp = ProductServiceImpl.FLOAT_PATTERN, message = "Incorrect price format")
-    @Size(min = 1, max = 9, message = "Incorrect quantity length")
-    public float getOldPrice() {
-        return oldPrice;
-    }
-    public void setOldPrice(float oldPrice) {
-        this.oldPrice = oldPrice;
-    }
-
-    @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect allow age format")
-    @Size(min = 1, max = 2, message = "Incorrect allow age length")
-    public short getAllowAge() {
-        return allowAge;
-    }
-    public void setAllowAge(short allowAge) {
-        this.allowAge = allowAge;
-    }
-
     public boolean isActive() {
-        return isActive;
+        return active;
     }
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    @Pattern(regexp = ProductServiceImpl.FLOAT_PATTERN, message = "Incorrect rating format")
-    @Size(min = 1, max = 3, message = "Incorrect rating length")
-    public float getRating() {
+    public boolean isPromotion() {
+        return promotion;
+    }
+    public void setPromotion(boolean promotion) {
+        this.promotion = promotion;
+    }
+
+    public double getPromotionPrice() {
+        return promotionPrice;
+    }
+    public void setPromotionPrice(double promotionPrice) {
+        this.promotionPrice = promotionPrice;
+    }
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    public String getPromotionStart() {
+        return promotionStart;
+    }
+    public void setPromotionStart(String promotionStart) {
+        this.promotionStart = promotionStart;
+    }
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    public String getPromotionEnd() {
+        return promotionEnd;
+    }
+    public void setPromotionEnd(String promotionEnd) {
+        this.promotionEnd = promotionEnd;
+    }
+
+    public double getRating() {
         return rating;
     }
-    public void setRating(float rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
-    @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect width format")
-    @Size(min = 1, max = 3, message = "Incorrect width length")
-    public short getWidth() {
+    public String getWidth() {
         return width;
     }
-    public void setWidth(short width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
-    @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect height format")
-    @Size(min = 1, max = 3, message = "Incorrect height length")
-    public short getHeight() {
+    public String getHeight() {
         return height;
     }
-    public void setHeight(short height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect length format")
-    @Size(min = 1, max = 3, message = "Incorrect length length")
-    public short getLength() {
+    public String getLength() {
         return length;
     }
-    public void setLength(short length) {
+    public void setLength(String length) {
         this.length = length;
     }
 
     @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect brand format")
     public int getBrand() {
         return brand;
     }
@@ -213,8 +208,14 @@ public class ProductDTO {
         this.brand = brand;
     }
 
+    public String getBrandName() {
+        return brandName;
+    }
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
     @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect subcategory format")
     public int getSubcategory() {
         return subcategory;
     }
@@ -222,12 +223,27 @@ public class ProductDTO {
         this.subcategory = subcategory;
     }
 
+    public String getSubcategoryName() {
+        return subcategoryName;
+    }
+    public void setSubcategoryName(String subcategoryName) {
+        this.subcategoryName = subcategoryName;
+    }
+
+    @Pattern(regexp = ProductServiceImpl.NAME_PATTERN, message = "Incorrect material format")
+    public String getMaterial() {
+        return material;
+    }
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
     @NotNull
-    @Pattern(regexp = ProductServiceImpl.INT_PATTERN, message = "Incorrect images format")
-    public int[] getImages() {
+    @Size(min = 1, max = 5, message = "Wrong images count")
+    public long[] getImages() {
         return images;
     }
-    public void setImages(int[] images) {
+    public void setImages(long[] images) {
         this.images = images;
     }
 

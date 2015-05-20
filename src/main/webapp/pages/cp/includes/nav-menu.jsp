@@ -19,8 +19,8 @@
         <li id="catalog">
             <a class="parent"><i class="fa fa-tags fa-fw"></i> <span>Каталог</span></a>
             <ul class="collapse">
-                <li><a href="<c:url value="/cp/category"/>">Категории</a></li>
                 <li><a href="<c:url value="/cp/product"/>">Товары</a></li>
+                <li><a href="<c:url value="/cp/category"/>">Категории</a></li>
                 <li><a href="<c:url value="/cp/brand"/>">Производители</a></li>
             </ul>
         </li>

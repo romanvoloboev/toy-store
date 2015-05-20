@@ -1,6 +1,7 @@
 package com.romanvoloboev.service;
 
 import com.romanvoloboev.dto.BrandDTO;
+import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.model.Brand;
 import com.romanvoloboev.model.Product;
 import com.romanvoloboev.repository.BrandRepository;
@@ -32,17 +33,6 @@ public class BrandServiceImpl implements BrandService {
         brandRepository.delete(id);
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<BrandDTO> selectDTOs() throws Exception {
-        List<Brand> brands = selectModels();
-        List<BrandDTO> brandDTOs = new ArrayList<>();
-        for (Brand brand:brands) {
-            brandDTOs.add(new BrandDTO(brand.getId(), brand.getName(), brand.getCountry(), brand.isActive()));
-        }
-        return brandDTOs;
-    }
-
     @Transactional
     @Override
     public void save(Brand brand) throws Exception {
@@ -58,6 +48,34 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public List<Brand> selectModels() throws Exception {
         return brandRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<BrandDTO> selectDTOs() throws Exception {
+        List<Brand> brands = selectModels();
+        List<BrandDTO> brandDTOs = new ArrayList<>();
+        for (Brand brand:brands) {
+            brandDTOs.add(new BrandDTO(brand.getId(), brand.getName(), brand.getCountry(), brand.isActive()));
+        }
+        return brandDTOs;
+    }
+
+    @Transactional
+    @Override
+    public List<SimpleDTO> selectSimpleDTOs(String name, boolean active) throws Exception {
+        List<Brand> brands = selectModels(name, active);
+        List<SimpleDTO> simpleDTOs = new ArrayList<>();
+        for (Brand brand:brands) {
+            simpleDTOs.add(new SimpleDTO(brand.getId(), brand.getName()));
+        }
+        return simpleDTOs;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Brand> selectModels(String name, boolean active) throws Exception {
+        return brandRepository.getByNameIgnoreCaseStartingWithAndActive(name, active);
     }
 
     @Transactional(readOnly = true)

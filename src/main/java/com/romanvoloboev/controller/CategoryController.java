@@ -4,6 +4,7 @@ import com.romanvoloboev.dto.CategoryDTO;
 import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.service.CategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +46,7 @@ public class CategoryController {
         return new ModelAndView("cp/category_add");
     }
 
-    @RequestMapping(value = "/cp/category/load_by", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/cp/category/load_by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, List<SimpleDTO>> loadByNameAndActive(@RequestParam(value = "name", defaultValue = "")String name,
                                                             @RequestParam("active")boolean active) {

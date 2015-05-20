@@ -12,4 +12,5 @@ import java.util.List;
 
 public interface SubcategoryRepository extends JpaRepository<Subcategory, Integer> {
     List<Subcategory> getByCategoryOrderByNameAsc(Category category);
+    List<Subcategory> getByNameIgnoreCaseStartingWithAndActive(String name, boolean active);
 }

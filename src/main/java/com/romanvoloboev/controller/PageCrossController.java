@@ -97,22 +97,6 @@ public class PageCrossController {
 
 
 
-    @RequestMapping("/cp/product")
-    public ModelAndView showProduct() {
-        return new ModelAndView("cp/product");
-    }
-
-    @RequestMapping("/cp/new_product")
-    public ModelAndView addProduct() {
-        return new ModelAndView("cp/product_add");
-    }
-
-    @RequestMapping("/cp/edit_product")
-    public ModelAndView editProduct() {
-        return new ModelAndView("cp/product_edit");
-    }
-
-
 
     @RequestMapping("/cp/customer")
     public ModelAndView showCustomers() {

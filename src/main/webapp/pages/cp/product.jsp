@@ -9,61 +9,76 @@
     <%@include file="includes/head.jsp"%>
 
     <script type="text/javascript">
-        $('#button-filter').on('click', function() {
-            var url = '';
+        $(function() {
+            $('#search-btn').on('click', function() {
+                var url = '/cp/product/search_by?';
 
-            var filter_name = $('input[name=\'filter_name\']').val();
+                var name = $("#input-name").val();
+                if (name) {
+                    url += 'name=' + encodeURIComponent(name);
+                }
 
-            if (filter_name) {
-                url += '&filter_name=' + encodeURIComponent(filter_name);
-            }
+                var priceStart = $("#input-price-start").val();
+                if (priceStart) {
+                    url += '&price_start=' + encodeURIComponent(priceStart);
+                }
 
-            var filter_model = $('input[name=\'filter_model\']').val();
+                var priceEnd = $("#input-price-end").val();
+                if (priceEnd) {
+                    url += '&price_end=' + encodeURIComponent(priceEnd);
+                }
 
-            if (filter_model) {
-                url += '&filter_model=' + encodeURIComponent(filter_model);
-            }
 
-            var filter_price = $('input[name=\'filter_price\']').val();
+                var status = $("#select-status").val();
+                if (status != '1') {
+                    url += '&status=' + encodeURIComponent(status);
+                }
 
-            if (filter_price) {
-                url += '&filter_price=' + encodeURIComponent(filter_price);
-            }
-
-            var filter_quantity = $('input[name=\'filter_quantity\']').val();
-
-            if (filter_quantity) {
-                url += '&filter_quantity=' + encodeURIComponent(filter_quantity);
-            }
-
-            var filter_status = $('select[name=\'filter_status\']').val();
-
-            if (filter_status != '*') {
-                url += '&filter_status=' + encodeURIComponent(filter_status);
-            }
-
-            location = url;
+                location = url;
+            });
         });
 
-        $('input[name=\'filter_name\']').autocomplete({
-            'source': function(request, response) {
-                $.ajax({
-                    url: 'index.php?route=catalog/product/autocomplete&token=54e3f31ac5b1509337ab799354938a54&filter_name=' +  encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function(json) {
-                        response($.map(json, function(item) {
-                            return {
-                                label: item['name'],
-                                value: item['product_id']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function(item) {
-                $('input[name=\'filter_name\']').val(item['label']);
-            }
-        });
+        function changeProductStatus(id) {
+            $.post("/cp/product/change_status", {id:id}, function(response) {
+                if(response.status == 'ok') {
+                    $.notify("<b>Вы успешно изменили статус товара</b>",
+                            {
+                                type: "success",
+                                delay: 1000,
+                                onClose: function(){
+                                    location.reload();
+                                }
+                            });
+                } else {
+                    $.notify("<b>Не удалось изменить статус, повторите попытку позже</b>",
+                            {
+                                type: "danger",
+                                delay: 1500
+                            });
+                }
+            });
+        }
+
+        function deleteProduct(id) {
+            $.post('/cp/product/delete', {id:id}, function(response) {
+                if(response.status == 'ok') {
+                    $.notify("<b>Вы успешно удалили товар</b>",
+                            {
+                                type: "success",
+                                delay: 1000,
+                                onClose: function(){
+                                    location.reload();
+                                }
+                            });
+                } else {
+                    $.notify("<b>Невозможно удалить товар, повторите попытку позже</b>",
+                            {
+                                type: "danger",
+                                delay: 1000
+                            });
+                }
+            });
+        }
     </script>
 
 </head>
@@ -75,122 +90,104 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <div class="pull-right">
-                    <a href="<c:url value="/cp/new_product"/>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Добавить"><i class="fa fa-plus"></i></a>
-                    <button type="button" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash-o"></i></button>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-list"></i>&nbsp;Управление</h4>
                 </div>
-                <h1>Товары</h1>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <a href="<c:url value="/cp/product/add"/>" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Добавить товар</a>
+                </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-list"></i> Список товаров</h3>
-                </div>
                 <div class="panel-body">
                     <div class="well">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="input-name">Название</label>
-                                    <input type="text" name="filter_name" value="" placeholder="Введите название продукта" id="input-name" class="form-control" autocomplete="off">
-                                    <ul class="dropdown-menu"></ul>
+                            <div class="col-md-3 form-group" id="input-name-block" style="padding-right: 0; margin-bottom: 0;">
+                                <input type="text" placeholder="Название продукта" id="input-name" class="form-control" autocomplete="off">
+                            </div>
+                            <div class="col-sm-12 col-md-3 form-group" id="input-price-block"  style="padding-right: 0; margin-bottom: 0;">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-right: 0; padding-left: 0;">
+                                    <input type="text" placeholder="Цена от" id="input-price-start" class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="input-status">Статус</label>
-                                    <select name="filter_status" id="input-status" class="form-control">
-                                        <option value="*" selected>--- Выберите из списка ---</option>
-                                        <option value="1">Доступен</option>
-                                        <option value="0">Недоступен</option>
-                                    </select>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6" style="padding-right: 0;" id="input-price-end-block">
+                                    <input type="text" placeholder="Цена до" id="input-price-end" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="input-price">Цена</label>
-                                    <input type="text" name="filter_price" value="" placeholder="Введите цену" id="input-price" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="input-quantity">Количество</label>
-                                    <input type="text" name="filter_quantity" value="" placeholder="Введите количество" id="input-quantity" class="form-control">
-                                </div>
-                                <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Поиск</button>
+                            <div class="col-md-2 form-group" id="input-status-block" style="padding-right: 0; margin-bottom: 0;">
+                                <select id="select-status" class="form-control">
+                                    <option value="1" selected>Активный</option>
+                                    <option value="0">Неактивный</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 form-group" style="padding-right: 0; margin-bottom: 0;">
+                                <button type="button" id="search-btn" class="btn btn-default"><i class="fa fa-search"></i> Поиск</button>
                             </div>
                         </div>
                     </div>
-                    <div class="form-horizontal">
+
+                    <div class="form-horizontal col-sm-12 col-md-12 col-lg-12" style="padding: 0;">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <td style="width: 1px;" class="text-center">
-                                        <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);">
-                                    </td>
-                                    <td class="text-center">Изображение</td>
-                                    <td class="text-left">
-                                        <a href="<c:url value=""/>" class="asc">Название продукта</a>
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="<c:url value=""/>">Цена</a>
-                                    </td>
-                                    <td class="text-right">
-                                        <a href="<c:url value=""/>">Количество</a>
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="<c:url value=""/>">Состояние</a>
-                                    </td>
-                                    <td class="text-right">Действие</td>
+                                    <th class="text-center col-md-1">Изображение</th>
+                                    <th class="text-left col-md-6">Название продукта</th>
+                                    <th class="text-center col-md-2">Цена</th>
+                                    <th class="text-center col-md-1">Количество</th>
+                                    <th class="text-center col-md-2">Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" name="selected[]" value="42">
-                                    </td>
-                                    <td class="text-center">
-                                        <img src="http://demo.opencart.com/image/cache/catalog/demo/apple_cinema_30-40x40.jpg" alt="Apple Cinema 30&quot;" class="img-thumbnail">
-                                    </td>
-                                    <td class="text-left">Apple Cinema 30"</td>
-                                    <td class="text-left">
-                                        <span style="text-decoration: line-through;">100.0000</span><br>
-                                        <div class="text-danger">90.0000</div>
-                                    </td>
-                                    <td class="text-right">
-                                        <span class="label label-success">990</span>
-                                    </td>
-                                    <td class="text-left">Enabled</td>
-                                    <td class="text-right">
-                                        <a href="<c:url value="/cp/edit_product"/>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-center">
-                                        <input type="checkbox" name="selected[]" value="1">
-                                    </td>
-                                    <td class="text-center">
-                                        <img src="http://demo.opencart.com/image/cache/catalog/demo/apple_cinema_30-40x40.jpg" alt="Apple Cinema 30&quot;" class="img-thumbnail">
-                                    </td>
-                                    <td class="text-left">Apple Cinema 30"</td>
-                                    <td class="text-left">
-                                        <span style="text-decoration: line-through;">100.0000</span><br>
-                                        <div class="text-danger">90.0000</div>
-                                    </td>
-                                    <td class="text-right">
-                                        <span class="label label-warning">0</span>
-                                    </td>
-                                    <td class="text-left">Enabled</td>
-                                    <td class="text-right">
-                                        <a href="<c:url value="/cp/edit_product"/>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                    </td>
-                                </tr>
+                                <c:forEach items="${products}" var="p">
+                                    <tr>
+                                        <td class="text-center">
+                                            <img src="<c:url value="/image/load?id=${p.images[0]}"/>" class="img-thumbnail">
+                                        </td>
+                                        <td class="text-left">${p.name}</td>
+                                        <td class="text-center">
+                                            <c:choose>
+                                                <c:when test="${p.promotion}">
+                                                    <span style="text-decoration: line-through;">${p.price}</span><br>
+                                                    <div class="text-danger">${p.promotionPrice}</div>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div>${p.price}</div>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td class="text-center">
+                                            <c:choose>
+                                                <c:when test="${p.quantity <= 5}">
+                                                    <span class="label label-danger">${p.quantity}</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span class="label label-success">${p.quantity}</span>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" onclick="changeProductStatus(${p.id})" data-toggle="tooltip" class="btn <c:out value="${p.active ? 'btn-default' : 'btn-warning'}"/>"
+                                                    title="<c:out value="${p.active ? 'Скрыть товар' : 'Активировать товар'}"/>">
+                                                <span class="fa <c:out value="${p.active ? 'fa-eye' : 'fa-eye-slash'}"/>"></span>
+                                            </button>
+                                            <a href="<c:url value="/cp/product/edit?id=${p.id}"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
+                                            <button type="button" onclick="deleteProduct(${p.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить товар">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

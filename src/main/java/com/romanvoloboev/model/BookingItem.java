@@ -10,15 +10,15 @@ import javax.persistence.*;
 @Table(name = "booking_item")
 public class BookingItem {
     private Integer id;
-    private short quantity;
-    private float price;
+    private Short quantity;
+    private Float price;
     private Booking booking;
     private Product product;
 
     public BookingItem() {
     }
 
-    public BookingItem(Integer id, short quantity, float price, Booking booking, Product product) {
+    public BookingItem(Integer id, Short quantity, Float price, Booking booking, Product product) {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
@@ -26,7 +26,7 @@ public class BookingItem {
         this.product = product;
     }
 
-    public BookingItem(short quantity, float price, Booking booking, Product product) {
+    public BookingItem(Short quantity, Float price, Booking booking, Product product) {
         this.quantity = quantity;
         this.price = price;
         this.booking = booking;
@@ -45,18 +45,18 @@ public class BookingItem {
     }
 
     @Column(name = "quantity", nullable = false)
-    public short getQuantity() {
+    public Short getQuantity() {
         return quantity;
     }
-    public void setQuantity(short quantity) {
+    public void setQuantity(Short quantity) {
         this.quantity = quantity;
     }
 
     @Column(name = "price", nullable = false)
-    public float getPrice() {
+    public Float getPrice() {
         return price;
     }
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

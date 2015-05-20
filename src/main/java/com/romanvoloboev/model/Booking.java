@@ -13,18 +13,18 @@ import java.util.List;
 @Table(name = "booking")
 public class Booking {
     private Integer id;
-    private float amount;
+    private Float amount;
     private Date date;
-    private short status;
-    private short deliveryService;
-    private short paymentType;
+    private Short status;
+    private Short deliveryService;
+    private Short paymentType;
     private Customer customer;
     private List<BookingItem> items = new ArrayList<>();
 
     public Booking() {
     }
 
-    public Booking(Integer id, float amount, Date date, short status, short deliveryService, short paymentType, Customer customer,
+    public Booking(Integer id, Float amount, Date date, Short status, Short deliveryService, Short paymentType, Customer customer,
                    List<BookingItem> items) {
         this.id = id;
         this.amount = amount;
@@ -36,7 +36,7 @@ public class Booking {
         this.items = items;
     }
 
-    public Booking(float amount, Date date, short status, short deliveryService, short paymentType, Customer customer,
+    public Booking(Float amount, Date date, Short status, Short deliveryService, Short paymentType, Customer customer,
                    List<BookingItem> items) {
         this.amount = amount;
         this.date = date;
@@ -59,10 +59,10 @@ public class Booking {
     }
 
     @Column(name = "amount", nullable = false)
-    public float getAmount() {
+    public Float getAmount() {
         return amount;
     }
-    public void setAmount(float amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 
@@ -75,26 +75,26 @@ public class Booking {
     }
 
     @Column(name = "status", nullable = false)
-    public short getStatus() {
+    public Short getStatus() {
         return status;
     }
-    public void setStatus(short status) {
+    public void setStatus(Short status) {
         this.status = status;
     }
 
     @Column(name = "delivery_service", nullable = false)
-    public short getDeliveryService() {
+    public Short getDeliveryService() {
         return deliveryService;
     }
-    public void setDeliveryService(short deliveryService) {
+    public void setDeliveryService(Short deliveryService) {
         this.deliveryService = deliveryService;
     }
 
     @Column(name = "payment_type", nullable = false)
-    public short getPaymentType() {
+    public Short getPaymentType() {
         return paymentType;
     }
-    public void setPaymentType(short paymentType) {
+    public void setPaymentType(Short paymentType) {
         this.paymentType = paymentType;
     }
 

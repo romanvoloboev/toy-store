@@ -1,5 +1,6 @@
 package com.romanvoloboev.service;
 
+import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.dto.SubcategoryDTO;
 import com.romanvoloboev.model.Category;
 import com.romanvoloboev.model.Image;
@@ -102,6 +103,24 @@ public class SubcategoryServiceImpl implements SubcategoryService {
     @Override
     public List<Subcategory> selectModelsOrderByName(Category category) throws Exception {
         return subcategoryRepository.getByCategoryOrderByNameAsc(category);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<SimpleDTO> selectSimpleDTOs(String name, boolean active) throws Exception {
+        List<Subcategory> subcategories = selectModels(name, active);
+        List<SimpleDTO> simpleDTOs = new ArrayList<>();
+        for (Subcategory subcategory:subcategories) {
+            simpleDTOs.add(new SimpleDTO(subcategory.getId(), subcategory.getName()));
+        }
+        return simpleDTOs;
+    }
+
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Subcategory> selectModels(String name, boolean active) {
+        return subcategoryRepository.getByNameIgnoreCaseStartingWithAndActive(name, active);
     }
 
     @Transactional

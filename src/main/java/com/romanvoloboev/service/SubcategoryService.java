@@ -1,5 +1,6 @@
 package com.romanvoloboev.service;
 
+import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.dto.SubcategoryDTO;
 import com.romanvoloboev.model.Category;
 import com.romanvoloboev.model.Subcategory;
@@ -20,4 +21,6 @@ public interface SubcategoryService {
     List<SubcategoryDTO> selectDTOs(Collection<Subcategory> subcategories) throws Exception;
     Subcategory selectModel(Integer id) throws Exception;
     List<Subcategory> selectModelsOrderByName(Category category) throws Exception;
+    List<SimpleDTO> selectSimpleDTOs(String name, boolean active) throws Exception;
+    List<Subcategory> selectModels(String name, boolean active) throws Exception;
 }

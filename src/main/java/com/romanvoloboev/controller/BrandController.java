@@ -1,8 +1,10 @@
 package com.romanvoloboev.controller;
 
 import com.romanvoloboev.dto.BrandDTO;
+import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.service.BrandServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.ValidationException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -104,4 +107,18 @@ public class BrandController {
         return response;
     }
 
+    @RequestMapping(value = "/cp/brand/load_by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, List<SimpleDTO>> loadByNameAndActive(@RequestParam(value = "name", defaultValue = "")String name,
+                                                            @RequestParam(value = "active")boolean active) {
+        Map<String, List<SimpleDTO>> response = new HashMap<>();
+        List<SimpleDTO> brands = null;
+        try {
+            brands = brandService.selectSimpleDTOs(name, active);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
+        response.put("suggestions", brands);
+        return response;
+    }
 }

@@ -21,6 +21,7 @@
 
 <script type="text/javascript" src="../../../webres/cp/js/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="../../../webres/cp/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../webres/cp/js/moment.min.js"></script>
 <script type="text/javascript" src="../../../webres/cp/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="../../../webres/cp/js/common.js"></script>
 <script type="text/javascript" src="../../../webres/cp/js/jquery.flot.js"></script>

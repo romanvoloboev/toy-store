@@ -8,6 +8,7 @@
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
     <script src="../../webres/cp/js/product_add.js"></script>
+    <script src="../../webres/cp/js/i18n/ru.js"></script>
 
     <style type="text/css">
         .dropzone {
@@ -25,123 +26,110 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <div class="pull-right">
-                    <button type="submit" id="save-product" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Сохранить"><i class="fa fa-save"></i></button>
-                    <a href="<c:url value="/cp/product"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Отмена"><i class="fa fa-reply"></i></a></div>
-                <h1>Товары</h1>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-plus"></i>&nbsp;Добавление товара</h4>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <button type="button" id="promotion-btn" class="btn btn-warning"><i class="fa fa-gift"></i>&nbsp;Акционный товар</button>
+                    <a href="<c:url value="/cp/product"/>" class="btn btn-default"><i class="fa fa-reply"></i>&nbsp;Отмена</a>
+                </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i> Добавить товар</h3>
-                </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#tab-general" data-toggle="tab">Основная информация</a></li>
-                            <li><a href="#tab-image" data-toggle="tab">Изображения</a></li>
-                        </ul>
-
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tab-general">
-                                <div class="col-md-9" style="padding: 0;">
-                                    <div class="form-group">
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Название товара" id="product-name" class="form-control">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Код товара" id="product-code" class="form-control">
-                                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding: 0;">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <input type="text" placeholder="Название товара" id="product-name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <select class="form-control select2" id="product-category">
+                                        <option value="0" selected disabled>Подкатегория товара</option>
+                                    </select>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <select class="form-control select2" id="product-brand">
+                                        <option value="0" selected disabled>Производитель товара</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Код товара" id="product-code" class="form-control">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" placeholder="Цена" id="product-price" class="form-control">
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" placeholder="Количество" id="product-quantity" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group text-center">
+                                <a href="" id="additional-block-show"><span style="font-size: 12px; font-weight: bold; ">Дополнительные не обязательные параметры: материал и габариты изделия</span></a>
+                            </div>
+                            <div class="form-group" id="additional-block" style="display: none;">
+                                <div class="col-md-6">
+                                    <input type="text" placeholder="Материал" id="product-material" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" placeholder="Длина (см.)" id="product-length" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" placeholder="Ширина (см.)" id="product-width" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" placeholder="Высота (см.)" id="product-height" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group" id="promotion-block" style="display: none;">
+                                <div class="col-md-4">
+                                    <label class="control-label">Начало акции</label>
+                                    <div class="input-group date" id="datetimepickerStart">
+                                        <input type="text" class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-calendar"></span>
+                                        </span>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Категория товара" id="product-category" class="form-control" autocomplete="off">
-                                            <ul class="dropdown-menu"></ul>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Производитель" id="product-brand" class="form-control">
-                                            <ul class="dropdown-menu"></ul>
-                                        </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Конец акции</label>
+                                    <div class="input-group date" id="datetimepickerEnd">
+                                        <input type="text" class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-calendar"></span>
+                                        </span>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-md-12">
-                                            <textarea placeholder="Описание товара" id="product-description" style="display: none;"></textarea>
-                                        </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Акционная цена</label>
+                                    <input type="text" id="product-promotion-price" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <textarea placeholder="Описание товара" id="product-description" style="display: none;"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <div class="text-center" style="padding-bottom: 10px;">
+                                        <span style="color: #a6a6a6;">Вы должны загрузить до 5 изображений, при этом размер каждого не должен превышать 2Мб.</span>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-md-4">
-                                            <input type="text" placeholder="Цена" id="product-price" class="form-control">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <input type="text" placeholder="Старая цена" id="product-old-price" class="form-control">
-                                        </div>
-                                        <div class="col-md-4">
-                                            <select id="product-age" class="form-control" title="Минимальный возраст">
-                                                <option value="*">--- Ограничение по возрасту ---</option>
-                                                <option value="1">1+</option>
-                                                <option value="2">2+</option>
-                                                <option value="3">3+</option>
-                                                <option value="4">4+</option>
-                                                <option value="5">5+</option>
-                                                <option value="6">6+</option>
-                                                <option value="7">7+</option>
-                                            </select>
-                                        </div>
+                                    <div class="text-center">
+                                        <button type="button" id="select-image" class="btn btn-warning"><i class="fa fa-folder-open"></i> Выбрать</button>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-md-3">
-                                            <input type="text" placeholder="Количество" id="input-quantity" class="form-control">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" placeholder="Длина (см.)" id="input-length" class="form-control">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" placeholder="Ширина (см.)" id="input-width" class="form-control">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" placeholder="Высота (см.)" id="input-height" class="form-control">
-                                        </div>
+                                    <div class="image-previews col-centered col-md-12 text-center" style="display: none; padding-top: 10px; padding-left: 0; padding-right: 0;">
+                                        <div id="previews" class="dropzone"></div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="tab-pane" id="tab-image">
-                                <div class="col-md-12">
-                                    <div class="row form-group">
-                                        <div class="col-xs-12 col-md-2" id="thumb-image1">
-                                            <div class="panel panel-default">
-                                                <div class="panel-image">
-                                                    <img src="http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_52cf9489095e8_1.JPG" class="panel-image-preview" />
-                                                </div>
-                                                <div class="panel-footer text-center">
-                                                    <button onclick="$('#thumb-image1').remove();" class="btn">
-                                                        <span class="fa fa-times"></span> Удалить
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-2" id="thumb-image2">
-                                            <div class="panel panel-default">
-                                                <div class="panel-image">
-                                                    <img src="http://666a658c624a3c03a6b2-25cda059d975d2f318c03e90bcf17c40.r92.cf1.rackcdn.com/unsplash_52cf9489095e8_1.JPG" class="panel-image-preview" />
-                                                </div>
-                                                <div class="panel-footer text-center">
-                                                    <button onclick="$('#thumb-image2').remove();" class="btn">
-                                                        <span class="fa fa-times"></span> Удалить
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-2 col-xs-12" style="margin-bottom: 15px; padding-right: 0;">
-                                    <button type="button" id="select-image" class="btn btn-success"><i class="fa fa-folder-open"></i> Выбрать</button>
-                                </div>
-                                <div class="col-md-10 col-xs-12" style="padding-top: 8px;"><span style="color: #e2af00;">Вы можете загрузить до 5 изображений, при этом размер каждого не должен превышать 3Мб.</span></div>
-                                <div class="col-md-12 image-previews" style="display: none;">
-                                    <div id="previews" class="dropzone"></div>
+                            <div class="form-group text-center">
+                                <div class="col-sm-12 col-md-12 col-lg-12">
+                                    <button type="button" id="save-product" class="btn btn-success"><i class="fa fa-check"></i> Сохранить</button>
                                 </div>
                             </div>
                         </div>
@@ -150,6 +138,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

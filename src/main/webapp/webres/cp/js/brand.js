@@ -51,7 +51,7 @@ function saveBrand(id, name, country) {
             }
         });
     } else {
-        $.notify("<b>Введите все параметры!</b>",
+        $.notify("<b>Ошибка! Вы заполнили не все поля</b>",
             {
                 type: "danger",
                 delay: 1000

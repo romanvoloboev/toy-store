@@ -659,4 +659,31 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 	.to-left-sm {
 		text-align: left !important;
 	}
+
+	/*#input-price-end-block {*/
+		/*margin-bottom: 15px;*/
+	/*}*/
+
+	#input-price-block, #input-name-block, #input-status-block {
+		padding-right: 15px !important;
+		margin-bottom: 15px !important;
+	}
+
+	#product-code, #product-price, #product-quantity, #product-material,
+	#product-age, #product-length, #product-width, #product-height {
+		margin-bottom: 15px;
+	}
+
+}
+
+@media (max-width: 767px) {
+	#input-price-end-block {
+		margin-bottom: 15px;
+	}
+
+	#product-code, #product-price, #product-quantity, #product-material,
+	#product-age, #product-length, #product-width, #product-height {
+		margin-bottom: 15px;
+	}
+
 }
