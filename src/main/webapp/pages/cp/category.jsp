@@ -18,7 +18,7 @@
         <div class="page-header">
             <div class="container-fluid">
                 <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
-                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-list"></i>&nbsp;Управление</h4>
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-list"></i>&nbsp;Управление категориями</h4>
                 </div>
                 <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
                     <a href="<c:url value="/cp/category/add"/>" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Добавить категорию</a>

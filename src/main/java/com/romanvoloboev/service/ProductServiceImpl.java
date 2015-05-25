@@ -54,18 +54,18 @@ public class ProductServiceImpl implements ProductService {
             List<Image> images = selectImages(productDTO.getImages());
             if (productDTO.getId() == 0) {
                 product = new Product(productDTO.getName(), productDTO.getDescription(), new Date(), productDTO.getQuantity(),
-                        productDTO.getCode(), productDTO.getPrice(), true, productDTO.getPromotionPrice(),
+                        productDTO.getCode(), productDTO.getPrice() , true, productDTO.getPromotionPrice(),
                         formatStringToDate(productDTO.getPromotionStart()), formatStringToDate(productDTO.getPromotionEnd()),
                         hasPromotion(productDTO.getPromotionStart(), productDTO.getPromotionEnd()), 0.0, productDTO.getMaterial(),
                         productDTO.getWidth(), productDTO.getHeight(), productDTO.getLength(), brand, subcategory, images, null);
             } else {
                 product = selectModel(productDTO.getId());
                 product = new Product(productDTO.getId(), productDTO.getName(), productDTO.getDescription(), product.getDate(),
-                        productDTO.getQuantity(), productDTO.getCode(), productDTO.getPrice(), product.isActive(), productDTO.getPromotionPrice(),
-                        formatStringToDate(productDTO.getPromotionStart()), formatStringToDate(productDTO.getPromotionEnd()),
-                        hasPromotion(productDTO.getPromotionStart(), productDTO.getPromotionEnd()), product.getRating(),
-                        productDTO.getMaterial(), productDTO.getWidth(), productDTO.getHeight(), productDTO.getLength(),
-                        brand, subcategory, images, product.getReviews());
+                        productDTO.getQuantity(), productDTO.getCode(), productDTO.getPrice(), product.isActive(),
+                        productDTO.getPromotionPrice(), formatStringToDate(productDTO.getPromotionStart()),
+                        formatStringToDate(productDTO.getPromotionEnd()), hasPromotion(productDTO.getPromotionStart(),
+                        productDTO.getPromotionEnd()), product.getRating(), productDTO.getMaterial(), productDTO.getWidth(),
+                        productDTO.getHeight(), productDTO.getLength(), brand, subcategory, images, product.getReviews());
             }
             save(product);
         }
@@ -119,10 +119,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<ProductDTO> searchBy(String name, Float priceStart, Float priceEnd, int status) throws Exception {
+    public List<ProductDTO> searchBy(String name, Double priceStart, Double priceEnd, int status) throws Exception {
         boolean productStatus = true;
         if (status == 0) productStatus = false;
-        if (priceEnd == 0) priceEnd = Float.MAX_VALUE;
+        if (priceEnd == 0) priceEnd = Double.MAX_VALUE;
         List<Product> products = selectModels(name, priceStart, priceEnd, productStatus);
         List<ProductDTO> productDTOs = null;
         if (products != null) {
@@ -137,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public List<Product> selectModels(String name, Float priceStart, Float priceEnd, boolean status) throws Exception {
+    public List<Product> selectModels(String name, Double priceStart, Double priceEnd, boolean status) throws Exception {
         return productRepository.getByNameContainingAndPriceBetweenAndActive(name, priceStart, priceEnd, status);
     }
 

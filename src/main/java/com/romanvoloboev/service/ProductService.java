@@ -16,8 +16,8 @@ public interface ProductService {
     Product selectModel(Integer id) throws Exception;
     List<ProductDTO> selectDTOs() throws Exception;
     List<Product> selectModels() throws Exception;
-    List<ProductDTO> searchBy(String name, Float priceStart, Float priceEnd, int status) throws Exception;
-    List<Product> selectModels(String name, Float priceStart, Float priceEnd, boolean status) throws Exception;
+    List<ProductDTO> searchBy(String name, Double priceStart, Double priceEnd, int status) throws Exception;
+    List<Product> selectModels(String name, Double priceStart, Double priceEnd, boolean status) throws Exception;
     ProductDTO selectDTO(Integer id) throws Exception;
     void changeProductStatus(Integer id) throws Exception;
 }

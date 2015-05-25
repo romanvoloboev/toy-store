@@ -20,7 +20,6 @@ function initialize() {
 
 function fillInAddress() {
     var place = autocomplete.getPlace();
-    console.log(place.address_components);
     var val = '';
     for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];

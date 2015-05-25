@@ -7,7 +7,7 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
-    <script type="text/javascript" src="../../webres/cp/js/customer_edit.js"></script>
+    <script src="../../webres/cp/js/customer_add.js"></script>
 </head>
 <body>
 <div id="container">
@@ -17,80 +17,44 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <div class="pull-right">
-                    <button type="submit" id="save" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Сохранить"><i class="fa fa-save"></i></button>
-                    <a href="<c:url value="/cp/customer"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Назад"><i class="fa fa-reply"></i></a>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-plus"></i>&nbspДобавление пользователя</h4>
                 </div>
-                <h1>Пользователи</h1>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <a href="<c:url value="/cp/customer"/>" data-toggle="tooltip" class="btn btn-default" data-original-title="Назад"><i class="fa fa-reply"></i>&nbsp;Отмена</a>
+                </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i> Добавление пользователя</h3>
-                </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="row">
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-firstname">Имя</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="firstname" placeholder="Введите имя пользователя" id="input-firstname" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-login">E-Mail</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="login" placeholder="Введите login" id="input-login" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-telephone">Телефон</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="telephone" placeholder="Введите телефон" id="input-telephone" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-password">Пароль</label>
-                                <div class="col-sm-10">
-                                    <input type="password" name="password" value="" placeholder="Введите пароль" id="input-password" class="form-control" autocomplete="off">
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="input-confirm">Подтверждение пароля</label>
-                                <div class="col-sm-10">
-                                    <input type="password" name="confirm" value="" placeholder="Введите пароль еще раз" autocomplete="off" id="input-confirm" class="form-control">
+                        <div class="row col-md-6">
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <input type="text" placeholder="Введите имя пользователя" id="name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label" for="input-status">Статус аккаунта</label>
-                                <div class="col-sm-10">
-                                    <select name="status" id="input-status" class="form-control">
-                                        <option value="1" selected="selected">Активен</option>
-                                        <option value="0">Отключен</option>
-                                    </select>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="text" placeholder="Введите e-mail" id="email" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="text" id="phone" placeholder="+38(___)___-__-__" class="form-control" required>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label" for="input-customer-city">Адрес доставки</label>
-                                <div class="col-md-6" id="new-address-form">
-                                    <div class="col-md-8" style="padding: 0;">
-                                        <div class="col-md-12 col-sm-12" style="padding: 0 0 10px 0">
-                                            <input type="text" placeholder="Введите город" id="input-customer-city" class="form-control" autocomplete="off">
-                                            <ul class="dropdown-menu"></ul>
-                                            <input type="hidden" name="city_id" value="0">
-                                        </div>
-
-                                        <div id="street" class="col-md-8 col-sm-8"  style="padding-left: 0; padding-right: 0;">
-                                            <input name="street" placeholder="Улица" class="form-control" type="text" required="true">
-                                        </div>
-                                        <div id="house" class="col-md-2 col-sm-2" style="padding-right: 0;">
-                                            <input name="house_number" placeholder="Дом" class="form-control" type="text" required="true">
-                                        </div>
-                                        <div id="flat" class="col-md-2 col-sm-2"  style="padding-right: 0;">
-                                            <input name="flat_number" placeholder="Кв." class="form-control" type="text" required="true">
-                                        </div>
-                                    </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="password" placeholder="Введите пароль" id="password" class="form-control" autocomplete="off">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="password" placeholder="Введите пароль еще раз" autocomplete="off" id="password-confirm" class="form-control">
+                                </div>
+                            </div>
+                            <div style="display: none; padding: 8px;" id="passMismatchMsg" class="alert alert-danger" role="alert"></div>
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <button type="button" id="save" class="btn btn-success pull-right"><i class="fa fa-check"></i> Сохранить</button>
                                 </div>
                             </div>
                         </div>

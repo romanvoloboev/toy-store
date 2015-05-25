@@ -14,7 +14,6 @@
             $('#productcarousel415422').carousel({interval:5000,auto:true,pause:'hover'});
             $('#productcarousel2be500').carousel({interval:7000,auto:true,pause:'hover'});
             $('#productcarousel8cd118').carousel({interval:9000,auto:true,pause:'hover'});
-            $('#pavtestimonial72').carousel({interval:8000,auto:true,pause:'hover'});
 
             $('.colorbox-t').colorbox({iframe:true, innerWidth:640, innerHeight:390});
 
@@ -407,11 +406,6 @@
                     <section class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div id="content">
                             <div class="content-top">
-                                <div class="box pav-custom">
-                                    <div class="box-content">
-                                        <p><img alt="" src="../../webres/store/image/data/adv.png" style="display: none !important;"></p>
-                                    </div>
-                                </div>
                                 <div class="box-product yellow horizontal box productcarousel">
                                     <div class="box-heading"><span>Новинки</span></div>
                                     <div class="box-content">

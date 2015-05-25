@@ -7,71 +7,8 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
-
-    <script type="text/javascript">
-        $('#button-filter').on('click', function() {
-
-            var filter_name = $('input[name=\'filter_name\']').val();
-
-            if (filter_name) {
-                url += '&filter_name=' + encodeURIComponent(filter_name);
-            }
-
-            var filter_email = $('input[name=\'filter_email\']').val();
-
-            if (filter_email) {
-                url += '&filter_email=' + encodeURIComponent(filter_email);
-            }
-
-            var filter_status = $('select[name=\'filter_status\']').val();
-
-            if (filter_status != '*') {
-                url += '&filter_status=' + encodeURIComponent(filter_status);
-            }
-
-        });
-
-        $('input[name=\'filter_name\']').autocomplete({
-            'source': function(request, response) {
-                $.ajax({
-                    url: 'index.php?route=sale/customer/autocomplete&token=240007936b7aa12ac9d5a264a03a7059&filter_name=' +  encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function(json) {
-                        response($.map(json, function(item) {
-                            return {
-                                label: item['name'],
-                                value: item['customer_id']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function(item) {
-                $('input[name=\'filter_name\']').val(item['label']);
-            }
-        });
-
-        $('input[name=\'filter_email\']').autocomplete({
-            'source': function(request, response) {
-                $.ajax({
-                    url: 'index.php?route=sale/customer/autocomplete&token=240007936b7aa12ac9d5a264a03a7059&filter_email=' +  encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function(json) {
-                        response($.map(json, function(item) {
-                            return {
-                                label: item['login'],
-                                value: item['customer_id']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function(item) {
-                $('input[name=\'filter_email\']').val(item['label']);
-            }
-        });
-    </script>
-
+    <script src="../../webres/cp/js/customer.js"></script>
+    <script src="../../webres/cp/js/i18n/ru.js"></script>
 </head>
 <body>
 <div id="container">
@@ -81,68 +18,62 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <div class="pull-right">
-                    <a href="<c:url value="/cp/new_customer"/>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Добавить"><i class="fa fa-plus"></i></a>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-list"></i>&nbsp;Управление пользователями</h4>
                 </div>
-                <h1>Пользователи</h1>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <a href="<c:url value="/cp/customer/add"/>" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Добавить пользователя</a>
+                </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-list"></i> Список пользователей</h3>
-                </div>
                 <div class="panel-body">
                     <div class="well">
                         <div class="row">
-                            <div class="form-group col-md-3">
-                                <label class="control-label" for="input-name">Имя</label>
-                                <input type="text" name="filter_name" value="" placeholder="Введите имя пользователя" id="input-name" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label" for="input-login">E-Mail</label>
-                                <input type="text" name="filter_email" value="" placeholder="Введите e-mail" id="input-login" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label" for="input-status">Статус</label>
-                                <select name="filter_status" id="input-status" class="form-control">
-                                    <option value="*" selected>--- Выберите из списка ---</option>
-                                    <option value="1">Активен</option>
-                                    <option value="0">Отключен</option>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group" id="input-customer-name-block" style="padding-right: 0; margin-bottom: 0;">
+                                <select class="form-control select2" id="customer-name">
+                                    <option value="0" selected disabled>Имя пользователя</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-3">
-                                <button style="margin-top: 23px;" type="button" id="button-filter" class="btn btn-primary pull-left"><i class="fa fa-search"></i> Найти</button>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group" id="input-customer-email-block" style="padding-right: 0; margin-bottom: 0;">
+                                <select class="form-control select2" id="customer-email">
+                                    <option value="0" selected disabled>E-mail пользователя</option>
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="form-horizontal">
+                    <div class="form-horizontal col-sm-12 col-md-12 col-lg-12" style="padding: 0;">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <td class="text-left">
-                                        <a href="" class="asc">Имя</a>
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="">E-Mail</a>
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="">Статус</a>
-                                    </td>
-                                    <td class="text-right">Действие</td>
+                                    <th class="text-left col-md-3">Имя</th>
+                                    <th class="text-left col-md-3">E-mail</th>
+                                    <th class="text-left col-md-3">Телефон</th>
+                                    <th class="text-center col-md-1">Отзывы</th>
+                                    <th class="text-center col-md-2">Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-left">name</td>
-                                    <td class="text-left">a@aol.com</td>
-                                    <td class="text-left">Enabled</td>
-                                    <td class="text-right">
-                                        <a href="<c:url value="/cp/edit_customer"/>" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                        <a href="<c:url value="/cp/remove_customer"/>" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                <c:forEach items="${customer}" var="c">
+                                    <tr>
+                                        <td class="text-left">${c.name}</td>
+                                        <td class="text-left">${c.email}</td>
+                                        <td class="text-left"><c:out value="${c.phone == '' ? 'Не указан' : c.phone}"/></td>
+                                        <td class="text-center"><a href="<c:url value=""/>"><span class="label label-success">${c.reviewsCount}</span></a></td>
+                                        <td class="text-center">
+                                            <a href="<c:url value="/cp/customer/edit?id=${c.id}"/>" data-toggle="tooltip" title="Редактировать" class="btn btn-default" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
+                                            <button type="button" onclick="changeCustomerStatus(${c.id})" data-toggle="tooltip" class="btn <c:out value="${c.active ? 'btn-success' : 'btn-danger'}"/>"
+                                                    title="<c:out value="${c.active ? 'Заблокировать пользователя' : 'Активировать пользователя'}"/>">
+                                                <span class="fa fa-ban"></span>
+                                            </button>
+                                            <button type="button" onclick="deleteCustomer(${c.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить пользователя">
+                                                <span class="fa fa-trash"></span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>

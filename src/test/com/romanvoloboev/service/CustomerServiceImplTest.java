@@ -53,4 +53,10 @@ public class CustomerServiceImplTest {
             System.out.println(address.getCity() +", " +address.getStreet() +", " +address.getHouse());
         }
     }
+
+    @Test
+    public void selectByRole() throws Exception {
+        List<Customer> customers =customerService.selectCustomerModels();
+        System.out.println(customers.toString());
+    }
 }

@@ -5,31 +5,41 @@ $(function(){
         return password != '' && password == confirmPassword;
     }
 
-    $('#register-form').submit(function(e){
+    $('#createBtn').on("click", (function(e){
         if (validatePassword()) {
-            $.post('/customer_sign_up', $('#register-form').serialize(), function(response){
-                //redirect to profile after registration
-                if(response.status == 'ok') {
-                    $.ajax({
-                        url: '/check_customer',
-                        data: {username: $("#email").val(), password: $("#password").val()},
-                        dataType: 'json',
-                        type: 'POST',
-                        complete: function(){
-                            document.location.href = '/profile';
-                        }
-                    });
-                } else if(response.status == 'exist') {
-                    document.location.href = '/customer_login?exist=true';
-                } else {
-                    document.location.href = '/customer_login?error=true';
+            var data = {name: $("#name").val(), email: $("#email").val(), password: $("#confirmPassword").val()};
+            $.ajax({
+                url: "/customer_sign_up",
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify(data),
+
+                success: function(response) {
+                    if (response.status == "ok") {
+                        location.href = '/';
+                    } else if (response.status == 'exist') {
+                        location.href = '/customer_login?exist=true';
+                    } else if (response.status == 'wrongParams') {
+                        location.href = '/customer_login?params_error=true';
+                    }
+                    else {
+                        location.href = '/customer_login?error=true';
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $.notify("<b>Не удалось создать аккаунт. Что-то пошло не так...</b>",
+                        {
+                            type: "danger",
+                            delay: 1500
+                        });
                 }
-            });
+            })
         } else {
             $('#passMismatchMsg').fadeIn(500).html('<b>Внимание! </b>Пароль не совпадает.');
         }
         e.preventDefault();
-    });
+    }));
 
     $("#confirmPassword").on('keyup', function() {
         if (!validatePassword()) {

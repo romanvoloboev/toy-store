@@ -7,6 +7,7 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
+    <script src="../../webres/cp/js/customer_add.js"></script>
 </head>
 <body>
 <div id="container">
@@ -16,61 +17,59 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <h1>Администраторы</h1>
-                <div class="pull-right">
-                    <a href="<c:url value="/cp/new_employee"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Сохранить"><i class="fa fa-save"></i></a>
-                    <a href="<c:url value="/cp/employee"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Назад"><i class="fa fa-reply"></i></a>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-pencil"></i>&nbspРедактирование сотрудника</h4>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <a href="<c:url value="/cp/employee"/>" data-toggle="tooltip" class="btn btn-default" data-original-title="Назад"><i class="fa fa-reply"></i>&nbsp;Отмена</a>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-list"></i>Редактирование учетной записи администратора</h3>
-                </div>
                 <div class="panel-body">
                     <div class="form-horizontal">
-                        <div class="row">
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="name">Имя</label>
-                                <div class="col-sm-10">
-                                    <input type="text" id="name" class="form-control" required="true">
+                        <div class="row col-md-6">
+                            <div class="form-group">
+                                <input type="hidden" id="customer-id" value="${employee.id}">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="text" value="${employee.name}" id="name" class="form-control">
                                 </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="login">E-mail</label>
-                                <div class="col-sm-10">
-                                    <input type="login" id="login" class="form-control" required="true">
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="login">Пароль</label>
-                                <div class="col-sm-10">
-                                    <input type="password" id="password" class="form-control" required="true">
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="login">Повторите пароль</label>
-                                <div class="col-sm-10">
-                                    <input type="password" id="password-repeat" class="form-control" required="true">
-                                </div>
-                            </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="account-status">Статус</label>
-                                <div class="col-sm-10">
-                                    <select id="account-status" class="form-control">
-                                        <option value="1" selected>Активен</option>
-                                        <option value="0">Неактивен</option>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <select id="employee-type" class="form-control">
+                                        <c:choose>
+                                            <c:when test="${employee.role == 2}">
+                                                <option value="2" selected>Сотрудник</option>
+                                                <option value="3">Администратор</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="2">Сотрудник</option>
+                                                <option value="3" selected>Администратор</option>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group required">
-                                <label class="col-sm-2 control-label" for="account-type">Тип</label>
-                                <div class="col-sm-10">
-                                    <select id="account-type" class="form-control">
-                                        <option value="0" selected>Модератор</option>
-                                        <option value="1">Администратор</option>
-                                    </select>
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="text" value="${employee.email}" id="email" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="text" value="${employee.phone}" id="phone" placeholder="+38(___)___-__-__" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="password" value="${employee.password}" placeholder="Введите пароль" id="password" class="form-control" autocomplete="off">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                    <input type="password" value="${employee.password}" placeholder="Введите пароль еще раз" autocomplete="off" id="password-confirm" class="form-control">
+                                </div>
+                            </div>
+                            <div style="display: none; padding: 8px;" id="passMismatchMsg" class="alert alert-danger" role="alert"></div>
+                            <div class="form-group">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <button type="button" id="save" class="btn btn-success pull-right"><i class="fa fa-check"></i> Сохранить</button>
                                 </div>
                             </div>
                         </div>
@@ -79,6 +78,5 @@
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>

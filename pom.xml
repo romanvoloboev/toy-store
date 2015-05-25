@@ -24,6 +24,12 @@
                 <server-url>http://localhost:8080/manager/text</server-url>
             </properties>
         </profile>
+        <profile>
+            <id>remote</id>
+            <properties>
+                <server-url>http://104.155.9.235/manager/text</server-url>
+            </properties>
+        </profile>
     </profiles>
 
     <dependencies>
@@ -262,9 +268,9 @@
                 <version>2.2</version>
                 <configuration>
                     <url>${server-url}</url>
-                    <server>toy-tommy</server>
+                    <server>toy-store-remote</server>
                     <username>roman</username>
-                    <password>test</password>
+                    <password>4g87cVzf59</password>
                     <path>/</path>
                 </configuration>
             </plugin>

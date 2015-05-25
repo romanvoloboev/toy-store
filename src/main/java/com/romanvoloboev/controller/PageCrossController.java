@@ -98,39 +98,6 @@ public class PageCrossController {
 
 
 
-    @RequestMapping("/cp/customer")
-    public ModelAndView showCustomers() {
-        return new ModelAndView("cp/customer");
-    }
-
-    @RequestMapping("/cp/edit_customer")
-    public ModelAndView editCustomer() {
-        return new ModelAndView("cp/customer_edit");
-    }
-
-    @RequestMapping("/cp/new_customer")
-    public ModelAndView newCustomer() {
-        return new ModelAndView("/cp/customer_add");
-    }
-
-
-    @RequestMapping("/cp/employee")
-    public ModelAndView showAdmins(){
-        return new ModelAndView("cp/employee");
-    }
-
-    @RequestMapping("/cp/edit_employee")
-    public ModelAndView editAdmin() {
-        return new ModelAndView("cp/employee_edit");
-    }
-
-    @RequestMapping("/cp/new_employee")
-    public ModelAndView newAdmin() {
-        return new ModelAndView("cp/employee_add");
-    }
-
-
-
     @RequestMapping("/cp/sale_report")
     public ModelAndView showSalesReport() {
         return new ModelAndView("/cp/sale_report");

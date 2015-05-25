@@ -36,6 +36,14 @@
                         delay: 2000
                     });
             </c:if>
+
+            <c:if test="${params_error}">
+            $.notify("<b>Ошибка! Проверьте правильность введенных данных.</b>",
+                    {
+                        type: "danger",
+                        delay: 2000
+                    });
+            </c:if>
         });
     </script>
 
@@ -90,27 +98,27 @@
                                     <div class="col-lg-3 col-sm-4 col-sm-offset-2 col-xs-12 col-lg-offset-2">
                                         <div class="inner">
                                             <h2>Впервые у нас?</h2>
-                                            <form id="register-form" method="POST" action="<c:url value="/customer_sign_up"/>">
+                                            <form id="register-form">
                                                 <p><b>Создайте аккаунт</b></p>
                                                 <fieldset>
                                                     <div class="form-group form-inline">
-                                                        <input name="name" placeholder="Ваше имя" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="text" required>
+                                                        <input id="name" placeholder="Ваше имя" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="text" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input name="email" id="email" placeholder="E-Mail" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="email" required>
+                                                        <input id="email" placeholder="E-Mail" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="email" required>
                                                     </div>
                                                     <div class="form-group">
-                                                        <input name="pass" id="password" placeholder="Пароль" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="password" required>
+                                                        <input id="password" placeholder="Пароль" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="password" required>
                                                     </div>
                                                     <div class="form-group">
                                                         <input id="confirmPassword" placeholder="Повторите пароль" class="form-control <c:out value="${exist ? 'has-error':''}"/>" type="password" required>
                                                     </div>
                                                     <div style="display: none; padding: 8px;" id="passMismatchMsg" class="alert alert-danger" role="alert"></div>
                                                     <div class="form-group">
-                                                        <p>Регистрируясь, вы соглашаетесь с <a style="color: #0088cc" href="/terms">пользовательским соглашением</a></p>
+                                                        <p>Регистрируясь, вы соглашаетесь с <a style="color: #0088cc" href="#">пользовательским соглашением</a></p>
                                                     </div>
                                                     <div class="form-group">
-                                                        <button type="submit" id="createBtn" class="btn btn-shopping-cart" disabled>
+                                                        <button id="createBtn" class="btn btn-shopping-cart" disabled>
                                                             <span class="fa fa-check"></span> Зарегистрироваться
                                                         </button>
                                                     </div>

@@ -20,7 +20,12 @@ public class CustomerDTO {
     private String phone;
     private boolean isActive;
     private short role;
+    private String type;
+    private long reviewsCount;
     private List<AddressDTO> addressesList = new ArrayList<>();
+
+    public CustomerDTO() {
+    }
 
     public CustomerDTO(int id, String name, String email, String password, String phone, boolean isActive,
                        short role, List<AddressDTO> addressesList) {
@@ -34,12 +39,45 @@ public class CustomerDTO {
         this.addressesList = addressesList;
     }
 
-    public CustomerDTO(Integer id, String name, String email, String phone, List<AddressDTO> addressesList) {
+    public CustomerDTO(int id, String name, String email, String phone, List<AddressDTO> addressesList) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.addressesList = addressesList;
+    }
+
+    public CustomerDTO(int id, String name, String email, String phone, boolean isActive, long reviewsCount) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.isActive = isActive;
+        this.reviewsCount = reviewsCount;
+    }
+
+    public CustomerDTO(int id, String name, String email, String phone, boolean isActive, String type) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.isActive = isActive;
+        this.type = type;
+    }
+
+    public CustomerDTO(int id, String name, String email, String phone, String password, short role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.role = role;
+    }
+
+    public CustomerDTO(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     @NotNull
@@ -77,7 +115,6 @@ public class CustomerDTO {
         this.password = password;
     }
 
-    @Pattern(regexp = CustomerServiceImpl.PHONE_PATTERN)
     public String getPhone() {
         return phone;
     }
@@ -98,6 +135,20 @@ public class CustomerDTO {
     }
     public void setRole(short role) {
         this.role = role;
+    }
+
+    public long getReviewsCount() {
+        return reviewsCount;
+    }
+    public void setReviewsCount(long reviewsCount) {
+        this.reviewsCount = reviewsCount;
+    }
+
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
     }
 
     public List<AddressDTO> getAddressesList() {

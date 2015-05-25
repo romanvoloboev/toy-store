@@ -62,8 +62,8 @@ public class ProductController {
 
     @RequestMapping(value = "/cp/product/search_by", method = RequestMethod.GET)
     public ModelAndView searchProduct(@RequestParam(value = "name", required = false, defaultValue = "")String name,
-                                      @RequestParam(value = "price_start", required = false, defaultValue = "0")float priceStart,
-                                      @RequestParam(value = "price_end", required = false, defaultValue = "0")float priceEnd,
+                                      @RequestParam(value = "price_start", required = false, defaultValue = "0")double priceStart,
+                                      @RequestParam(value = "price_end", required = false, defaultValue = "0")double priceEnd,
                                       @RequestParam(value = "status", required = false, defaultValue = "1")int status) {
         ModelAndView modelAndView = new ModelAndView("cp/product");
         try {

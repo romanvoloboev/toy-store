@@ -660,20 +660,15 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 		text-align: left !important;
 	}
 
-	/*#input-price-end-block {*/
-		/*margin-bottom: 15px;*/
-	/*}*/
-
-	#input-price-block, #input-name-block, #input-status-block {
+	#input-price-block, #input-name-block, #input-status-block, #input-customer-name-block, #input-customer-email-block {
 		padding-right: 15px !important;
 		margin-bottom: 15px !important;
 	}
 
 	#product-code, #product-price, #product-quantity, #product-material,
-	#product-age, #product-length, #product-width, #product-height {
+	#product-age, #product-length, #product-width, #product-height, #email, #password, #name {
 		margin-bottom: 15px;
 	}
-
 }
 
 @media (max-width: 767px) {
@@ -682,8 +677,12 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 	}
 
 	#product-code, #product-price, #product-quantity, #product-material,
-	#product-age, #product-length, #product-width, #product-height {
+	#product-age, #product-length, #product-width, #product-height, #email,
+	#password, #city, #street, #house, #flat, #name {
 		margin-bottom: 15px;
 	}
 
+	#city {
+		padding-bottom: 0 !important;
+	}
 }
