@@ -56,24 +56,33 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${customer}" var="c">
-                                    <tr>
-                                        <td class="text-left">${c.name}</td>
-                                        <td class="text-left">${c.email}</td>
-                                        <td class="text-left"><c:out value="${c.phone == '' ? 'Не указан' : c.phone}"/></td>
-                                        <td class="text-center"><a href="<c:url value=""/>"><span class="label label-success">${c.reviewsCount}</span></a></td>
-                                        <td class="text-center">
-                                            <a href="<c:url value="/cp/customer/edit?id=${c.id}"/>" data-toggle="tooltip" title="Редактировать" class="btn btn-default" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                            <button type="button" onclick="changeCustomerStatus(${c.id})" data-toggle="tooltip" class="btn <c:out value="${c.active ? 'btn-success' : 'btn-danger'}"/>"
-                                                    title="<c:out value="${c.active ? 'Заблокировать пользователя' : 'Активировать пользователя'}"/>">
-                                                <span class="fa fa-ban"></span>
-                                            </button>
-                                            <button type="button" onclick="deleteCustomer(${c.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить пользователя">
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${not empty customer}">
+                                        <c:forEach items="${customer}" var="c">
+                                            <tr>
+                                                <td class="text-left">${c.name}</td>
+                                                <td class="text-left">${c.email}</td>
+                                                <td class="text-left"><c:out value="${c.phone == '' ? 'Не указан' : c.phone}"/></td>
+                                                <td class="text-center"><a href="<c:url value=""/>"><span class="label label-success">${c.reviewsCount}</span></a></td>
+                                                <td class="text-center">
+                                                    <a href="<c:url value="/cp/customer/edit?id=${c.id}"/>" data-toggle="tooltip" title="Редактировать" class="btn btn-default" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
+                                                    <button type="button" onclick="changeCustomerStatus(${c.id})" data-toggle="tooltip" class="btn <c:out value="${c.active ? 'btn-success' : 'btn-danger'}"/>"
+                                                            title="<c:out value="${c.active ? 'Заблокировать пользователя' : 'Активировать пользователя'}"/>">
+                                                        <span class="fa fa-ban"></span>
+                                                    </button>
+                                                    <button type="button" onclick="deleteCustomer(${c.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить пользователя">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="text-center" colspan="5">Нет данных</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>

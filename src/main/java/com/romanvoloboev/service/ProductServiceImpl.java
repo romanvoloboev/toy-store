@@ -1,6 +1,7 @@
 package com.romanvoloboev.service;
 
 import com.romanvoloboev.dto.ProductDTO;
+import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.model.Brand;
 import com.romanvoloboev.model.Image;
 import com.romanvoloboev.model.Product;
@@ -92,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public Product selectModel(Integer id) throws Exception {
+    public Product selectModel(Integer id) {
         return productRepository.getOne(id);
     }
 
@@ -167,6 +168,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Transactional(readOnly = true)
+    @Override
+    public List<SimpleDTO> selectSimpleDTOsByName(String name) {
+        List<SimpleDTO> simpleDTOs = new ArrayList<>();
+        List<Product> products = selectModelsByName(name);
+        if (products != null) {
+            for (Product product:products) {
+                simpleDTOs.add(new SimpleDTO(product.getId(), product.getName()));
+            }
+        }
+        return simpleDTOs;
+    }
+
+    private List<Product> selectModelsByName(String name) {
+        return productRepository.getByNameStartingWith(name);
+    }
+
+    @Transactional(readOnly = true)
     private List<Image> selectImages(long[] images) throws Exception {
         List<Image> imageList = new ArrayList<>();
         for (long id:images) {
@@ -188,33 +206,5 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return ids;
-    }
-
-    private String formatDateToString(Date date) throws ParseException {
-        if (date == null) return "";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        dateFormat.setLenient(false);
-        return dateFormat.format(date);
-    }
-
-    private Date formatStringToDate(String date) throws ParseException{
-        if (date == null) return null;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-        dateFormat.setLenient(false);
-        return dateFormat.parse(date);
-    }
-
-    private boolean validate(Object object, Validator validator) throws ValidationException {
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
-
-        if (constraintViolations.size() > 0){
-            StringBuilder errorString = new StringBuilder();
-            for (ConstraintViolation<Object> cv : constraintViolations){
-                errorString.append(String.format("Format error in property: [%s], value: [%s], message: [%s]",
-                        cv.getPropertyPath(), cv.getInvalidValue(), cv.getMessage()));
-            }
-            throw new ValidationException(errorString.toString());
-        }
-        return true;
     }
 }

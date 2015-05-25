@@ -139,45 +139,54 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${products}" var="p">
-                                    <tr>
-                                        <td class="text-center">
-                                            <img src="<c:url value="/image/load?id=${p.images[0]}"/>" class="img-thumbnail">
-                                        </td>
-                                        <td class="text-left">${p.name}</td>
-                                        <td class="text-center">
-                                            <c:choose>
-                                                <c:when test="${p.promotion}">
-                                                    <span style="text-decoration: line-through;">${p.price}</span><br>
-                                                    <div class="text-danger">${p.promotionPrice}</div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <div>${p.price}</div>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                        <td class="text-center">
-                                            <c:choose>
-                                                <c:when test="${p.quantity <= 5}">
-                                                    <span class="label label-danger">${p.quantity}</span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="label label-success">${p.quantity}</span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                        <td class="text-center">
-                                            <button type="button" onclick="changeProductStatus(${p.id})" data-toggle="tooltip" class="btn <c:out value="${p.active ? 'btn-default' : 'btn-warning'}"/>"
-                                                    title="<c:out value="${p.active ? 'Скрыть товар' : 'Активировать товар'}"/>">
-                                                <span class="fa <c:out value="${p.active ? 'fa-eye' : 'fa-eye-slash'}"/>"></span>
-                                            </button>
-                                            <a href="<c:url value="/cp/product/edit?id=${p.id}"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                            <button type="button" onclick="deleteProduct(${p.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить товар">
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${not empty products}">
+                                        <c:forEach items="${products}" var="p">
+                                            <tr>
+                                                <td class="text-center">
+                                                    <img src="<c:url value="/image/load?id=${p.images[0]}"/>" class="img-thumbnail">
+                                                </td>
+                                                <td class="text-left">${p.name}</td>
+                                                <td class="text-center">
+                                                    <c:choose>
+                                                        <c:when test="${p.promotion}">
+                                                            <span style="text-decoration: line-through;">${p.price}</span><br>
+                                                            <div class="text-danger">${p.promotionPrice}</div>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <div>${p.price}</div>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td class="text-center">
+                                                    <c:choose>
+                                                        <c:when test="${p.quantity <= 5}">
+                                                            <span class="label label-danger">${p.quantity}</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="label label-success">${p.quantity}</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" onclick="changeProductStatus(${p.id})" data-toggle="tooltip" class="btn <c:out value="${p.active ? 'btn-default' : 'btn-warning'}"/>"
+                                                            title="<c:out value="${p.active ? 'Скрыть товар' : 'Активировать товар'}"/>">
+                                                        <span class="fa <c:out value="${p.active ? 'fa-eye' : 'fa-eye-slash'}"/>"></span>
+                                                    </button>
+                                                    <a href="<c:url value="/cp/product/edit?id=${p.id}"/>" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
+                                                    <button type="button" onclick="deleteProduct(${p.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить товар">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="text-center" colspan="5">Нет данных</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>

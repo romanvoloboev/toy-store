@@ -1,6 +1,7 @@
 package com.romanvoloboev.controller;
 
 import com.romanvoloboev.dto.ProductDTO;
+import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.service.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.ValidationException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -111,6 +113,16 @@ public class ProductController {
             LOGGER.log(Level.SEVERE, e.getMessage());
             response.put("status", "error");
         }
+        return response;
+    }
+
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @RequestMapping(value = "/cp/product/load_by_name", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public Map<String, List<SimpleDTO>> loadProductsNames(@RequestParam("name")String name) {
+        Map<String, List<SimpleDTO>> response = new HashMap<>();
+        List<SimpleDTO> names = productService.selectSimpleDTOsByName(name);
+        response.put("suggestions", names);
         return response;
     }
 }

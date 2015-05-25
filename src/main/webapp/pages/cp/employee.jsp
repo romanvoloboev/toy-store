@@ -43,26 +43,36 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${employee}" var="e">
-                                    <tr>
-                                        <td class="text-left">${e.name}</td>
-                                        <td class="text-left">${e.email}</td>
-                                        <td class="text-left"><c:out value="${e.phone == '' ? 'Не указан' : e.phone}"/></td>
-                                        <td class="text-left">${e.type}</td>
-                                        <td class="text-center">
-                                            <button type="button" onclick="editEmployee(${e.id})" data-toggle="tooltip" class="btn btn-default" title="Редактировать сотрудника">
-                                                <span class="fa fa-pencil"></span>
-                                            </button>
-                                            <button type="button" onclick="changeEmployeeStatus(${e.id})" data-toggle="tooltip" class="btn <c:out value="${e.active ? 'btn-success' : 'btn-danger'}"/>"
-                                                    title="<c:out value="${e.active ? 'Заблокировать сотрудника' : 'Активировать сотрудника'}"/>">
-                                                <span class="fa fa-ban"></span>
-                                            </button>
-                                            <button type="button" onclick="deleteEmployee(${e.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить сотрудника">
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${not empty employee}">
+                                        <c:forEach items="${employee}" var="e">
+                                            <tr>
+                                                <td class="text-left">${e.name}</td>
+                                                <td class="text-left">${e.email}</td>
+                                                <td class="text-left"><c:out value="${e.phone == '' ? 'Не указан' : e.phone}"/></td>
+                                                <td class="text-left">${e.type}</td>
+                                                <td class="text-center">
+                                                    <button type="button" onclick="editEmployee(${e.id})" data-toggle="tooltip" class="btn btn-default" title="Редактировать сотрудника">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </button>
+                                                    <button type="button" onclick="changeEmployeeStatus(${e.id})" data-toggle="tooltip" class="btn <c:out value="${e.active ? 'btn-success' : 'btn-danger'}"/>"
+                                                            title="<c:out value="${e.active ? 'Заблокировать сотрудника' : 'Активировать сотрудника'}"/>">
+                                                        <span class="fa fa-ban"></span>
+                                                    </button>
+                                                    <button type="button" onclick="deleteEmployee(${e.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить сотрудника">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="text-center" colspan="5">Нет данных</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
+
                                 </tbody>
                             </table>
                         </div>

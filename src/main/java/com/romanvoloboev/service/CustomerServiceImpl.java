@@ -74,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional(readOnly = true)
     @Override
-    public Customer selectModel(Integer id) throws Exception {
+    public Customer selectModel(Integer id) {
         return customerRepository.findOne(id);
     }
 

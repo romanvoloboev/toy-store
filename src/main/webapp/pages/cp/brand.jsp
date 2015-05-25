@@ -39,22 +39,31 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${brand}" var="b">
-                                    <tr>
-                                        <td class="text-left">${b.name}</td>
-                                        <td class="text-left">${b.country}</td>
-                                        <td class="text-center">
-                                            <button type="button" onclick="changeBrandStatus(${b.id})" data-toggle="tooltip" class="btn <c:out value="${b.active ? 'btn-default' : 'btn-warning'}"/>"
-                                                    title="<c:out value="${b.active ? 'Скрыть производителя' : 'Активировать производителя'}"/>">
-                                                <span class="fa <c:out value="${b.active ? 'fa-eye' : 'fa-eye-slash'}"/>"></span>
-                                            </button>
-                                            <a href="<c:url value="/cp/brand/edit?id=${b.id}"/>" data-toggle="tooltip" class="btn btn-default" title="Редактировать производителя"><i class="fa fa-pencil"></i></a>
-                                            <button type="button" onclick="deleteBrand(${b.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить производителя">
-                                                <span class="fa fa-trash"></span>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${not empty brand}">
+                                        <c:forEach items="${brand}" var="b">
+                                            <tr>
+                                                <td class="text-left">${b.name}</td>
+                                                <td class="text-left">${b.country}</td>
+                                                <td class="text-center">
+                                                    <button type="button" onclick="changeBrandStatus(${b.id})" data-toggle="tooltip" class="btn <c:out value="${b.active ? 'btn-default' : 'btn-warning'}"/>"
+                                                            title="<c:out value="${b.active ? 'Скрыть производителя' : 'Активировать производителя'}"/>">
+                                                        <span class="fa <c:out value="${b.active ? 'fa-eye' : 'fa-eye-slash'}"/>"></span>
+                                                    </button>
+                                                    <a href="<c:url value="/cp/brand/edit?id=${b.id}"/>" data-toggle="tooltip" class="btn btn-default" title="Редактировать производителя"><i class="fa fa-pencil"></i></a>
+                                                    <button type="button" onclick="deleteBrand(${b.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить производителя">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="text-center" colspan="3">Нет данных</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>

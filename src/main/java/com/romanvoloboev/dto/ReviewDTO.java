@@ -1,6 +1,7 @@
 package com.romanvoloboev.dto;
 
 import com.romanvoloboev.service.ReviewServiceImpl;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -15,14 +16,27 @@ public class ReviewDTO {
     private String comment;
     private float rating;
     private String date;
-    private String customer;
+    private boolean active;
+    private int customer;
+    private int product;
+    private String customerName;
+    private String productName;
 
-    public ReviewDTO(int id, String comment, float rating, String date, String customer) {
+    public ReviewDTO(String comment, float rating, int customer, int product) {
+        this.comment = comment;
+        this.rating = rating;
+        this.customer = customer;
+        this.product = product;
+    }
+
+    public ReviewDTO(int id, String comment, float rating, String date, boolean active, String customerName, String productName) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
         this.date = date;
-        this.customer = customer;
+        this.active = active;
+        this.customerName = customerName;
+        this.productName = productName;
     }
 
     public ReviewDTO(int id, String comment, float rating) {
@@ -49,8 +63,6 @@ public class ReviewDTO {
     }
 
     @NotNull
-    @Size(min = 1, max = 3, message = "Incorrect rating length")
-    @Pattern(regexp = ReviewServiceImpl.FLOAT_PATTERN, message = "Incorrect rating format")
     public float getRating() {
         return rating;
     }
@@ -58,6 +70,14 @@ public class ReviewDTO {
         this.rating = rating;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
     public String getDate() {
         return date;
     }
@@ -65,10 +85,31 @@ public class ReviewDTO {
         this.date = date;
     }
 
-    public String getCustomer() {
+    public int getCustomer() {
         return customer;
     }
-    public void setCustomer(String customer) {
+    public void setCustomer(int customer) {
         this.customer = customer;
+    }
+
+    public int getProduct() {
+        return product;
+    }
+    public void setProduct(int product) {
+        this.product = product;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 }

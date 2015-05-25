@@ -108,13 +108,4 @@ public class PageCrossController {
         return new ModelAndView("/cp/product_report");
     }
 
-
-
-    @RequestMapping("/cp/reviews")
-    public ModelAndView showReviews() {
-        return new ModelAndView("/cp/reviews");
-    }
-
-
-
 }

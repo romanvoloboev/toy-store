@@ -20,7 +20,7 @@ public interface CustomerService {
     void delete(Customer customer) throws Exception;
     void delete(Integer id) throws Exception;
     Customer selectModel(String email) throws Exception;
-    Customer selectModel(Integer id) throws Exception;
+    Customer selectModel(Integer id);
     Customer selectAuth();
     CustomerDTO selectSimpleDto(Customer customer) throws Exception;
     void updateProfile(CustomerDTO customerDTO, Customer customer) throws Exception;

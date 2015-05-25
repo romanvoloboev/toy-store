@@ -1,7 +1,9 @@
 package com.romanvoloboev.service;
 
+import com.romanvoloboev.dto.ReviewDTO;
 import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
+import com.romanvoloboev.model.Product;
 import com.romanvoloboev.model.enums.Role;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,9 +20,10 @@ import java.util.List;
 
 @ContextConfiguration(locations = {"classpath:spring-config.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
-public class CustomerServiceImplTest {
+public class DataFillTest {
     @Autowired private CustomerService customerService;
-    @Autowired private AddressService addressService;
+    @Autowired private ProductServiceImpl productService;
+    @Autowired private ReviewServiceImpl reviewService;
 
     @Test
     public void testSave() throws Exception {
@@ -46,17 +49,7 @@ public class CustomerServiceImplTest {
     }
 
     @Test
-    public  void getAddresses() throws Exception {
-        Customer customer = customerService.selectModel("test1@gmail.com");
-        List<Address> addressList = addressService.selectModels(customer);
-        for (Address address:addressList) {
-            System.out.println(address.getCity() +", " +address.getStreet() +", " +address.getHouse());
-        }
-    }
-
-    @Test
-    public void selectByRole() throws Exception {
-        List<Customer> customers =customerService.selectCustomerModels();
-        System.out.println(customers.toString());
+    public void fillReviews() throws Exception {
+        reviewService.save(new ReviewDTO("Крутой товар! Очень понравился, советую.", (float)4.5, 1, 1));
     }
 }

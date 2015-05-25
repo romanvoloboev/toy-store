@@ -1,45 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
-
-    <script type="text/javascript">
-        $('#button-filter').on('click', function() {
-            url = '';
-
-            var filter_product = $('input[name=\'filter_product\']').val();
-
-            if (filter_product) {
-                url += '&filter_product=' + encodeURIComponent(filter_product);
-            }
-
-            var filter_author = $('input[name=\'filter_author\']').val();
-
-            if (filter_author) {
-                url += '&filter_author=' + encodeURIComponent(filter_author);
-            }
-
-            var filter_status = $('select[name=\'filter_status\']').val();
-
-            if (filter_status != '*') {
-                url += '&filter_status=' + encodeURIComponent(filter_status);
-            }
-
-            var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-            if (filter_date_added) {
-                url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-            }
-
-            location = url;
-        });
-    </script>
-
+    <script src="../../webres/cp/js/reviews.js"></script>
+    <script src="../../webres/cp/js/i18n/ru.js"></script>
 </head>
 <body>
 <div id="container">
@@ -49,36 +19,25 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <h1>Отзывы</h1>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-list"></i>&nbsp;Управление отзывами</h4>
+                </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-list"></i> Список отзывов</h3>
-                </div>
                 <div class="panel-body">
                     <div class="well">
                         <div class="row">
-                            <div class="form-group col-md-3">
-                                <label class="control-label" for="input-product">Товар</label>
-                                <input type="text" name="filter_product" placeholder="Введите название товара" id="input-product" class="form-control">
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group" id="input-product-name-block" style="padding-right: 0; margin-bottom: 0;">
+                                <select class="form-control select2" id="product-name">
+                                    <option value="0" selected disabled>Название товара</option>
+                                </select>
                             </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label" for="input-author">Автор</label>
-                                <input type="text" name="filter_author" placeholder="Введите имя автора" id="input-author" class="form-control">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label class="control-label" for="input-date-added">Дата добавления</label>
-                                <div class="input-group date">
-                                    <input type="text" name="filter_date_added" placeholder="Укажите дату" data-format="YYYY-MM-DD" id="input-date-added" class="form-control">
-                                    <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-3" style="padding-top: 22px;">
-                                <button type="button" id="button-filter" class="btn btn-primary pull-left"><i class="fa fa-search"></i> Поиск</button>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 form-group" id="input-customer-name-block" style="padding-right: 0; margin-bottom: 0;">
+                                <select class="form-control select2" id="customer-name">
+                                    <option value="0" selected disabled>Имя пользователя</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -87,36 +46,42 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <td class="text-left">
-                                        <a href="">Товар</a>
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="">Автор</a>
-                                    </td>
-                                    <td class="text-right">
-                                        <a href="">Рейтинг</a>
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="">Статус</a>
-                                    </td>
-                                    <td class="text-left">
-                                        <a href="" class="asc">Дата добавления</a>
-                                    </td>
-                                    <td class="text-center">Действие</td>
+                                    <th class="text-left col-md-3">Товар</th>
+                                    <th class="text-left col-md-3">Комментарий</th>
+                                    <th class="text-center col-md-2">Автор</th>
+                                    <th class="text-center col-md-1">Оценка</th>
+                                    <th class="text-center col-md-1">Дата</th>
+                                    <th class="text-center col-md-2">Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-left">iPhone</td>
-                                    <td class="text-left">kecske</td>
-                                    <td class="text-right">2</td>
-                                    <td class="text-left">Принят / Не подтвержден</td>
-                                    <td class="text-left">06/10/2014</td>
-                                    <td class="text-center">
-                                        <a href="" data-toggle="tooltip" title="" class="btn btn-success" data-original-title="Принять"><i class="fa fa-thumbs-up"></i></a>
-                                        <a href="" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
+                                <c:choose>
+                                    <c:when test="${not empty review}">
+                                        <c:forEach items="${review}" var="r">
+                                            <tr>
+                                                <td class="text-left"><a href="<c:url value='/product?id=${r.product}'/>">${r.productName}</a></td>
+                                                <td class="text-left">${r.comment}</td>
+                                                <td class="text-center">${r.customerName}</td>
+                                                <td class="text-center">${r.rating}</td>
+                                                <td class="text-center">${r.date}</td>
+                                                <td class="text-center">
+                                                    <button type="button" onclick="changeReviewStatus(${r.id})" data-toggle="tooltip" class="btn <c:out value="${r.active ? 'btn-success' : 'btn-danger'}"/>"
+                                                            title="<c:out value="${r.active ? 'Скрыть комментарий' : 'Активировать комментарий'}"/>">
+                                                        <span class="fa <c:out value="${r.active ? 'fa-thumbs-o-down' : 'fa-thumbs-o-up'}"/>"></span>
+                                                    </button>
+                                                    <button type="button" onclick="deleteReview(${r.id})" data-toggle="tooltip" class="btn btn-danger" title="Удалить комментарий">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="text-center" colspan="6">Нет данных</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>

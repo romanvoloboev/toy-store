@@ -25,7 +25,7 @@
             </ul>
         </li>
         <li id="reviews">
-            <a href="<c:url value="/cp/reviews"/>"><i class="fa fa-comment fa-fw"></i> <span>Отзывы</span></a>
+            <a href="<c:url value="/cp/review"/>"><i class="fa fa-comment fa-fw"></i> <span>Отзывы</span></a>
         </li>
         <li id="customers">
             <a href="<c:url value="/cp/customer"/>"><i class="fa fa-users fa-fw"></i> <span>Пользователи</span></a>
