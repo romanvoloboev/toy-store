@@ -7,80 +7,8 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
-
-    <script type="text/javascript">
-        $('#button-filter').on('click', function() {
-            url = '';
-
-            var filter_order_id = $('input[name=\'filter_order_id\']').val();
-
-            if (filter_order_id) {
-                url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
-            }
-
-            var filter_customer = $('input[name=\'filter_customer\']').val();
-
-            if (filter_customer) {
-                url += '&filter_customer=' + encodeURIComponent(filter_customer);
-            }
-
-            var filter_order_status = $('select[name=\'filter_order_status\']').val();
-
-            if (filter_order_status != '*') {
-                url += '&filter_order_status=' + encodeURIComponent(filter_order_status);
-            }
-
-            var filter_total = $('input[name=\'filter_total\']').val();
-
-            if (filter_total) {
-                url += '&filter_total=' + encodeURIComponent(filter_total);
-            }
-
-            var filter_date_added = $('input[name=\'filter_date_added\']').val();
-
-            if (filter_date_added) {
-                url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
-            }
-
-            var filter_date_modified = $('input[name=\'filter_date_modified\']').val();
-
-            if (filter_date_modified) {
-                url += '&filter_date_modified=' + encodeURIComponent(filter_date_modified);
-            }
-
-            location = url;
-        });
-
-        $('input[name=\'filter_customer\']').autocomplete({
-            'source': function(request, response) {
-                $.ajax({
-                    url: '' +  encodeURIComponent(request),
-                    dataType: 'json',
-                    success: function(json) {
-                        response($.map(json, function(item) {
-                            return {
-                                label: item['name'],
-                                value: item['customer_id']
-                            }
-                        }));
-                    }
-                });
-            },
-            'select': function(item) {
-                $('input[name=\'filter_customer\']').val(item['label']);
-            }
-        });
-
-        $('input[name^=\'selected\']:first').trigger('change');
-
-        $('a[id^=\'button-delete\']').on('click', function(e) {
-            e.preventDefault();
-
-            if (confirm('Delete/Uninstall cannot be undone! Are you sure you want to do this?')) {
-                location = $(this).attr('href');
-            }
-        });
-    </script>
+    <script src="../../webres/cp/js/order.js"></script>
+    <script src="../../webres/cp/js/i18n/ru.js"></script>
 </head>
 <body>
 <div id="container">
@@ -90,52 +18,38 @@
     <div id="content">
         <div class="page-header">
             <div class="container-fluid">
-                <h1>Заказы</h1>
-                <div class="pull-right">
-                    <a href="<c:url value="/cp/new_order"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Создать"><i class="fa fa-plus"></i></a>
+                <div class="col-sm-12 col-md-4 col-lg-6" style="padding-left: 0;">
+                    <h4 style="padding-bottom: 7px; padding-top: 8px; margin-bottom: 0;"><i class="fa fa-list"></i>&nbsp;Управление заказами</h4>
+                </div>
+                <div class="col-sm-12 col-md-8 col-lg-6 to-left-sm" style="padding-left: 0; padding-right: 0; text-align: right;">
+                    <a href="<c:url value="/cp/order/add"/>" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Добавить заказ</a>
                 </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><i class="fa fa-list"></i> Список заказов</h3>
-                </div>
                 <div class="panel-body">
                     <div class="well">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="input-order-id">Номер заказа</label>
-                                    <input type="text" name="filter_order_id" placeholder="Введите номер заказа" id="input-order-id" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="input-order-status">Состояние заказа</label>
-                                    <select name="filter_order_status" id="input-order-status" class="form-control">
-                                        <option value="*" selected>--- Выберите из исписка ---</option>
-                                        <option value="0">Открыт</option>
-                                        <option value="1">Выполнен</option>
-                                        <option value="2">Отклонен</option>
-                                        <option value="3">Доставляется</option>
-                                    </select>
-                                </div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 form-group" id="input-order-block" style="padding-right: 0; margin-bottom: 0;">
+                                <input type="text" placeholder="Номер заказа" id="order-number" class="form-control" autocomplete="off">
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="control-label" for="input-date-added">Дата заказа</label>
-                                    <div class="input-group date">
-                                        <input type="text" name="filter_date_added" placeholder="Выберите дату заказа" data-format="YYYY-MM-DD" id="input-date-added" class="form-control">
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label" for="input-customer">Покупатель</label>
-                                    <input type="text" name="filter_customer" placeholder="Введите имя покупателя" id="input-customer" class="form-control" autocomplete="off">
-                                    <ul class="dropdown-menu"></ul>
-                                </div>
-                                <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> Поиск</button>
+                            <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 form-group" id="input-status-block"  style="padding-right: 0; margin-bottom: 0;">
+                                <select class="form-control" id="order-status">
+                                    <option value="0" selected disabled>Состояние заказа</option>
+                                    <option value="1">Открыт</option>
+                                    <option value="2">Отклоенен</option>
+                                    <option value="3">Выполнен</option>
+                                    <option value="4">Доставляется</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3" id="customer-block">
+                                <select class="form-control select2" id="customer">
+                                    <option value="0" selected disabled>Пользователь</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-1 col-lg-1 form-group" style="padding-right: 0; margin-bottom: 0;">
+                                <button type="button" id="search-btn" class="btn btn-default"><i class="fa fa-search"></i> Поиск</button>
                             </div>
                         </div>
                     </div>
@@ -144,27 +58,64 @@
                             <table class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <td class="text-right"><a href="<c:url value=""/>" class="desc">Номер заказа</a></td>
-                                    <td class="text-left"><a href="<c:url value=""/>">Покупатель</a></td>
-                                    <td class="text-left"><a href="<c:url value=""/>">Состояние заказа</a></td>
-                                    <td class="text-left"><a href="<c:url value=""/>">Сумма заказа</a></td>
-                                    <td class="text-left"><a href="<c:url value=""/>">Дата заказа</a></td>
-                                    <td class="text-right">Действие</td>
+                                    <th class="text-center col-md-1">Номер заказа</th>
+                                    <th class="text-left col-md-3">Покупатель</th>
+                                    <th class="text-center col-md-2">Состояние</th>
+                                    <th class="text-center col-md-2">Сумма заказа</th>
+                                    <th class="text-center col-md-2">Дата заказа</th>
+                                    <th class="text-center col-md-2">Действие</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-right">1202</td>
-                                    <td class="text-left">lily rose</td>
-                                    <td class="text-left">Pending</td>
-                                    <td class="text-right">$105.00</td>
-                                    <td class="text-left">23/02/2015</td>
-                                    <td class="text-right">
-                                        <a href="<c:url value="/cp/order_details"/>" data-toggle="tooltip" class="btn btn-info" data-original-title="Подробнее"><i class="fa fa-eye"></i></a>
-                                        <a href="<c:url value="/cp/edit_order"/>" data-toggle="tooltip" class="btn btn-primary" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
-                                        <a href="<c:url value="/cp/order/delete"/>" id="button-delete" data-toggle="tooltip" class="btn btn-danger" data-original-title="Удалить"><i class="fa fa-trash-o"></i></a>
-                                    </td>
-                                </tr>
+                                <c:choose>
+                                    <c:when test="${not empty order}">
+                                        <c:forEach items="${order}" var="o">
+                                            <tr>
+                                                <td class="text-center">${o.id}</td>
+                                                <td class="text-left">${o.customerName}</td>
+                                                <td class="text-center">
+                                                    <c:choose>
+                                                        <c:when test="${o.statusName == 'Открыт'}">
+                                                            <span class="label label-warning">${o.statusName}</span>
+                                                        </c:when>
+                                                        <c:when test="${o.statusName == 'Отклонён'}">
+                                                            <span class="label label-danger">${o.statusName}</span>
+                                                        </c:when>
+                                                        <c:when test="${o.statusName == 'Выполнен'}">
+                                                            <span class="label label-success">${o.statusName}</span>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <span class="label label-primary">${o.statusName}</span>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </td>
+                                                <td class="text-center">${o.amount}</td>
+                                                <td class="text-center">${o.date}</td>
+                                                <td class="text-center">
+                                                    <div class="btn-group btn-group-default">
+                                                        <button data-toggle="dropdown" title="Изменить состояние" class="btn btn-default dropdown-toggle" type="button"><span class="fa fa-cogs"></span>
+                                                        </button>
+                                                        <ul class="dropdown-menu dropup">
+                                                            <li><a href="#" onclick="return changeStatus(${o.id}, 1)">Открыт</a></li>
+                                                            <li><a href="#" onclick="return changeStatus(${o.id}, 2)">Отклонён</a></li>
+                                                            <li><a href="#" onclick="return changeStatus(${o.id}, 3)">Выполнен</a></li>
+                                                            <li><a href="#" onclick="return changeStatus(${o.id}, 4)">Доставляется</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <a href="<c:url value="/cp/order/details?id=${o.id}"/>" data-toggle="tooltip" class="btn btn-default" data-original-title="Подробнее"><i class="fa fa-info-circle"></i></a>
+                                                    <button onclick="deleteOrder(${o.id})" type="button" data-toggle="tooltip" class="btn btn-danger" title="Удалить заказ">
+                                                        <span class="fa fa-trash"></span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td class="text-center" colspan="6">Нет данных</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                                 </tbody>
                             </table>
                         </div>

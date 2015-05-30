@@ -58,4 +58,5 @@ public interface ProductService {
     ProductDTO selectDTO(Integer id) throws Exception;
     void changeProductStatus(Integer id) throws Exception;
     List<SimpleDTO> selectSimpleDTOsByName(String name);
+    SimpleDTO selectDTODetailById(Integer id);
 }

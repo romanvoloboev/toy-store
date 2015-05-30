@@ -14,6 +14,10 @@ public class AddressDTO {
     private String street;
     private String house;
     private String flat;
+    private int customer;
+
+    public AddressDTO() {
+    }
 
     public AddressDTO(int id, String city, String street, String house, String flat) {
         this.id = id;
@@ -69,4 +73,10 @@ public class AddressDTO {
         this.flat = flat;
     }
 
+    public int getCustomer() {
+        return customer;
+    }
+    public void setCustomer(int customer) {
+        this.customer = customer;
+    }
 }

@@ -1,5 +1,6 @@
 package com.romanvoloboev.controller;
 
+import com.romanvoloboev.dto.AddressDTO;
 import com.romanvoloboev.dto.CustomerDTO;
 import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.model.Customer;
@@ -88,22 +89,22 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping("/customer_remove_phone")
-    @ResponseBody
-    public Map<String, String> removePhone() {
-        Map<String, String> response = new HashMap<>();
-        try {
-            Customer customer = customerService.selectAuth();
-            customer.setPhone("");
-            customerService.save(customer);
-            response.put("status", "ok");
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-            response.put("status", "phoneDeleteError");
-        }
-        return response;
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @RequestMapping("/customer_remove_phone")
+//    @ResponseBody
+//    public Map<String, String> removePhone() {
+//        Map<String, String> response = new HashMap<>();
+//        try {
+//            Customer customer = customerService.selectAuth();
+//            customer.setPhone("");
+//            customerService.save(customer);
+//            response.put("status", "ok");
+//        } catch (Exception e) {
+//            LOGGER.log(Level.SEVERE, e.getMessage());
+//            response.put("status", "phoneDeleteError");
+//        }
+//        return response;
+//    }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/customer_remove_address", method = RequestMethod.POST)
@@ -121,32 +122,32 @@ public class CustomerController {
         return response;
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/customer_change_password", method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String, String> changePassword(@RequestParam("old_password")String oldPass,
-                                              @RequestParam("new_password")String newPass,
-                                              @RequestParam("repeat_new_pass")String repeatNewPass) {
-        Map<String, String> response = new HashMap<>();
-        Customer customer = customerService.selectAuth();
-        if (oldPass.equals(customer.getPassword())) {
-            if (newPass.equals(repeatNewPass)) {
-                customer.setPassword(newPass);
-                try {
-                    customerService.save(customer);
-                    response.put("status", "ok");
-                } catch (Exception e) {
-                    LOGGER.log(Level.SEVERE, e.getMessage());
-                    response.put("status", "unknownError");
-                }
-            } else {
-                response.put("status", "wrongRepeatPassword");
-            }
-        } else {
-            response.put("status", "wrongOldPassword");
-        }
-        return response;
-    }
+//    @PreAuthorize("isAuthenticated()")
+//    @RequestMapping(value = "/customer_change_password", method = RequestMethod.POST)
+//    @ResponseBody
+//    public Map<String, String> changePassword(@RequestParam("old_password")String oldPass,
+//                                              @RequestParam("new_password")String newPass,
+//                                              @RequestParam("repeat_new_pass")String repeatNewPass) {
+//        Map<String, String> response = new HashMap<>();
+//        Customer customer = customerService.selectAuth();
+//        if (oldPass.equals(customer.getPassword())) {
+//            if (newPass.equals(repeatNewPass)) {
+//                customer.setPassword(newPass);
+//                try {
+//                    customerService.save(customer);
+//                    response.put("status", "ok");
+//                } catch (Exception e) {
+//                    LOGGER.log(Level.SEVERE, e.getMessage());
+//                    response.put("status", "unknownError");
+//                }
+//            } else {
+//                response.put("status", "wrongRepeatPassword");
+//            }
+//        } else {
+//            response.put("status", "wrongOldPassword");
+//        }
+//        return response;
+//    }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/customer_update_profile", method = RequestMethod.POST)
@@ -367,5 +368,33 @@ public class CustomerController {
             response.put("status", "error");
         }
         return response;
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @RequestMapping(value = "/cp/customer/get_addresses", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<AddressDTO> selectCustomerAddresses(@RequestParam("id")int id) {
+        return addressService.selectDTOs(id);
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @RequestMapping(value = "/cp/customer/save_address", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public Map<String, String> saveCustomerAddress(@RequestBody AddressDTO addressDTO){
+       return customerService.saveAddress(addressDTO);
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @RequestMapping(value = "/cp/address/nova_poshta_offices", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getNPOffices(@RequestParam("city")String city) {
+        return addressService.selectNovaposhtaOffices(city);
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @RequestMapping(value = "/cp/customer/get_cities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getCustomerCities(@RequestParam("id")int id) {
+        return customerService.selectCities(id);
     }
 }

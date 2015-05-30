@@ -660,19 +660,30 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 		text-align: left !important;
 	}
 
-	#input-price-block, #input-name-block, #input-status-block, #input-customer-name-block, #input-customer-email-block {
+	#input-price-block, #input-name-block, #input-status-block, #input-customer-name-block,
+	#input-customer-email-block, #input-order-block {
 		padding-right: 15px !important;
 		margin-bottom: 15px !important;
 	}
 
 	#product-code, #product-price, #product-quantity, #product-material,
-	#product-age, #product-length, #product-width, #product-height, #email, #password, #name {
+	#product-age, #product-length, #product-width, #product-height, #email,
+	#password, #name, #customer-block,  {
 		margin-bottom: 15px;
+	}
+
+	#new-customer-address-form #newStreetInput {
+        margin-bottom: 15px;
+    }
+
+	#dateEnd {
+		padding-right: 15px !important;
+		padding-bottom: 15px;
 	}
 }
 
 @media (max-width: 767px) {
-	#input-price-end-block {
+	#input-price-end-block, #input-date-block, {
 		margin-bottom: 15px;
 	}
 
@@ -685,4 +696,13 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 	#city {
 		padding-bottom: 0 !important;
 	}
+
+    #new-customer-address-form #new-house {
+        margin-bottom: 15px;
+        padding-left: 0;
+    }
+
+    #new-customer-address-form #new-flat {
+        padding-left: 0;
+    }
 }

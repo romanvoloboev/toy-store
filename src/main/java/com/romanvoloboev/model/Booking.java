@@ -16,34 +16,42 @@ public class Booking {
     private Float amount;
     private Date date;
     private Short status;
+    private Short deliveryType;
     private Short deliveryService;
     private Short paymentType;
     private Customer customer;
+    private String customerAddress;
     private List<BookingItem> items = new ArrayList<>();
 
     public Booking() {
     }
 
-    public Booking(Integer id, Float amount, Date date, Short status, Short deliveryService, Short paymentType, Customer customer,
+    public Booking(Integer id, Float amount, Date date, Short status, Short deliveryType, Short deliveryService,
+                   Short paymentType, Customer customer, String customerAddress,
                    List<BookingItem> items) {
         this.id = id;
         this.amount = amount;
         this.date = date;
         this.status = status;
+        this.deliveryType = deliveryType;
         this.deliveryService = deliveryService;
         this.paymentType = paymentType;
         this.customer = customer;
+        this.customerAddress = customerAddress;
         this.items = items;
     }
 
-    public Booking(Float amount, Date date, Short status, Short deliveryService, Short paymentType, Customer customer,
+    public Booking(Float amount, Date date, Short status, Short deliveryType, Short deliveryService,
+                   Short paymentType, Customer customer, String customerAddress,
                    List<BookingItem> items) {
         this.amount = amount;
         this.date = date;
         this.status = status;
+        this.deliveryType = deliveryType;
         this.deliveryService = deliveryService;
         this.paymentType = paymentType;
         this.customer = customer;
+        this.customerAddress = customerAddress;
         this.items = items;
     }
 
@@ -82,6 +90,14 @@ public class Booking {
         this.status = status;
     }
 
+    @Column(name = "delivery_type", nullable = false)
+    public Short getDeliveryType() {
+        return deliveryType;
+    }
+    public void setDeliveryType(Short deliveryType) {
+        this.deliveryType = deliveryType;
+    }
+
     @Column(name = "delivery_service", nullable = false)
     public Short getDeliveryService() {
         return deliveryService;
@@ -96,6 +112,14 @@ public class Booking {
     }
     public void setPaymentType(Short paymentType) {
         this.paymentType = paymentType;
+    }
+
+    @Column(name = "customer_address", nullable = false)
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
     @ManyToOne

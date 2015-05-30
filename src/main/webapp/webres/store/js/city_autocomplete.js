@@ -30,6 +30,8 @@ function fillInAddress() {
                     type: "danger",
                     delay: 2000
                 });
+            document.getElementById("newCityInput").value = val;
+            return;
         }
         if (componentForm[addressType]) {
             if(val.length > 0) {

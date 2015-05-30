@@ -1,5 +1,6 @@
 package com.romanvoloboev.service;
 
+import com.romanvoloboev.dto.AddressDTO;
 import com.romanvoloboev.dto.CustomerDTO;
 import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.model.Customer;
@@ -15,7 +16,6 @@ import java.util.Map;
  */
 
 public interface CustomerService {
-    void save(Customer customer) throws Exception;
     void save(CustomerDTO customerDTO) throws Exception;
     void delete(Customer customer) throws Exception;
     void delete(Integer id) throws Exception;
@@ -41,4 +41,6 @@ public interface CustomerService {
     boolean deleteEmployee(Integer id) throws Exception;
     boolean hasRole(String role);
     Map<String,String> registerCustomer(CustomerDTO customerDTO, HttpServletRequest request) throws Exception;
+    Map<String, String> saveAddress(AddressDTO addressDTO);
+    List<String> selectCities(Integer id);
 }

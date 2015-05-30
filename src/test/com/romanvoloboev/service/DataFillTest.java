@@ -25,28 +25,28 @@ public class DataFillTest {
     @Autowired private ProductServiceImpl productService;
     @Autowired private ReviewServiceImpl reviewService;
 
-    @Test
-    public void testSave() throws Exception {
-        customerService.save(new Customer("Роман Admin", "test1@gmail.com", "password", "380501234567",
-                true, Role.ADMIN, null, null, null, null));
-
-        customerService.save(new Customer("Роман Employee", "test2@gmail.com", "password", "380501234567",
-                true, Role.EMPLOYEE, null, null, null, null));
-
-        customerService.save(new Customer("Роман Customer", "test3@gmail.com", "password", "380501234567",
-                true, Role.CUSTOMER, null, null, null, null));
-
-    }
-
-    @Test
-    public void fillCustomerAddress() throws Exception {
-        Customer customer = customerService.selectModel("test1@gmail.com");
-        List<Address> addresses = new ArrayList<>();
-        addresses.add(new Address("Никополь", "Херсонская", "117", null, customer));
-        addresses.add(new Address("Никополь", "Электрометталургов", "55", "4", customer));
-        customer.setAddresses(addresses);
-        customerService.save(customer);
-    }
+//    @Test
+//    public void testSave() throws Exception {
+//        customerService.save(new Customer("Роман Admin", "test1@gmail.com", "password", "380501234567",
+//                true, Role.ADMIN, null, null, null, null));
+//
+//        customerService.save(new Customer("Роман Employee", "test2@gmail.com", "password", "380501234567",
+//                true, Role.EMPLOYEE, null, null, null, null));
+//
+//        customerService.save(new Customer("Роман Customer", "test3@gmail.com", "password", "380501234567",
+//                true, Role.CUSTOMER, null, null, null, null));
+//
+//    }
+//
+//    @Test
+//    public void fillCustomerAddress() throws Exception {
+//        Customer customer = customerService.selectModel("test3@gmail.com");
+//        List<Address> addresses = new ArrayList<>();
+//        addresses.add(new Address("Никополь", "Херсонская", "117", null, customer));
+//        addresses.add(new Address("Никополь", "Электрометталургов", "55", "4", customer));
+//        customer.setAddresses(addresses);
+//        customerService.save(customer);
+//    }
 
     @Test
     public void fillReviews() throws Exception {

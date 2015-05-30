@@ -11,12 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -178,6 +175,13 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return simpleDTOs;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public SimpleDTO selectDTODetailById(Integer id) {
+        Product product = selectModel(id);
+        return new SimpleDTO(product.getId(), product.getName(), product.getPrice());
     }
 
     private List<Product> selectModelsByName(String name) {

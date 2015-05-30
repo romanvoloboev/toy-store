@@ -18,10 +18,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,8 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Transactional
-    @Override
-    public void save(Customer customer) throws Exception {
+    private void save(Customer customer) {
         customerRepository.save(customer);
     }
 
@@ -296,7 +293,7 @@ public class CustomerServiceImpl implements CustomerService {
             return null;
         } else {
             return new CustomerDTO(customer.getId(), customer.getName(), customer.getEmail(),
-                    phoneToString(customer.getPhone()), addressService.selectDTOs(customer));
+                    phoneToString(customer.getPhone()), addressService.selectDTOs(customer.getId()));
         }
     }
 
@@ -321,16 +318,38 @@ public class CustomerServiceImpl implements CustomerService {
                 response.put("status", "exist");
             } else {
                 save(new Customer(customerDTO.getName(), customerDTO.getEmail(), customerDTO.getPassword(), "", true, Role.CUSTOMER, null, null, null, null));
-                try {
-                    UserDetails user = detailsService.loadUserByUsername(customerDTO.getEmail());
-                    if (autoLogin(user, request))
-                        response.put("status", "ok");
-                } catch (AuthenticationException e) {
-                    e.printStackTrace();
-                }
+                UserDetails user = detailsService.loadUserByUsername(customerDTO.getEmail());
+                if (autoLogin(user, request))
+                    response.put("status", "ok");
             }
         }
         return response;
+    }
+
+    @Transactional
+    @Override
+    public Map<String, String> saveAddress(AddressDTO addressDTO) {
+        Map<String, String> response = new HashMap<>();
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        if (validate(addressDTO, validator)) {
+            List<AddressDTO> addressDTOs = new ArrayList<>();
+            addressDTOs.add(addressDTO);
+            Customer customer = selectModel(addressDTO.getCustomer());
+            if (customer != null) {
+                customer.setAddresses(addressService.selectModels(addressDTOs));
+                save(customer);
+                response.put("status", "ok");
+                return response;
+            }
+        }
+        response.put("status", "wrongParams");
+        return response;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<String> selectCities(Integer id) {
+        return addressRepository.getCitiesByCustomer(id);
     }
 
     private boolean autoLogin(UserDetails user, HttpServletRequest request) {

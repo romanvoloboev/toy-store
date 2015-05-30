@@ -125,4 +125,11 @@ public class ProductController {
         response.put("suggestions", names);
         return response;
     }
+
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @RequestMapping(value = "/cp/product/load_by_id", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public SimpleDTO loadProductDetailsById(@RequestParam("id")int id) {
+        return productService.selectDTODetailById(id);
+    }
 }

@@ -7,7 +7,7 @@
 <head>
     <title>Админ-панель</title>
     <%@include file="includes/head.jsp"%>
-    <script src="../../webres/cp/js/order_edit.js"></script>
+    <script src="../../webres/cp/js/order_add.js"></script>
 </head>
 <body>
 <div id="container">

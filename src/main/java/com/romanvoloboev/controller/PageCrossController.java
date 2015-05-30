@@ -75,26 +75,6 @@ public class PageCrossController {
 
 
 
-    @RequestMapping("/cp/order")
-    public ModelAndView showOrders() {
-        return new ModelAndView("cp/order");
-    }
-
-    @RequestMapping("/cp/edit_order")
-    public ModelAndView editOrder() {
-        return new ModelAndView("cp/order_edit");
-    }
-
-    @RequestMapping("/cp/order_details")
-    public ModelAndView orderInfo() {
-        return new ModelAndView("cp/order_details");
-    }
-
-    @RequestMapping("/cp/new_order")
-    public ModelAndView orderAdd() {
-        return new ModelAndView("cp/order_add");
-    }
-
 
 
 

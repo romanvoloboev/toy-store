@@ -13,9 +13,12 @@ import java.util.List;
  */
 
 public interface AddressRepository extends JpaRepository<Address, Integer> {
-    List<Address> getByCustomer(Customer customer);
+    List<Address> getByCustomerId(Integer id);
     Address getByIdAndCustomer(Integer id, Customer customer);
 
     @Query("select count(a) from Address a where a.customer.id = :id")
     Long getCountByCustomerId(@Param("id")Integer id);
+
+    @Query("select distinct a.city from Address a where a.customer.id = :id")
+    List<String> getCitiesByCustomer(@Param("id")Integer id);
 }
