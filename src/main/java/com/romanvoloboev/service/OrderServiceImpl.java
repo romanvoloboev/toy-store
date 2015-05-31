@@ -157,4 +157,33 @@ public class OrderServiceImpl implements OrderService {
         return itemDTOs;
     }
 
+    public Short selectNewOrdersCount() {
+        return orderRepository.getNewOrdersCount();
+    }
+
+    /**
+     * Loads all orders in /cp/order
+     * @return List BookingDTO
+     */
+    @Override
+    public List<BookingDTO> selectLastDTOs() {
+        List<Booking> bookings = orderRepository.getFirst5ByOrderByDateDesc();
+        List<BookingDTO> bookingDTOs = new ArrayList<>();
+        for (Booking booking:bookings) {
+            bookingDTOs.add(new BookingDTO(booking.getId(), booking.getCustomer().getName(),
+                    formatStatusToString(booking.getStatus()), booking.getAmount(), formatDateToString(booking.getDate())));
+        }
+        return bookingDTOs;
+    }
+
+    @Override
+    public Integer selectSoldProductsCount() {
+        return orderRepository.getCompletedOrdersCount();
+    }
+
+    @Override
+    public Float selectTotalOrdersAmount() {
+        return orderRepository.getTotalAmount();
+    }
+
 }

@@ -63,7 +63,7 @@
                                                 <td class="text-left">${c.name}</td>
                                                 <td class="text-left">${c.email}</td>
                                                 <td class="text-left"><c:out value="${c.phone == '' ? 'Не указан' : c.phone}"/></td>
-                                                <td class="text-center"><a href="<c:url value=""/>"><span class="label label-success">${c.reviewsCount}</span></a></td>
+                                                <td class="text-center"><a href="<c:url value="/cp/review/search_by_customer?id=${c.id}"/>"><span class="label label-success">${c.reviewsCount}</span></a></td>
                                                 <td class="text-center">
                                                     <a href="<c:url value="/cp/customer/edit?id=${c.id}"/>" data-toggle="tooltip" title="Редактировать" class="btn btn-default" data-original-title="Редактировать"><i class="fa fa-pencil"></i></a>
                                                     <button type="button" onclick="changeCustomerStatus(${c.id})" data-toggle="tooltip" class="btn <c:out value="${c.active ? 'btn-success' : 'btn-danger'}"/>"

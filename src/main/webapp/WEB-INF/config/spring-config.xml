@@ -56,4 +56,13 @@
     </bean>
 
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean id="controlPanelInterceptor" class="com.romanvoloboev.service.ControlPanelInterceptor"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/cp/**"/>
+            <ref bean="controlPanelInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

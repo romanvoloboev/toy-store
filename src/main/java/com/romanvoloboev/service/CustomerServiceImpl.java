@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -24,9 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.util.*;
 
@@ -42,6 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired private AddressService addressService;
     @Autowired private AddressRepository addressRepository;
     @Autowired private CustomerDetailsService detailsService;
+    @Autowired private ReviewService reviewService;
     @Qualifier("authenticationManager")
     @Autowired private AuthenticationManager authenticationManager;
 
@@ -182,7 +180,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     @Override
     public long getReviewsCount(Integer id) throws Exception {
-        return addressRepository.getCountByCustomerId(id);
+        return reviewService.getReviewCount(id);
     }
 
     @Transactional
@@ -352,74 +350,17 @@ public class CustomerServiceImpl implements CustomerService {
         return addressRepository.getCitiesByCustomer(id);
     }
 
+    @Override
+    public Long selectCustomersCount() {
+        return customerRepository.count();
+    }
+
     private boolean autoLogin(UserDetails user, HttpServletRequest request) {
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         request.getSession();
         token.setDetails(new WebAuthenticationDetails(request));
         Authentication authentication = authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return true;
-    }
-
-    private Role getRoleFromDTO(short role) {
-        switch (role) {
-            case 2:
-                return Role.EMPLOYEE;
-            case 3:
-                return Role.ADMIN;
-            default:
-                return Role.CUSTOMER;
-        }
-    }
-
-    private short getRoleFromModel(Role role) {
-        switch (role) {
-            case EMPLOYEE:
-                return 2;
-            case ADMIN:
-                return 3;
-            default:
-                return 1;
-        }
-    }
-
-    private String getTypeByRole(Role role) {
-        switch (role) {
-            case EMPLOYEE:
-                return "Сотрудник";
-            case ADMIN:
-                return "Администратор";
-            default:
-                return "Пользователь";
-        }
-    }
-
-    private String phoneToString(String phone) {
-        if (!phone.equals("")) {
-            phone = "+" + phone.substring(0, 2) + "(" + phone.substring(2, 5) + ")" +
-                    phone.substring(5, 8) + "-" + phone.substring(8, 10) + "-" + phone.substring(10);
-        }
-        return phone;
-    }
-
-    private String stringToPhone(String phone) {
-        if (!phone.equals("")) {
-            return phone.replace("+", "").replace("(", "").replace(")", "").replace("-", "").replace("-", "");
-        }
-        return phone;
-    }
-
-    private boolean validate(Object object, Validator validator) throws ValidationException {
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object);
-
-        if (constraintViolations.size() > 0){
-            StringBuilder errorString = new StringBuilder();
-            for (ConstraintViolation<Object> cv : constraintViolations){
-                errorString.append(String.format("Format error in property: [%s], value: [%s], message: [%s]",
-                        cv.getPropertyPath(), cv.getInvalidValue(), cv.getMessage()));
-            }
-            throw new ValidationException(errorString.toString());
-        }
         return true;
     }
 

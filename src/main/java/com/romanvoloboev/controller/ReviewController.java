@@ -69,6 +69,13 @@ public class ReviewController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/cp/review/search_by")
+    public ModelAndView searchReviewsByCustomer(@RequestParam("active")boolean status) {
+        ModelAndView modelAndView = new ModelAndView("cp/reviews");
+        modelAndView.addObject("review", reviewService.selectDTOsByStatus(status));
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/cp/review/search_by_product")
     public ModelAndView searchReviewsByProduct(@RequestParam("id")int id) {
         ModelAndView modelAndView = new ModelAndView("cp/reviews");

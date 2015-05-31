@@ -16,4 +16,15 @@ public interface OrderRepository extends JpaRepository<Booking, Integer> {
     List<Booking> getAllOrderByDate();
 
     List<Booking> getByIdOrStatusOrCustomerIdOrderByDateDesc(Integer orderId, short status, Integer customerId);
+
+    @Query("select count(b) from Booking b where b.status = 1")
+    Short getNewOrdersCount();
+
+    @Query("select count(b) from Booking b where b.status = 3")
+    Integer getCompletedOrdersCount();
+
+    List<Booking> getFirst5ByOrderByDateDesc();
+
+    @Query("select sum(b.amount) from Booking b where b.status = 3")
+    Float getTotalAmount();
 }

@@ -4,8 +4,8 @@
 <nav id="column-left" class="active">
     <div id="profile">
         <div>
-            <h4>Roman Voloboev</h4>
-            <small>Администратор</small>
+            <h4>${customerName}</h4>
+            <small>${customerRole}</small>
         </div>
     </div>
 

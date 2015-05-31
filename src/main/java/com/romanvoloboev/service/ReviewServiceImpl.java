@@ -100,6 +100,29 @@ public class ReviewServiceImpl implements ReviewService {
         return reviewDTOs;
     }
 
+    @Override
+    public Short selectNewReviewsCount() {
+        return reviewRepository.getNewReviewsCount();
+    }
+
+    @Override
+    public List<ReviewDTO> selectDTOsByStatus(boolean status) {
+        List<Review> reviews = reviewRepository.getByActive(status);
+        List<ReviewDTO> reviewDTOs = new ArrayList<>();
+        if (reviews != null) {
+            for (Review review:reviews) {
+                reviewDTOs.add(new ReviewDTO(review.getId(), getShortComment(review.getComment()), review.getRating(),
+                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(), review.getProduct().getName()));
+            }
+        }
+        return reviewDTOs;
+    }
+
+    @Override
+    public long getReviewCount(Integer id) {
+        return reviewRepository.getReviewCount(id);
+    }
+
     @Transactional
     public boolean changeReviewStatus(Integer id) {
         Review review = selectModel(id);

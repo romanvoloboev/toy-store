@@ -1,5 +1,8 @@
 package com.romanvoloboev.controller;
 
+import com.romanvoloboev.service.CustomerService;
+import com.romanvoloboev.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PageCrossController {
+
+    @Autowired private OrderService orderService;
+    @Autowired private CustomerService customerService;
 
     @RequestMapping("/")
     public ModelAndView index(){
@@ -68,13 +74,13 @@ public class PageCrossController {
     @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping("/cp")
     public ModelAndView admin_panel() {
-        return new ModelAndView("cp/index");
+        ModelAndView modelAndView = new ModelAndView("cp/index");
+        modelAndView.addObject("order", orderService.selectLastDTOs());
+        modelAndView.addObject("customersCount", customerService.selectCustomersCount());
+        modelAndView.addObject("soldProductsCount", orderService.selectSoldProductsCount());
+        modelAndView.addObject("totalMoney", orderService.selectTotalOrdersAmount());
+        return modelAndView;
     }
-
-
-
-
-
 
 
 

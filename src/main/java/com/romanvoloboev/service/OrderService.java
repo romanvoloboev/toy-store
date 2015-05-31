@@ -86,4 +86,8 @@ public interface OrderService {
     void deleteOrder(Integer id) throws Exception;
     void changeStatus(Integer id, short status) throws Exception;
     List<BookingDTO> searchOrder(Integer orderId, short status, Integer customerId) throws Exception;
+    Short selectNewOrdersCount();
+    List<BookingDTO> selectLastDTOs();
+    Integer selectSoldProductsCount();
+    Float selectTotalOrdersAmount();
 }
