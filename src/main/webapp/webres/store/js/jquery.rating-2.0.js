@@ -18,7 +18,7 @@
 			readOnly: false,
 			url: '',
             type: 'post',
-            loader: '/images/ajax-loader.gif',			
+            loader: '../webres/store/image/ajax-loader.gif',
 			click: function(){},
             callback: function(){}
 		}, o || {});

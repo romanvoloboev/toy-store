@@ -8,32 +8,12 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
-
+    <link href="../../webres/store/css/productcarousel.css" rel="stylesheet">
     <script type="text/javascript">
         $(function(){
             $('#productcarousel415422').carousel({interval:5000,auto:true,pause:'hover'});
             $('#productcarousel2be500').carousel({interval:7000,auto:true,pause:'hover'});
             $('#productcarousel8cd118').carousel({interval:9000,auto:true,pause:'hover'});
-
-            $('.colorbox-t').colorbox({iframe:true, innerWidth:640, innerHeight:390});
-
-            $('.colorbox').colorbox({
-                overlayClose: true,
-                opacity: 0.5,
-                rel: false,
-                onLoad:function(){
-                    $("#cboxNext").remove(0);
-                    $("#cboxPrevious").remove(0);
-                    $("#cboxCurrent").remove(0);
-                }
-            });
-            $('.pav-colorbox').colorbox({
-                width: '800px',
-                height: '550px',
-                overlayClose: true,
-                opacity: 0.5,
-                iframe: true
-            });
         })
     </script>
 </head>

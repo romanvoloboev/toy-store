@@ -9,6 +9,8 @@
     <meta name="description" content="My Store">
 
     <%@include file="includes/head.jsp"%>
+    <script type="text/javascript" src="../../webres/store/js/inputmask.min.js"></script>
+    <script type="text/javascript" src="../../webres/store/js/jquery.inputmask.min.js"></script>
     <script src="../../webres/store/js/edit_profile.js"></script>
     <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
     <script src="../../webres/store/js/city_autocomplete.js"></script>

@@ -89,22 +89,20 @@ public class CustomerController {
         return modelAndView;
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @RequestMapping("/customer_remove_phone")
-//    @ResponseBody
-//    public Map<String, String> removePhone() {
-//        Map<String, String> response = new HashMap<>();
-//        try {
-//            Customer customer = customerService.selectAuth();
-//            customer.setPhone("");
-//            customerService.save(customer);
-//            response.put("status", "ok");
-//        } catch (Exception e) {
-//            LOGGER.log(Level.SEVERE, e.getMessage());
-//            response.put("status", "phoneDeleteError");
-//        }
-//        return response;
-//    }
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping("/customer_remove_phone")
+    @ResponseBody
+    public Map<String, String> removePhone() {
+        Map<String, String> response = new HashMap<>();
+        try {
+            customerService.removeCustomerPhone();
+            response.put("status", "ok");
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            response.put("status", "phoneDeleteError");
+        }
+        return response;
+    }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/customer_remove_address", method = RequestMethod.POST)
@@ -122,32 +120,14 @@ public class CustomerController {
         return response;
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @RequestMapping(value = "/customer_change_password", method = RequestMethod.POST)
-//    @ResponseBody
-//    public Map<String, String> changePassword(@RequestParam("old_password")String oldPass,
-//                                              @RequestParam("new_password")String newPass,
-//                                              @RequestParam("repeat_new_pass")String repeatNewPass) {
-//        Map<String, String> response = new HashMap<>();
-//        Customer customer = customerService.selectAuth();
-//        if (oldPass.equals(customer.getPassword())) {
-//            if (newPass.equals(repeatNewPass)) {
-//                customer.setPassword(newPass);
-//                try {
-//                    customerService.save(customer);
-//                    response.put("status", "ok");
-//                } catch (Exception e) {
-//                    LOGGER.log(Level.SEVERE, e.getMessage());
-//                    response.put("status", "unknownError");
-//                }
-//            } else {
-//                response.put("status", "wrongRepeatPassword");
-//            }
-//        } else {
-//            response.put("status", "wrongOldPassword");
-//        }
-//        return response;
-//    }
+    @PreAuthorize("isAuthenticated()")
+    @RequestMapping(value = "/customer_change_password", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, String> changePassword(@RequestParam("old_password")String oldPass,
+                                              @RequestParam("new_password")String newPass,
+                                              @RequestParam("repeat_new_pass")String repeatNewPass) {
+        return customerService.changeCustomerPassword(oldPass, newPass, repeatNewPass);
+    }
 
     @PreAuthorize("isAuthenticated()")
     @RequestMapping(value = "/customer_update_profile", method = RequestMethod.POST)

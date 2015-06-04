@@ -1,11 +1,9 @@
 package com.romanvoloboev.service;
 
 import com.romanvoloboev.dto.ProductDTO;
+import com.romanvoloboev.dto.ReviewDTO;
 import com.romanvoloboev.dto.SimpleDTO;
-import com.romanvoloboev.model.Brand;
-import com.romanvoloboev.model.Image;
-import com.romanvoloboev.model.Product;
-import com.romanvoloboev.model.Subcategory;
+import com.romanvoloboev.model.*;
 import com.romanvoloboev.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +20,12 @@ import java.util.*;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    public static final String NAME_PATTERN = "^[а-яА-ЯёЁa-zA-Z0-9 ]+$";
 
     @Autowired private ProductRepository productRepository;
     @Autowired private BrandServiceImpl brandService;
     @Autowired private SubcategoryServiceImpl subcategoryService;
     @Autowired private ImageServiceImpl imageService;
+    @Autowired private ReviewService reviewService;
 
     @Transactional
     @Override
@@ -141,14 +139,35 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional(readOnly = true)
     @Override
-    public ProductDTO selectDTO(Integer id) throws Exception {
-        Product product = selectModel(id);
-        if (product == null) throw new NullPointerException();
+    public ProductDTO selectDTO(Integer id, boolean forEditing) {
+        Product product;
+        if (forEditing) {
+            product = productRepository.getOne(id);
+        } else {
+            product = productRepository.getByIdAndActiveTrue(id);
+        }
+        if (product == null) return null;
+
+        long reviewsCount = reviewService.getProductReviewCount(id);
+        Subcategory subcategory = product.getSubcategory();
+        Category category = product.getSubcategory().getCategory();
+
         return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getQuantity(),
                 product.getCode(), product.getPrice(), product.isPromotion(), product.getPromotionPrice(), formatDateToString(product.getPromotionStart()),
-                formatDateToString(product.getPromotionEnd()), product.getMaterial(), product.getWidth(), product.getHeight(),
-                product.getLength(), product.getBrand().getId(), product.getBrand().getName(), product.getSubcategory().getId(),
-                product.getSubcategory().getName(), selectImages(product.getImages()));
+                formatDateToString(product.getPromotionEnd()), product.getRating(), reviewsCount, product.getMaterial(), product.getWidth(), product.getHeight(),
+                product.getLength(), product.getBrand().getId(), product.getBrand().getName(), product.getBrand().getCountry(), category.getId(),
+                subcategory.getId(), category.getName(), subcategory.getName(), selectImages(product.getImages()), selectReviews(product.getReviews()));
+    }
+
+    @Transactional
+    private List<ReviewDTO> selectReviews(List<Review> reviews) {
+        List<ReviewDTO> reviewDTO = new ArrayList<>();
+        if (reviews != null) {
+            for (Review review:reviews) {
+                reviewDTO.add(new ReviewDTO(review.getComment(), formatDateToString(review.getDate()), review.getCustomer().getName(), review.getRating()));
+            }
+        }
+        return reviewDTO;
     }
 
     @Transactional
@@ -184,6 +203,54 @@ public class ProductServiceImpl implements ProductService {
         return new SimpleDTO(product.getId(), product.getName(), product.getPrice());
     }
 
+    /**
+     * Method using for selecting products in subcategory and sort it by chosen order type.
+     */
+    @Transactional
+    @Override
+    public List<ProductDTO> selectDTOsBySubcategorySortBy(Integer id, String sortType) {
+        List<Product> products = selectModelsBySubcategorySortBy(id, sortType);
+        List<ProductDTO> dtos = new ArrayList<>();
+        if (products != null) {
+            for (Product product:products) {
+                dtos.add(new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(),
+                        product.isPromotion(), product.getPromotionPrice(), product.getRating(), selectImages(product.getImages())));
+            }
+        }
+        return dtos;
+    }
+
+    @Transactional
+    @Override
+    public List<Product> selectModelsBySubcategory(Integer id) {
+        return productRepository.getBySubcategoryId(id);
+    }
+
+    @Transactional
+    @Override
+    public List<ProductDTO> selectSimilarDTO(Integer subcategory, Integer currentProduct) {
+        List<Product> products = productRepository.getFirst5BySubcategoryIdAndIdNotOrderByRatingDesc(subcategory, currentProduct);
+        List<ProductDTO> productDTOs = new ArrayList<>();
+        if (products != null) {
+            productDTOs = new ArrayList<>();
+            for (Product product:products) {
+                productDTOs.add(new ProductDTO(product.getId(), product.getName(), product.getPrice(), product.isPromotion(),
+                        product.getPromotionPrice(), product.getRating(), selectImages(product.getImages())));
+            }
+        }
+        return productDTOs;
+    }
+
+    private List<Product> selectModelsBySubcategorySortBy(Integer id, String sortType) {
+        switch (sortType) {
+            case "cheap": return productRepository.getByActiveTrueAndSubcategoryIdOrderByPriceAsc(id);
+            case "expensive": return productRepository.getByActiveTrueAndSubcategoryIdOrderByPriceDesc(id);
+            case "novelty": return productRepository.getByActiveTrueAndSubcategoryIdOrderByDateDesc(id);
+            case "rating": return productRepository.getByActiveTrueAndSubcategoryIdOrderByRatingDesc(id);
+            default: return productRepository.getByActiveTrueAndSubcategoryIdOrderByRatingDesc(id);
+        }
+    }
+
     private List<Product> selectModelsByName(String name) {
         return productRepository.getByNameStartingWith(name);
     }
@@ -200,12 +267,12 @@ public class ProductServiceImpl implements ProductService {
         return imageList;
     }
 
-    @Transactional(readOnly = true)
-    private long[] selectImages(List<Image> images) throws Exception {
-        long[] ids = new long[images.size()];
-        int i = 0;
-        for (Image image:images) {
-            if (image != null) {
+    private long[] selectImages(List<Image> images) {
+        long[] ids = new long[0];
+        if (images != null) {
+            ids = new long[images.size()];
+            int i = 0;
+            for (Image image:images) {
                 ids[i++] = image.getId();
             }
         }

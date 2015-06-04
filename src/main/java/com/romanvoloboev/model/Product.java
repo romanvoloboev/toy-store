@@ -101,7 +101,7 @@ public class Product {
         this.id = id;
     }
 
-    @Column(name = "name", length = 50, nullable = false)
+    @Column(name = "name", length = 80, nullable = false)
     public String getName() {
         return name;
     }
@@ -109,7 +109,7 @@ public class Product {
         this.name = name;
     }
 
-    @Column(name = "description", length = 2000, nullable = false)
+    @Column(name = "description", length = 5000, nullable = false)
     public String getDescription() {
         return description;
     }

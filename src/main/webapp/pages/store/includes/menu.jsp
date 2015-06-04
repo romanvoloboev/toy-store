@@ -1,10 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script src="../../webres/store/js/menu.js"></script>
 
 <div class="pull-left wrap-logo">
     <div id="logo">
-        <a href="/">
-            <img src="../../webres/store/image/logo.png" title="Floral Store" alt="Floral Store">
+        <a href="<c:url value="/"/>">
+            <img src="../../webres/store/image/logo.png" title="Toy Store" alt="Toy Store">
         </a>
     </div>
 </div>
@@ -17,62 +18,13 @@
                     <div id="mainmenutop" class="megamenu" role="navigation">
                         <div class="navbar-header">
                             <a href="javascript:;" data-target=".navbar-collapse"
-                               data-toggle="collapse" class="navbar-toggle">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </a>
-
+                                   data-toggle="collapse" class="navbar-toggle">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
                             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                                <ul class="nav navbar-nav megamenu">
-                                    <li class="home">
-                                        <a href="?route=common/home"><span class="menu-title">Home</span></a>
-                                    </li>
-
-                                    <li>
-                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/category&amp;path=33"><span class="menu-title">Office</span></a>
-                                    </li>
-
-                                    <li class="parent dropdown pav-parrent">
-                                        <a class="dropdown-toggle" data-toggle="dropdown" href="http://demopavothemes.com/pav_floral/index.php?route=product/category&amp;path=18">
-                                            <span class="menu-title">Laptops &amp; Notebooks</span><b class="caret"></b>
-                                        </a>
-
-                                        <div class="dropdown-menu level1">
-                                            <div class="dropdown-menu-inner">
-                                                <div class="row">
-                                                    <div class="mega-col col-xs-12 col-sm-12 col-md-12"
-                                                         data-type="menu">
-                                                        <div class="mega-col-inner">
-                                                            <ul>
-                                                                <li>
-                                                                    <a href="http://localhost/test/pav_floral/index.php?route=product/category&amp;path=59">Duistempor</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="http://localhost/test/pav_floral/index.php?route=product/category&amp;path=60">Pellentesqueeget</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="http://localhost/test/pav_floral/index.php?route=product/category&amp;path=61">Namnunc                                                                        ante</a></li>
-                                                                <li>
-                                                                    <a href="http://localhost/test/pav_floral/index.php?route=product/category&amp;path=62">Condimentumeu</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="http://localhost/test/pav_floral/index.php?route=product/category&amp;path=63">Lehiculalorem</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="http://localhost/test/pav_floral/index.php?route=product/category&amp;path=64">Integersemper</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="http://localhost/test/pav_floral/index.php?route=product/category&amp;path=65">Sollicitudinlacus</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                <ul class="nav navbar-nav megamenu"></ul>
                             </div>
                         </div>
                     </div>

@@ -22,12 +22,12 @@ import java.util.logging.Logger;
  */
 
 @Controller
-@PreAuthorize("hasRole('ROLE_EMPLOYEE')")
 public class ProductController {
     private static final Logger LOGGER = Logger.getLogger(ProductController.class.getName());
 
     @Autowired private ProductServiceImpl productService;
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping("/cp/product")
     public ModelAndView showProduct() {
         ModelAndView modelAndView = new ModelAndView("cp/product");
@@ -39,11 +39,13 @@ public class ProductController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping("/cp/product/add")
     public ModelAndView addProduct() {
         return new ModelAndView("cp/product_add");
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @ResponseBody
     @RequestMapping(value = "/cp/product/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     Map<String, String> saveProduct(@RequestBody ProductDTO productDTO) {
@@ -62,6 +64,7 @@ public class ProductController {
         return response;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/product/search_by", method = RequestMethod.GET)
     public ModelAndView searchProduct(@RequestParam(value = "name", required = false, defaultValue = "")String name,
                                       @RequestParam(value = "price_start", required = false, defaultValue = "0")double priceStart,
@@ -76,11 +79,12 @@ public class ProductController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/product/edit", method = RequestMethod.GET)
     public ModelAndView editProduct(@RequestParam("id")int id) {
         ModelAndView modelAndView = new ModelAndView("cp/product_edit");
         try {
-            modelAndView.addObject("product", productService.selectDTO(id));
+            modelAndView.addObject("product", productService.selectDTO(id, true));
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
             //todo error page
@@ -88,6 +92,7 @@ public class ProductController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/product/delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> deleteProduct(@RequestParam("id")int id) {
@@ -102,6 +107,7 @@ public class ProductController {
         return response;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/product/change_status", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> changeProductStatus(@RequestParam("id")int id) {
@@ -131,5 +137,19 @@ public class ProductController {
     @ResponseBody
     public SimpleDTO loadProductDetailsById(@RequestParam("id")int id) {
         return productService.selectDTODetailById(id);
+    }
+
+    @RequestMapping(value = "/product", method = RequestMethod.GET)
+    public ModelAndView loadProduct(@RequestParam("id")int id) {
+        ModelAndView modelAndView = new ModelAndView("store/product");
+        ProductDTO productDTO = productService.selectDTO(id, false);
+        if (productDTO != null) {
+            modelAndView.addObject("product", productDTO);
+            modelAndView.addObject("similar", productService.selectSimilarDTO(productDTO.getSubcategory(), productDTO.getId()));
+        } else {
+            LOGGER.log(Level.SEVERE, "No product was found or it's not active");
+            //todo product not found page
+        }
+        return modelAndView;
     }
 }

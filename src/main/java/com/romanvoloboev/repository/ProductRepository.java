@@ -16,5 +16,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
     List<Product> getByNameContainingAndPriceBetweenAndActive(String name, Double priceStart, Double priceEnd, boolean status);
     List<Product> getByNameStartingWith(String name);
+    List<Product> getByActiveTrueAndSubcategoryIdOrderByPriceAsc(Integer id);
+    List<Product> getByActiveTrueAndSubcategoryIdOrderByPriceDesc(Integer id);
+    List<Product> getByActiveTrueAndSubcategoryIdOrderByRatingDesc(Integer id);
+    List<Product> getByActiveTrueAndSubcategoryIdOrderByDateDesc(Integer id);
+    List<Product> getBySubcategoryId(Integer id);
+    Product getByIdAndActiveTrue(Integer id);
+    List<Product> getFirst5BySubcategoryIdAndIdNotOrderByRatingDesc(Integer subcategory, Integer currentProduct);
 }
 

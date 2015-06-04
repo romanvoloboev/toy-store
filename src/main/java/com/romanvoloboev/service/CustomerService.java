@@ -84,6 +84,7 @@ public interface CustomerService {
 
 
     void save(CustomerDTO customerDTO) throws Exception;
+    void save(Customer customer);
     void delete(Customer customer) throws Exception;
     void delete(Integer id) throws Exception;
     Customer selectModel(String email) throws Exception;
@@ -111,4 +112,6 @@ public interface CustomerService {
     Map<String, String> saveAddress(AddressDTO addressDTO);
     List<String> selectCities(Integer id);
     Long selectCustomersCount();
+    void removeCustomerPhone();
+    Map<String, String> changeCustomerPassword(String oldPass, String newPass, String repeatNewPass);
 }

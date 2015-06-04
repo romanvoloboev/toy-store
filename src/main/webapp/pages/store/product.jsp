@@ -1,162 +1,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Floral Store</title>
-    <meta name="description" content="My Store">
-
+    <title>${product.name} - ToyStore</title>
     <%@include file="includes/head.jsp"%>
-
+    <link href="../../webres/store/css/jquery.rating.css" rel="stylesheet">
     <script type="text/javascript">
         $(function(){
-            $('#image-additional .item:first').addClass('active');
-            $('#image-additional').carousel({interval:false});
-
-            $("#image").elevateZoom( {  gallery:'image-additional-carousel',
-                cursor: 'pointer',
-                galleryActiveClass: 'active' } );
-
-            if ($.browser.msie && $.browser.version == 6) {
-                $('.date, .datetime, .time').bgIframe();
-            }
-
-            $('.date').datepicker({dateFormat: 'yy-mm-dd'});
-            $('.datetime').datetimepicker({
-                dateFormat: 'yy-mm-dd',
-                timeFormat: 'h:m'
-            });
-            $('.time').timepicker({timeFormat: 'h:m'});
-
-            var activeCat = '.box-category li a.active';
-            if($(activeCat).length > 0){
-                $(activeCat).parent('li').find('ul').show();
-                $(activeCat).parent('li').find('a.fa').toggleClass('aToggle');
-                $(activeCat).parent('li').find('a.fa').toggleClass('fa-minus');
-            }
-            $('.head a').click(function(){
-                $('.head a').removeClass('aToggle');
-                $('.head a').removeClass('fa-minus');
-                var ul = $(this).parent('div').parent('li').find('ul');
-                if(!ul.is(':visible')){
-                    $('.box-category ul li > ul').slideUp();
-                    $(this).toggleClass('aToggle');
-                    $(this).toggleClass('fa-minus');
-                }else{
-                    $(this).removeClass('aToggle');
-                    $(this).removeClass('fa-minus');
-                }
-                ul.stop(true,true).slideToggle();
-            });
-
-
-            $('#tabs a').tabs();
-
-            $('#review .pagination a').live('click', function() {
-                $('#review').fadeOut('slow');
-
-                $('#review').load(this.href);
-
-                $('#review').fadeIn('slow');
-
-                return false;
-            });
-
-            $('#review').load('index.php?route=product/product/review&product_id=44');
-
-            $('#button-review').bind('click', function() {
-                $.ajax({
-                    url: 'index.php?route=product/product/write&product_id=44',
-                    type: 'post',
-                    dataType: 'json',
-                    data: 'name=' + encodeURIComponent($('input[name=\'name\']').val()) + '&text=' + encodeURIComponent($('textarea[name=\'text\']').val()) + '&rating=' + encodeURIComponent($('input[name=\'rating\']:checked').val() ? $('input[name=\'rating\']:checked').val() : '') + '&captcha=' + encodeURIComponent($('input[name=\'captcha\']').val()),
-                    beforeSend: function() {
-                        $('.success, .warning').remove();
-                        $('#button-review').attr('disabled', true);
-                        $('#review-title').after('<div class="attention"><img src="..webres/image/loading.gif" alt="" /> Please Wait!</div>');
-                    },
-                    complete: function() {
-                        $('#button-review').attr('disabled', false);
-                        $('.attention').remove();
-                    },
-                    success: function(data) {
-                        if (data['error']) {
-                            $('#review-title').after('<div class="warning">' + data['error'] + '</div>');
-                        }
-
-                        if (data['success']) {
-                            $('#review-title').after('<div class="success">' + data['success'] + '</div>');
-
-                            $('input[name=\'name\']').val('');
-                            $('textarea[name=\'text\']').val('');
-                            $('input[name=\'rating\']:checked').attr('checked', '');
-                            $('input[name=\'captcha\']').val('');
-                        }
-                    }
-                });
-            });
-
-            $('select[name="profile_id"], input[name="quantity"]').change(function(){
-                $.ajax({
-                    url: 'index.php?route=product/product/getRecurringDescription',
-                    type: 'post',
-                    data: $('input[name="product_id"], input[name="quantity"], select[name="profile_id"]'),
-                    dataType: 'json',
-                    beforeSend: function() {
-                        $('#profile-description').html('');
-                    },
-                    success: function(json) {
-                        $('.success, .warning, .attention, information, .error').remove();
-
-                        if (json['success']) {
-                            $('#profile-description').html(json['success']);
-                        }
-                    }
-                });
-            });
-
-            $('#button-cart').bind('click', function() {
-                $.ajax({
-                    url: 'index.php?route=checkout/cart/add',
-                    type: 'post',
-                    data: $('.product-info input[type=\'text\'], .product-info input[type=\'hidden\'], .product-info input[type=\'radio\']:checked, .product-info input[type=\'checkbox\']:checked, .product-info select, .product-info textarea'),
-                    dataType: 'json',
-                    success: function(json) {
-                        $('.success, .warning, .attention, information, .error').remove();
-
-                        if (json['error']) {
-                            if (json['error']['option']) {
-                                for (i in json['error']['option']) {
-                                    $('#option-' + i).after('<span class="error">' + json['error']['option'][i] + '</span>');
-                                }
-                            }
-
-                            if (json['error']['profile']) {
-                                $('select[name="profile_id"]').after('<span class="error">' + json['error']['profile'] + '</span>');
-                            }
-                        }
-
-                        if (json['success']) {
-                            $('#notification').html('<div class="success" style="display: none;">' + json['success'] + '<img src="..webres/image/close.png" alt="" class="close" /></div>');
-
-                            $('.success').fadeIn('slow');
-
-                            $('#cart-total').html(json['total']);
-
-                            $('html, body').animate({ scrollTop: 0 }, 'slow');
-                        }
-                    }
-                });
-            });
-
-            $('div.product-rating').rating();
+            setReviewsCount(${product.reviewsCount});
         });
-
-
-
     </script>
-
+    <script src="../../webres/store/js/product.js"></script>
+    <script type="text/javascript" src="../../webres/store/js/jquery.rating-2.0.js"></script>
+    <script type="text/javascript" src="../../webres/store/js/elevatezoom-min.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-product" data-twttr-rendered="true">
 <section id="page" class="offcanvas-pusher" role="main">
@@ -171,7 +30,6 @@
             </div>
         </section>
     </section>
-
     <section id="columns" class="offcanvas-siderbars">
         <div class="container">
             <div class="wrap-container">
@@ -179,74 +37,115 @@
                     <div id="breadcrumb">
                         <div>
                             <ol class="breadcrumb" style="margin: 0; padding: 0;">
-                                <li><a href="/">Главная</a></li>
-                                <li><a href="/">Категория</a></li>
-                                <li><a href="/">Подкатегория</a></li>
+                                <li><a href="<c:url value="/"/>">Главная</a></li>
+                                <li><a href="<c:url value="/category?id=${product.category}"/>">${product.categoryName}</a></li>
+                                <li><a href="<c:url value="/subcategory?id=${product.subcategory}"/>">${product.subcategoryName}</a></li>
+                                <li>${product.name}</li>
                             </ol>
                         </div>
                     </div>
-
                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12  main-column" style="padding-top: 15px;">
                         <div id="content">
                             <div class="product-info">
                                 <div class="row">
                                     <div class="col-lg-7 col-sm-6 image-container">
                                         <div class="image">
-                                            <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-500x375.jpg" id="image"
-                                                 data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg" class="product-image-zoom">
+                                            <img src="<c:url value='/image/load?id=${product.images[0]}'/>" id="image" style="max-width:500px; max-height: 375px;"
+                                                 data-zoom-image="<c:url value="/image/load?id=${product.images[0]}"/>" class="product-image-zoom">
                                         </div>
-                                        <div class="image-additional slide carousel" id="image-additional">
-                                            <div id="image-additional-carousel" class="carousel-inner">
-                                                <div class="item active">
-                                                    <a href="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg"
-                                                       data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg"
-                                                       data-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-500x375.jpg" style="max-width:114px"
-                                                             data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg" class="product-image-zoom">
-                                                    </a>
-                                                    <a href="http://demopavothemes.com/pav_floral/image/cache/data/demo/product14-600x450.jpg"
-                                                       data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product14-600x450.jpg"
-                                                       data-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product14-600x450.jpg">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product14-114x86.jpg" style="max-width:114px"
-                                                             data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product14-600x450.jpg" class="product-image-zoom">
-                                                    </a>
-                                                    <a href="http://demopavothemes.com/pav_floral/image/cache/data/demo/product13-600x450.jpg"
-                                                       data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product13-600x450.jpg"
-                                                       data-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product13-600x450.jpg">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product13-114x86.jpg" style="max-width:114px"
-                                                             data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product13-600x450.jpg" class="product-image-zoom">
-                                                    </a>
-                                                    <a href="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg"
-                                                       data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg"
-                                                       data-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-114x86.jpg" style="max-width:114px"
-                                                             data-zoom-image="http://demopavothemes.com/pav_floral/image/cache/data/demo/product12-600x450.jpg" class="product-image-zoom">
-                                                    </a>
+                                        <c:if test="${fn:length(product.images) > 1}">
+                                            <div class="image-additional slide carousel" id="image-additional">
+                                                <div id="image-additional-carousel" class="carousel-inner">
+                                                    <div class="item active">
+                                                        <c:forEach items="${product.images}" var="image">
+                                                            <a href="<c:url value='/image/load?id=${image}'/>"
+                                                               data-zoom-image="<c:url value='/image/load?id=${image}'/>"
+                                                               data-image="<c:url value='/image/load?id=${image}'/>">
+                                                                <img src="<c:url value='/image/load?id=${image}'/>" style="max-width:114px;"
+                                                                     data-zoom-image="<c:url value='/image/load?id=${image}'/>" class="product-image-zoom">
+                                                            </a>
+                                                        </c:forEach>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <a class="carousel-control left" href="#image-additional" data-slide="prev">‹</a>
-                                            <a class="carousel-control right" href="#image-additional" data-slide="next">›</a>
-                                        </div>
+                                        </c:if>
                                     </div>
                                     <div class="col-lg-5 col-sm-6">
-                                        <h1>Occur in which toil</h1>
-                                        <div class="review">
-                                            <div><img src="../../webres/image/stars-5.png" alt="1 reviews">&nbsp;&nbsp;
-                                                <a onclick="$('a[href=\'#tab-review\']').trigger('click');">1 отзыв</a>
-                                            </div>
+                                        <h1 style="padding-left: 5px;">${product.name}</h1>
+                                        <c:choose>
+                                            <c:when test="${product.quantity <= 5}">
+                                                <div class="col-md-6 col-sm-6 col-xs-4" style="color: #ff6300; padding-top: 1px; padding-right: 0; padding-left: 5px;"><strong><em>Товар заканчивается</em></strong></div>
+                                                <c:choose>
+                                                    <c:when test="${product.rating < 1}">
+                                                        <img src="../../webres/store/image/stars-0.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 1 && product.rating < 2}">
+                                                        <img src="../../webres/store/image/stars-1.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 2 && product.rating < 3}">
+                                                        <img src="../../webres/store/image/stars-2.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 3 && product.rating < 4}">
+                                                        <img src="../../webres/store/image/stars-3.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 4 && product.rating < 5}">
+                                                        <img src="../../webres/store/image/stars-4.png">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="../../webres/store/image/stars-5.png">
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <span id="reviews-count"></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div class="col-md-5 col-sm-5 col-xs-3" style="color: #15b000; padding-top: 1px; padding-right: 0; padding-left: 5px;"><strong><em>Есть в наличии</em></strong></div>
+                                                <c:choose>
+                                                    <c:when test="${product.rating < 1}">
+                                                        <img src="../../webres/store/image/stars-0.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 1 && product.rating < 2}">
+                                                        <img src="../../webres/store/image/stars-1.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 2 && product.rating < 3}">
+                                                        <img src="../../webres/store/image/stars-2.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 3 && product.rating < 4}">
+                                                        <img src="../../webres/store/image/stars-3.png">
+                                                    </c:when>
+                                                    <c:when test="${product.rating >= 4 && product.rating < 5}">
+                                                        <img src="../../webres/store/image/stars-4.png">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <img src="../../webres/store/image/stars-5.png">
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <span id="reviews-count"></span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="description col-md-12" style="padding-right: 0; padding-top: 15px !important;">
+                                            <span>Код товара: </span>${product.code}<br>
+                                            <span>Производитель: </span>${product.brandName}<br>
+                                            <span>Страна: </span>${product.brandCountry}<br>
+                                            <c:if test="${product.height != null && product.length != null && product.width != null}">
+                                                <span>Размер:</span> ${product.width} x ${product.height} x ${product.length} см.
+                                            </c:if>
                                         </div>
-                                        <span style="color: green; margin-left: 5px;"><strong><em>Есть в наличии</em></strong></span><br>
-                                        <div class="description">
-                                            <span>Код товара: </span>1234567<br>
-                                            <span>Производитель: </span>BK Toys<br>
-                                            <span>Страна: </span>Китай<br>
-                                            <span>Возраст ребенка: </span>3+<br>
-                                            <span>Размер: </span>33/22/16
-                                        </div>
-
                                         <div class="price-cart">
                                             <div class="product-extra">
-                                                <div class="price pull-left">62 999 грн.</div>
+                                                <c:choose>
+                                                    <c:when test="${product.promotion}">
+                                                        <div class="pull-left">
+                                                            <span class="price-old">${product.price} грн.</span>
+                                                            <span class="price">${product.promotionPrice} грн.</span>
+                                                        </div>
+
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="pull-left">
+                                                            <span class="price">${product.price} грн.</span>
+                                                        </div>
+                                                    </c:otherwise>
+                                                </c:choose>
                                                 <div class="pull-left" style="margin-left: 5px;">
                                                     <div class="pull-left">
                                                         <button class="btn btn-shopping-cart" id="button-cart">
@@ -268,101 +167,133 @@
                             </div>
                             <div class="tabs-group">
                                 <div id="tabs" class="htabs clearfix">
-                                    <a href="#tab-description" class="selected" style="display: inline;">Описание</a>
-                                    <a href="#tab-review" style="display: inline;">Отзывы</a>
+                                    <a id="description-link" class="selected" style="display: inline;">Описание</a>
+                                    <a id="reviews-link" style="display: inline;">Отзывы<c:if test="${product.reviewsCount > 0}"> (${product.reviewsCount})</c:if></a>
                                 </div>
                                 <div id="tab-description" class="tab-content" style="display: block;">
-                                    <div>
-                                        MacBook Air is ultrathin, ultraportable, and ultra unlike anything else. But you don’t lose inches and pounds overnight.
-                                        It’s the result of rethinking conventions. Of multiple wireless innovations. And of breakthrough design.
-                                        With MacBook Air, mobile computing suddenly has a new standard.
-                                    </div>
+                                    <div>${product.description}</div>
                                 </div>
                                 <div id="tab-review" class="tab-content clearfix" style="display: none;">
-                                    <div id="review">
-                                        <div class="review-list">
-                                            <div class="author"><b>pavothemes</b>  on  17/10/2013</div>
-                                            <div class="text">Text </div>
+                                    <c:if test="${product.reviewsCount > 0}">
+                                        <c:forEach items="${product.reviewsList}" var="r">
+                                            <div id="review">
+                                                <div class="review-list">
+                                                    <div class="author" style="margin-bottom: 10px !important;">
+                                                        <b>${r.customerName}</b>&nbsp;${r.date}<br>
+                                                        <c:choose>
+                                                            <c:when test="${r.rating == 0}">
+                                                                <img src="../../webres/store/image/stars-0.png">
+                                                            </c:when>
+                                                            <c:when test="${r.rating == 1}">
+                                                                <img src="../../webres/store/image/stars-1.png">
+                                                            </c:when>
+                                                            <c:when test="${r.rating == 2}">
+                                                                <img src="../../webres/store/image/stars-2.png">
+                                                            </c:when>
+                                                            <c:when test="${r.rating == 3}">
+                                                                <img src="../../webres/store/image/stars-3.png">
+                                                            </c:when>
+                                                            <c:when test="${r.rating == 4}">
+                                                                <img src="../../webres/store/image/stars-4.png">
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <img src="../../webres/store/image/stars-5.png">
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </div>
+                                                    <div class="text">${r.comment}</div>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </c:if>
+                                    <security:authorize access="isAuthenticated()">
+                                        <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-left: 0; padding-right: 0;">
+                                            <div class="inner">
+                                                <h2>Оставьте отзыв о товаре</h2>
+                                                <form action="<c:url value=""/>" method="post">
+                                                    <fieldset>
+                                                        <div class="form-group">
+                                                            <textarea required name="comment" placeholder="Ваш комментарий" style="width: 50%; height: 140px;"></textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <b>Оцените товар по 5-ти бальной шкале</b>
+                                                            <div class="product-rating"></div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <button type="submit" class="btn btn-shopping-cart">
+                                                                <span class="fa fa-check"></span> Отправить
+                                                            </button>
+                                                        </div>
+                                                    </fieldset>
+                                                </form>
+                                            </div>
                                         </div>
-                                        <div class="pagination">
-                                            <div class="results">Showing 1 to 1 of 1 (1 Pages)</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-left: 0; padding-right: 0;">
-                                        <div class="inner">
-                                            <h2>Оставьте отзыв о товаре</h2>
-
-                                            <%--todo отзыв о товаре может оставлять только зарегеный пользователь--%>
-
-                                            <form action="<c:url value=""/>" method="post">
-                                                <fieldset>
-                                                    <div class="form-group">
-                                                        <input name="name" placeholder="Ваше имя" style="width: 50%;" class="form-control" type="text" required="true">
+                                    </security:authorize>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <c:if test="${not empty similar}">
+                        <div class="col-lg-3 col-md-3 offcanvas-sidebar" id="oc-column-right" style="padding-top: 15px;">
+                            <div id="column-right" class="sidebar">
+                                <div class="box box-product special">
+                                    <div class="box-heading"><span>Похожие товары</span></div>
+                                    <div class="box-content">
+                                        <div class="box-product">
+                                            <div class="row">
+                                                <c:forEach items="${similar}" var="s">
+                                                    <div class=" col-lg-3">
+                                                        <div class="product-block">
+                                                            <div class="image">
+                                                                <a href=""><img src="<c:url value='/image/load?id=${s.images[0]}'/>"></a>
+                                                            </div>
+                                                            <h3 class="name"><a href="<c:url value="/product?id=${s.id}"/>">${s.name}</a></h3>
+                                                            <div class="rating">
+                                                                <c:choose>
+                                                                    <c:when test="${s.rating < 1}">
+                                                                        <img src="../../webres/store/image/stars-0.png">
+                                                                    </c:when>
+                                                                    <c:when test="${s.rating >= 1 && s.rating < 2}">
+                                                                        <img src="../../webres/store/image/stars-1.png">
+                                                                    </c:when>
+                                                                    <c:when test="${s.rating >= 2 && s.rating < 3}">
+                                                                        <img src="../../webres/store/image/stars-2.png">
+                                                                    </c:when>
+                                                                    <c:when test="${s.rating >= 3 && s.rating < 4}">
+                                                                        <img src="../../webres/store/image/stars-3.png">
+                                                                    </c:when>
+                                                                    <c:when test="${s.rating >= 4 && s.rating < 5}">
+                                                                        <img src="../../webres/store/image/stars-4.png">
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img src="../../webres/store/image/stars-5.png">
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                            </div>
+                                                            <div class="price-cart">
+                                                                <div class="price">
+                                                                    <c:choose>
+                                                                        <c:when test="${s.promotion}">
+                                                                            <span class="price-old">${s.price} грн.</span>
+                                                                            <span class="price">${s.promotionPrice} грн.</span>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                            <span class="price">${s.price} грн.</span>
+                                                                        </c:otherwise>
+                                                                    </c:choose>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <textarea required name="comment" placeholder="Ваш комментарий"  style="width: 50%; height: 140px;"></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <b>Оцените товар по 5-ти бальной шкале</b>
-                                                        <div class="product-rating"></div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <button type="submit" class="btn btn-shopping-cart">
-                                                            <span class="fa fa-check"></span> Отправить
-                                                        </button>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
+                                                </c:forEach>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-3 offcanvas-sidebar" id="oc-column-right" style="padding-top: 15px;">
-                        <div id="column-right" class="sidebar">
-                            <div class="box box-product special">
-                                <div class="box-heading"><span>Похожие товары</span></div>
-                                <div class="box-content">
-                                    <div class="box-product">
-                                        <div class="row">
-                                            <div class=" col-lg-3">
-                                                <div class="product-block">
-                                                    <div class="image">
-                                                        <div class="product-label-special label">Распродажа</div>
-                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42"><img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product01-160x120.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed"></a>
-                                                    </div>
-                                                    <h3 class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></h3>
-                                                    <div class="rating"><img src="../../webres/image/stars-4.png" alt="Based on 1 reviews."></div>
-                                                    <div class="price-cart">
-                                                        <div class="price">
-                                                            <span class="price-old">$119.50</span> <span class="price-new">$107.75</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class=" col-lg-3">
-                                                <div class="product-block">
-                                                    <div class="image">
-                                                        <div class="product-label-special label">Распродажа</div>
-                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42"><img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product01-160x120.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed"></a>
-                                                    </div>
-                                                    <h3 class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></h3>
-                                                    <div class="rating"><img src="../../webres/image/stars-4.png" alt="Based on 1 reviews."></div>
-                                                    <div class="price-cart">
-                                                        <div class="price">
-                                                            <span class="price-old">$119.50</span> <span class="price-new">$107.75</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:if>
                 </div>
             </div>
         </div>
@@ -370,6 +301,5 @@
     <%@include file="includes/footer.jsp"%>
 </section>
 <%@include file="includes/sidebarmenu.jsp"%>
-<%@include file="includes/colorbox.jsp"%>
 </body>
 </html>

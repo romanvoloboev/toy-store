@@ -3,6 +3,7 @@ package com.romanvoloboev.service;
 import com.romanvoloboev.dto.CategoryDTO;
 import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.model.Category;
+import com.romanvoloboev.model.Product;
 import com.romanvoloboev.model.Subcategory;
 import com.romanvoloboev.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired private CategoryRepository categoryRepository;
     @Autowired private SubcategoryServiceImpl subcategoryService;
+    @Autowired private ProductService productService;
 
     @Transactional
     @Override
@@ -60,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional(readOnly = true)
     @Override
-    public Category selectModel(Integer id) throws Exception {
+    public Category selectModel(Integer id) {
         return categoryRepository.findOne(id);
     }
 
@@ -72,18 +74,23 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<Category> selectModelsOrderByName() throws Exception {
-        return categoryRepository.getAllOrderByNameAsc();
+    public List<Category> selectModelsOrderByName(boolean onlyActive) throws Exception {
+        if (onlyActive) {
+            return categoryRepository.getActiveOrderByNameAsc();
+        } else {
+            return categoryRepository.getAllOrderByNameAsc();
+        }
+
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<CategoryDTO> selectDTOsWithSubcategories() throws Exception {
+    public List<CategoryDTO> selectDTOsWithSubcategories(boolean onlyActive) throws Exception {
         List<CategoryDTO> categoryDTOs = new ArrayList<>();
-        List<Category> categories = selectModelsOrderByName();
+        List<Category> categories = selectModelsOrderByName(onlyActive);
         for (Category category:categories) {
             categoryDTOs.add(new CategoryDTO(category.getId(), category.getName(), category.isActive(),
-                    subcategoryService.selectDTOs(subcategoryService.selectModelsOrderByName(category))));
+                    subcategoryService.selectDTOs(subcategoryService.selectModelsOrderByName(category, onlyActive))));
         }
         return categoryDTOs;
     }
@@ -101,13 +108,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public SimpleDTO selectSimpleDTO(Integer id) throws Exception {
+    public SimpleDTO selectSimpleDTO(Integer id) {
         Category category = selectModel(id);
-        if (category != null) {
-            return new SimpleDTO(category.getId(), category.getName());
-        } else {
-            throw new Exception("The requested category was not found");
-        }
+        if (category == null) return null;
+        return new SimpleDTO(category.getId(), category.getName());
     }
 
     @Transactional
@@ -120,6 +124,12 @@ public class CategoryServiceImpl implements CategoryService {
             if (subcategories != null) {
                 for (Subcategory subcategory:subcategories) {
                     subcategory.setActive(false);
+                    List<Product> products = productService.selectModelsBySubcategory(subcategory.getId());
+                    if (products != null) {
+                        for (Product product:products) {
+                            product.setActive(false);
+                        }
+                    }
                 }
             }
         } else {
@@ -127,6 +137,12 @@ public class CategoryServiceImpl implements CategoryService {
             if (subcategories != null) {
                 for (Subcategory subcategory:subcategories) {
                     subcategory.setActive(true);
+                    List<Product> products = productService.selectModelsBySubcategory(subcategory.getId());
+                    if (products != null) {
+                        for (Product product:products) {
+                            product.setActive(true);
+                        }
+                    }
                 }
             }
         }

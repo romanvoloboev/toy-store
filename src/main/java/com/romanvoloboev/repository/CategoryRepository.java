@@ -14,4 +14,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     @Query("select c from Category c order by c.name asc")
     List<Category> getAllOrderByNameAsc();
     List<Category> getByNameIgnoreCaseStartingWithAndActive(String name, boolean active);
+
+    @Query("select c from Category c where c.active = true order by c.name asc")
+    List<Category> getActiveOrderByNameAsc();
 }

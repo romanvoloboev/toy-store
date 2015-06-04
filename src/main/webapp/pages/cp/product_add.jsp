@@ -76,13 +76,13 @@
                                     <input type="text" placeholder="Материал" id="product-material" class="form-control">
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="text" placeholder="Длина (см.)" id="product-length" class="form-control">
-                                </div>
-                                <div class="col-md-2">
                                     <input type="text" placeholder="Ширина (см.)" id="product-width" class="form-control">
                                 </div>
                                 <div class="col-md-2">
                                     <input type="text" placeholder="Высота (см.)" id="product-height" class="form-control">
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="text" placeholder="Толщина (см.)" id="product-length" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group" id="promotion-block" style="display: none;">

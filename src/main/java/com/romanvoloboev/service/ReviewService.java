@@ -55,5 +55,6 @@ public interface ReviewService {
     List<ReviewDTO> selectDTOsByProductId(Integer id);
     Short selectNewReviewsCount();
     List<ReviewDTO> selectDTOsByStatus(boolean status);
-    long getReviewCount(Integer id);
+    long getCustomerReviewCount(Integer id);
+    long getProductReviewCount(Integer id);
 }

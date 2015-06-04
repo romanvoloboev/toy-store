@@ -19,7 +19,7 @@ import java.util.Set;
 
 public interface ProductService {
 
-    default String formatDateToString(Date date) throws ParseException {
+    default String formatDateToString(Date date) {
         if (date == null) return "";
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         dateFormat.setLenient(false);
@@ -31,6 +31,22 @@ public interface ProductService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         dateFormat.setLenient(false);
         return dateFormat.parse(date);
+    }
+
+    default String getShortDescription(String descr) {
+        if (descr != null && descr.length() > 70) {
+            return descr.substring(0, 70) + "...";
+        } else {
+            return descr;
+        }
+    }
+
+    default String getShortName(String name) {
+        if (name != null && name.length() > 47) {
+            return name.substring(0, 47) + "...";
+        } else {
+            return name;
+        }
     }
 
     default boolean validate(Object object, Validator validator) throws ValidationException {
@@ -55,8 +71,11 @@ public interface ProductService {
     List<Product> selectModels() throws Exception;
     List<ProductDTO> searchBy(String name, Double priceStart, Double priceEnd, int status) throws Exception;
     List<Product> selectModels(String name, Double priceStart, Double priceEnd, boolean status) throws Exception;
-    ProductDTO selectDTO(Integer id) throws Exception;
+    ProductDTO selectDTO(Integer id, boolean forEditing);
     void changeProductStatus(Integer id) throws Exception;
     List<SimpleDTO> selectSimpleDTOsByName(String name);
     SimpleDTO selectDTODetailById(Integer id);
+    List<ProductDTO> selectDTOsBySubcategorySortBy(Integer id, String sortType);
+    List<Product> selectModelsBySubcategory(Integer id);
+    List<ProductDTO> selectSimilarDTO(Integer subcategory, Integer currentProduct);
 }

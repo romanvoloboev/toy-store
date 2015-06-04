@@ -119,8 +119,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public long getReviewCount(Integer id) {
-        return reviewRepository.getReviewCount(id);
+    public long getCustomerReviewCount(Integer id) {
+        return reviewRepository.getCustomerReviewCount(id);
+    }
+
+    @Override
+    public long getProductReviewCount(Integer id) {
+        return reviewRepository.getProductReviewCount(id);
     }
 
     @Transactional

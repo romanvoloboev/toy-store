@@ -1141,6 +1141,18 @@ body.layout-boxed-lg #page {
   height: 30px;
   overflow: hidden;
 }
+
+.product-block .subcategoryname a {
+  color: #000;
+  font-size: 17px;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+  height: auto;
+  overflow: hidden;
+  line-height: 22px;
+}
+
 .product-block .name a:hover {
   color: #a9d04a;
 }

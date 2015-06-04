@@ -45,6 +45,13 @@ public class ReviewDTO {
         this.rating = rating;
     }
 
+    public ReviewDTO(String comment, String date, String customerName, float rating) {
+        this.comment = comment;
+        this.date = date;
+        this.customerName = customerName;
+        this.rating = rating;
+    }
+
     @NotNull
     public int getId() {
         return id;

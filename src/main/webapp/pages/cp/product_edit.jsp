@@ -11,7 +11,7 @@
         $(function() {
             var promotionStart = "${product.promotionStart}";
             var promotionEnd = "${product.promotionEnd}";
-            var productDescr = "${product.description}";
+            var productDescr = '${product.description}';
             var brandId = "${product.brand}";
             var subCatId = "${product.subcategory}";
             var imgs = [];
@@ -99,13 +99,13 @@
                                             <input type="text" placeholder="Материал" id="product-material" class="form-control">
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" placeholder="Длина (см.)" id="product-length" class="form-control">
-                                        </div>
-                                        <div class="col-md-2">
                                             <input type="text" placeholder="Ширина (см.)" id="product-width" class="form-control">
                                         </div>
                                         <div class="col-md-2">
                                             <input type="text" placeholder="Высота (см.)" id="product-height" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" placeholder="Толщина (см.)" id="product-length" class="form-control">
                                         </div>
                                     </div>
                                 </c:when>
@@ -118,13 +118,13 @@
                                             <input type="text" value="${product.material}" placeholder="Материал" id="product-material" class="form-control">
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" value="${product.length}" placeholder="Длина (см.)" id="product-length" class="form-control">
-                                        </div>
-                                        <div class="col-md-2">
                                             <input type="text" value="${product.width}" placeholder="Ширина (см.)" id="product-width" class="form-control">
                                         </div>
                                         <div class="col-md-2">
                                             <input type="text" value="${product.height}" placeholder="Высота (см.)" id="product-height" class="form-control">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input type="text" value="${product.length}" placeholder="Толщинаа (см.)" id="product-length" class="form-control">
                                         </div>
                                     </div>
                                 </c:otherwise>
@@ -200,7 +200,7 @@
                                                 <div class="col-sm-2 col-md-2" id="thumb-image${i}">
                                                     <div class="panel panel-default" style="margin-bottom: 0">
                                                         <div class="panel-image">
-                                                            <img src="<c:url value="/image/load?id=${i}"/>" height="70px;" class="panel-image-preview" />
+                                                            <img src="<c:url value="/image/load?id=${i}"/>" class="panel-image-preview" style="height: 90px;" />
                                                         </div>
                                                         <div class="panel-footer text-center">
                                                             <button onclick="removeImage(${i});" class="btn">

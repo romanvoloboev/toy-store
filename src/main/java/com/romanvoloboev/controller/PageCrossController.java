@@ -24,22 +24,6 @@ public class PageCrossController {
         return new ModelAndView("store/index");
     }
 
-    @RequestMapping("/product")
-    public ModelAndView product() {
-        return new ModelAndView("store/product");
-    }
-
-    @RequestMapping("/category")
-    public ModelAndView category() {
-        return new ModelAndView("store/category");
-    }
-
-    @RequestMapping("/subcategory")
-    public ModelAndView subcategory() {
-        return new ModelAndView("store/subcategory");
-    }
-
-
     @RequestMapping("/wishlist")
     public ModelAndView wishlist() {
         return new ModelAndView("store/wishlist");
@@ -81,8 +65,6 @@ public class PageCrossController {
         modelAndView.addObject("totalMoney", orderService.selectTotalOrdersAmount());
         return modelAndView;
     }
-
-
 
     @RequestMapping("/cp/sale_report")
     public ModelAndView showSalesReport() {

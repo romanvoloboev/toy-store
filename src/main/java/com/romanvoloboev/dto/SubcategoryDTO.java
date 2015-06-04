@@ -14,6 +14,7 @@ public class SubcategoryDTO {
     private String name;
     private boolean isActive;
     private int category;
+    private String categoryName;
     private long image;
     private int[] products;
 
@@ -29,6 +30,19 @@ public class SubcategoryDTO {
         this.name = name;
         this.category = category;
         this.image = image;
+    }
+
+    public SubcategoryDTO(int id, String name, long image) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+    }
+
+    public SubcategoryDTO(int id, String name, String categoryName, int category) {
+        this.id = id;
+        this.name = name;
+        this.categoryName = categoryName;
+        this.category = category;
     }
 
     @NotNull
@@ -62,6 +76,13 @@ public class SubcategoryDTO {
     }
     public void setCategory(int category) {
         this.category = category;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     @NotNull

@@ -1,6 +1,5 @@
 package com.romanvoloboev.dto;
 
-import com.romanvoloboev.service.ProductServiceImpl;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
@@ -25,13 +24,17 @@ public class ProductDTO {
     private String promotionStart;
     private String promotionEnd;
     private double rating;
+    private long reviewsCount;
     private String material;
     private String width;
     private String height;
     private String length;
     private int brand;
     private String brandName;
+    private String brandCountry;
+    private int category;
     private int subcategory;
+    private String categoryName;
     private String subcategoryName;
     private long[] images;
     private List<ReviewDTO> reviewsList = new ArrayList<>();
@@ -40,9 +43,10 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public ProductDTO(int id, String name, String description, short quantity, String code, double price, boolean promotion, double promotionPrice,
-                      String promotionStart, String promotionEnd, String material, String width, String height,
-                      String length, int brand, String brandName, int subcategory, String subcategoryName, long[] images) {
+    public ProductDTO(int id, String name, String description, short quantity, String code, double price,
+                      boolean promotion, double promotionPrice, String promotionStart, String promotionEnd, double rating,
+                      long reviewsCount, String material, String width, String height, String length, int brand, String brandName,
+                      String brandCountry, int category, int subcategory, String categoryName, String subcategoryName, long[] images, List<ReviewDTO> reviewsList) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -53,15 +57,21 @@ public class ProductDTO {
         this.promotionPrice = promotionPrice;
         this.promotionStart = promotionStart;
         this.promotionEnd = promotionEnd;
+        this.rating = rating;
+        this.reviewsCount = reviewsCount;
         this.material = material;
         this.width = width;
         this.height = height;
         this.length = length;
         this.brand = brand;
         this.brandName = brandName;
+        this.brandCountry = brandCountry;
+        this.category = category;
         this.subcategory = subcategory;
+        this.categoryName = categoryName;
         this.subcategoryName = subcategoryName;
         this.images = images;
+        this.reviewsList = reviewsList;
     }
 
     public ProductDTO(int id, String name, double price, double promotionPrice, short quantity, long[] images, boolean active, boolean promotion) {
@@ -75,6 +85,27 @@ public class ProductDTO {
         this.promotion = promotion;
     }
 
+    public ProductDTO(int id, String name, String description, double price, boolean promotion, double promotionPrice, double rating, long[] images) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.promotion = promotion;
+        this.promotionPrice = promotionPrice;
+        this.rating = rating;
+        this.images = images;
+    }
+
+    public ProductDTO(int id, String name, double price, boolean promotion, double promotionPrice, double rating, long[] images) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.promotion = promotion;
+        this.promotionPrice = promotionPrice;
+        this.rating = rating;
+        this.images = images;
+    }
+
     @NotNull
     public int getId() {
         return id;
@@ -84,8 +115,7 @@ public class ProductDTO {
     }
 
     @NotNull
-    @Pattern(regexp = ProductServiceImpl.NAME_PATTERN, message = "Incorrect name format")
-    @Size(min = 3, max = 50, message = "Incorrect name length")
+    @Size(min = 3, max = 80, message = "Incorrect name length")
     public String getName() {
         return name;
     }
@@ -94,7 +124,7 @@ public class ProductDTO {
     }
 
     @NotNull
-    @Size(min = 3, max = 2000, message = "Incorrect description length")
+    @Size(min = 3, max = 5000, message = "Incorrect description length")
     public String getDescription() {
         return description;
     }
@@ -230,7 +260,6 @@ public class ProductDTO {
         this.subcategoryName = subcategoryName;
     }
 
-    @Pattern(regexp = ProductServiceImpl.NAME_PATTERN, message = "Incorrect material format")
     public String getMaterial() {
         return material;
     }
@@ -245,6 +274,34 @@ public class ProductDTO {
     }
     public void setImages(long[] images) {
         this.images = images;
+    }
+
+    public long getReviewsCount() {
+        return reviewsCount;
+    }
+    public void setReviewsCount(long reviewsCount) {
+        this.reviewsCount = reviewsCount;
+    }
+
+    public String getBrandCountry() {
+        return brandCountry;
+    }
+    public void setBrandCountry(String brandCountry) {
+        this.brandCountry = brandCountry;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<ReviewDTO> getReviewsList() {

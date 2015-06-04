@@ -86,23 +86,28 @@ public class SubcategoryServiceImpl implements SubcategoryService {
 
     @Transactional(readOnly = true)
     @Override
-    public Subcategory selectModel(Integer id) throws Exception{
+    public Subcategory selectModel(Integer id) {
         return subcategoryRepository.getOne(id);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public SubcategoryDTO selectDTO(Integer id) throws Exception {
+    public SubcategoryDTO selectDTO(Integer id) {
         Subcategory subcategory = selectModel(id);
-        if (subcategory == null) throw new NullPointerException("The requested subcategory was not found");
+        if (subcategory == null) return null;
         return new SubcategoryDTO(subcategory.getId(), subcategory.getName(),
                 subcategory.getCategory().getId(), subcategory.getImage().getId());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Subcategory> selectModelsOrderByName(Category category) throws Exception {
-        return subcategoryRepository.getByCategoryOrderByNameAsc(category);
+    public List<Subcategory> selectModelsOrderByName(Category category, boolean onlyActive) throws Exception {
+        if (onlyActive) {
+            return subcategoryRepository.getByCategoryAndActiveTrueOrderByNameAsc(category);
+        } else {
+            return subcategoryRepository.getByCategoryOrderByNameAsc(category);
+        }
+
     }
 
     @Transactional(readOnly = true)
@@ -121,6 +126,37 @@ public class SubcategoryServiceImpl implements SubcategoryService {
     @Override
     public List<Subcategory> selectModels(String name, boolean active) {
         return subcategoryRepository.getByNameIgnoreCaseStartingWithAndActive(name, active);
+    }
+
+    /**
+     * Method for loading subcategories of category in store
+     * @param id - category
+     * @return List Subcategory DTOs
+     */
+    @Transactional
+    @Override
+    public List<SubcategoryDTO> selectDTOsByCategory(Integer id) {
+        List<Subcategory> subcategories = selectActiveModelsById(id);
+        List<SubcategoryDTO> dtoList = new ArrayList<>();
+        if (subcategories != null) {
+            for (Subcategory subcategory:subcategories) {
+                dtoList.add(new SubcategoryDTO(subcategory.getId(), subcategory.getName(), subcategory.getImage().getId()));
+            }
+        }
+        return dtoList;
+    }
+
+    @Transactional
+    @Override
+    public SubcategoryDTO selectSubcategoryDTO(Integer id) {
+        Subcategory subcategory = subcategoryRepository.getOne(id);
+        if (subcategory != null) return new SubcategoryDTO(subcategory.getId(), subcategory.getName(),
+                subcategory.getCategory().getName(), subcategory.getCategory().getId());
+        return null;
+    }
+
+    private List<Subcategory> selectActiveModelsById(Integer id) {
+        return subcategoryRepository.getByCategoryIdAndActiveTrue(id);
     }
 
     @Transactional

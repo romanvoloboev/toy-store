@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
 
 
     @Transactional
-    private void save(Customer customer) {
+    public void save(Customer customer) {
         customerRepository.save(customer);
     }
 
@@ -180,7 +180,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     @Override
     public long getReviewsCount(Integer id) throws Exception {
-        return reviewService.getReviewCount(id);
+        return reviewService.getCustomerReviewCount(id);
     }
 
     @Transactional
@@ -353,6 +353,36 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Long selectCustomersCount() {
         return customerRepository.count();
+    }
+
+    @Transactional
+    @Override
+    public void removeCustomerPhone() {
+        Customer customer = selectAuth();
+        customer.setPhone("");
+    }
+
+    @Transactional
+    @Override
+    public Map<String, String> changeCustomerPassword(String oldPass, String newPass, String repeatNewPass) {
+        Map<String, String> response = new HashMap<>();
+        Customer customer = selectAuth();
+        if (oldPass.equals(customer.getPassword())) {
+            if (newPass.equals(repeatNewPass)) {
+                customer.setPassword(newPass);
+                try {
+                    save(customer);
+                    response.put("status", "ok");
+                } catch (Exception e) {
+                    response.put("status", "unknownError");
+                }
+            } else {
+                response.put("status", "wrongRepeatPassword");
+            }
+        } else {
+            response.put("status", "wrongOldPassword");
+        }
+        return response;
     }
 
     private boolean autoLogin(UserDetails user, HttpServletRequest request) {

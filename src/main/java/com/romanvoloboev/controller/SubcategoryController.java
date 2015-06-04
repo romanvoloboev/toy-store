@@ -1,8 +1,10 @@
 package com.romanvoloboev.controller;
 
+import com.romanvoloboev.dto.ProductDTO;
 import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.dto.SubcategoryDTO;
 import com.romanvoloboev.service.CategoryServiceImpl;
+import com.romanvoloboev.service.ProductService;
 import com.romanvoloboev.service.SubcategoryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.print.attribute.standard.Media;
 import javax.validation.ValidationException;
 import java.util.HashMap;
 import java.util.List;
@@ -27,18 +28,20 @@ import java.util.logging.Logger;
  */
 
 @Controller
-@PreAuthorize("hasRole('ROLE_EMPLOYEE')")
 public class SubcategoryController {
     private static final Logger LOGGER = Logger.getLogger(SubcategoryController.class.getName());
 
     @Autowired private SubcategoryServiceImpl subcategoryService;
     @Autowired private CategoryServiceImpl categoryService;
+    @Autowired private ProductService productService;
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/subcategory/add")
     public ModelAndView addSubcategory() {
         return new ModelAndView("cp/subcategory_add");
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/subcategory/save", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> saveSubcategory(@RequestParam(value = "subcategory")int subcategoryId,
@@ -59,20 +62,22 @@ public class SubcategoryController {
         return response;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/subcategory/edit", method = RequestMethod.GET)
     public ModelAndView editSubcategory(@RequestParam("id")int id) {
         ModelAndView modelAndView = new ModelAndView("/cp/subcategory_edit");
-        try {
-            SubcategoryDTO subcategoryDTO = subcategoryService.selectDTO(id);
+        SubcategoryDTO subcategoryDTO = subcategoryService.selectDTO(id);
+        if (subcategoryDTO != null) {
             modelAndView.addObject("subcategory", subcategoryDTO);
             modelAndView.addObject("category", categoryService.selectSimpleDTO(subcategoryDTO.getCategory()));
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
+        } else {
+            LOGGER.log(Level.SEVERE, "No subcategory was found");
             //todo: return error_page..
         }
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/subcategory/delete", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> removeSubcategory(@RequestParam("id")int id) {
@@ -87,6 +92,7 @@ public class SubcategoryController {
         return response;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/subcategory/change_status", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> changeSubCategoryStatus(@RequestParam("id")int id) {
@@ -101,6 +107,7 @@ public class SubcategoryController {
         return response;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/subcategory/load_by", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, List<SimpleDTO>> loadByNameAndStatus(@RequestParam(value = "name", defaultValue = "")String name,
@@ -114,5 +121,20 @@ public class SubcategoryController {
         }
         response.put("suggestions", subcategories);
         return response;
+    }
+
+    @RequestMapping(value = "/subcategory", method = RequestMethod.GET)
+    public ModelAndView loadSubcategoryProducts(@RequestParam("id")int id,
+                                                @RequestParam(value = "sort_by", required = false, defaultValue = "rating")String sortType) {
+        ModelAndView modelAndView = new ModelAndView("store/subcategory");
+        List<ProductDTO> productDTOs = productService.selectDTOsBySubcategorySortBy(id, sortType);
+        if (!productDTOs.isEmpty()) {
+            modelAndView.addObject("subcategory", subcategoryService.selectSubcategoryDTO(id));
+            modelAndView.addObject("products", productDTOs);
+        } else {
+            LOGGER.log(Level.SEVERE, "No subcategory was found or it's not active");
+            //todo subcategory no found page
+        }
+        return modelAndView;
     }
 }

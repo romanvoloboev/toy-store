@@ -21,5 +21,8 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     List<Review> getByActive(boolean status);
 
     @Query("select count(r) from Review r where r.customer.id = :id")
-    long getReviewCount(@Param("id")Integer id);
+    long getCustomerReviewCount(@Param("id") Integer id);
+
+    @Query("select count(r) from Review r where r.product.id = :id")
+    long getProductReviewCount(@Param("id")Integer id);
 }

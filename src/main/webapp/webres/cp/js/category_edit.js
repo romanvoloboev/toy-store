@@ -1,6 +1,9 @@
 $(function(){
     $('#save-category').click(function(){
         var id = 0;
+        if( $("#category-id").length ) {
+            id = $("#category-id").val();
+        }
         var name = $('#category-name').val();
         $.post('/cp/category/save', {id:id, name:name}, function(response) {
             if(response.status == 'ok') {
