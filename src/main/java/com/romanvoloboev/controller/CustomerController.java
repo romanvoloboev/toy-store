@@ -63,7 +63,7 @@ public class CustomerController {
         return response;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping("/profile")
     public ModelAndView loadProfile(){
         ModelAndView modelAndView = new ModelAndView("store/profile");
@@ -76,7 +76,7 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping("/edit_profile")
     public ModelAndView editProfile() {
         ModelAndView modelAndView = new ModelAndView("store/edit_profile");
@@ -89,7 +89,7 @@ public class CustomerController {
         return modelAndView;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping("/customer_remove_phone")
     @ResponseBody
     public Map<String, String> removePhone() {
@@ -104,7 +104,7 @@ public class CustomerController {
         return response;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping(value = "/customer_remove_address", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> removeAddress(@RequestParam("id") Integer id) {
@@ -120,7 +120,7 @@ public class CustomerController {
         return response;
     }
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping(value = "/customer_change_password", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, String> changePassword(@RequestParam("old_password")String oldPass,
@@ -129,24 +129,20 @@ public class CustomerController {
         return customerService.changeCustomerPassword(oldPass, newPass, repeatNewPass);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @RequestMapping(value = "/customer_update_profile", method = RequestMethod.POST)
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @RequestMapping(value = "/customer_update_profile", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Map<String, String> updateProfile(@RequestParam("name")String name, @RequestParam("phone")String phone,
-                                             @RequestParam("city")String city, @RequestParam("street")String street,
-                                             @RequestParam("house")String house, @RequestParam("flat")String flat) {
+    public Map<String, String> updateProfile(@RequestBody CustomerDTO customerDTO) {
         Map<String, String> response = new HashMap<>();
-        Customer customer = customerService.selectAuth();
-        CustomerDTO customerDTO;
         try {
-            customerDTO = customerService.prepareDTO(customer, name, phone, city, street, house, flat);
-            customerService.updateProfile(customerDTO, customer);
+            customerService.updateProfile(customerDTO);
             response.put("status", "ok");
         } catch (ValidationException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
             response.put("status", "wrongParams");
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
+            e.printStackTrace();
             response.put("status", "unknownError");
         }
         return response;
@@ -365,7 +361,7 @@ public class CustomerController {
     }
 
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping(value = "/cp/address/nova_poshta_offices", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getNPOffices(@RequestParam("city")String city) {
         return addressService.selectNovaposhtaOffices(city);
@@ -376,5 +372,31 @@ public class CustomerController {
     @RequestMapping(value = "/cp/customer/get_cities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<String> getCustomerCities(@RequestParam("id")int id) {
         return customerService.selectCities(id);
+    }
+
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @RequestMapping("/checkout")
+    public ModelAndView checkout() {
+        ModelAndView modelAndView = new ModelAndView("store/checkout");
+        try {
+            modelAndView.addObject("customer", customerService.selectSimpleDto(customerService.selectAuth()));
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
+        return modelAndView;
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @RequestMapping(value = "/customer/get_cities", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<String> getCities() {
+        return customerService.selectCities(-1);
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @RequestMapping(value = "/customer/get_addresses", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<AddressDTO> selectCustomerAllAddresses() {
+        return addressService.selectDTOs(-1);
     }
 }

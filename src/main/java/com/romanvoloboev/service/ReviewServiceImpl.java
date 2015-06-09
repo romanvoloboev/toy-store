@@ -56,7 +56,8 @@ public class ReviewServiceImpl implements ReviewService {
         if (reviews != null) {
             for (Review review:reviews) {
                 reviewDTOs.add(new ReviewDTO(review.getId(), getShortComment(review.getComment()), review.getRating(),
-                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(), review.getProduct().getName()));
+                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(),
+                        review.getProduct().getName(), review.getProduct().getId()));
             }
         }
         return reviewDTOs;
@@ -75,7 +76,8 @@ public class ReviewServiceImpl implements ReviewService {
         if (reviews != null) {
             for (Review review:reviews) {
                 reviewDTOs.add(new ReviewDTO(review.getId(), getShortComment(review.getComment()), review.getRating(),
-                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(), review.getProduct().getName()));
+                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(),
+                        review.getProduct().getName(), review.getProduct().getId()));
             }
         }
         return reviewDTOs;
@@ -94,7 +96,8 @@ public class ReviewServiceImpl implements ReviewService {
         if (reviews != null) {
             for (Review review:reviews) {
                 reviewDTOs.add(new ReviewDTO(review.getId(), getShortComment(review.getComment()), review.getRating(),
-                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(), review.getProduct().getName()));
+                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(),
+                        review.getProduct().getName(), review.getProduct().getId()));
             }
         }
         return reviewDTOs;
@@ -112,7 +115,8 @@ public class ReviewServiceImpl implements ReviewService {
         if (reviews != null) {
             for (Review review:reviews) {
                 reviewDTOs.add(new ReviewDTO(review.getId(), getShortComment(review.getComment()), review.getRating(),
-                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(), review.getProduct().getName()));
+                        formatDateToString(review.getDate()), review.isActive(), review.getCustomer().getName(),
+                        review.getProduct().getName(), review.getProduct().getId()));
             }
         }
         return reviewDTOs;
@@ -124,34 +128,88 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public long getProductReviewCount(Integer id) {
+    public long selectActiveProductReviewsCount(Integer id) {
         return reviewRepository.getProductReviewCount(id);
     }
 
+    /**
+     * Method makes review visible or not, and depends on it recounts product rating.
+     */
     @Transactional
     public boolean changeReviewStatus(Integer id) {
         Review review = selectModel(id);
+        Product product = null;
         boolean result = false;
         if (review != null) {
             if (review.isActive()) {
                 review.setActive(false);
+                product = review.getProduct();
             } else {
                 review.setActive(true);
+                product = review.getProduct();
             }
             save(review);
             result = true;
         }
+        if (product != null) {
+            product.setRating(getProductAvgRating(product.getId()));
+            productService.save(product);
+        }
         return result;
     }
 
+    /**
+     * Method removes review from product and recounts it rating.
+     */
     @Transactional
-    public boolean deleteReview(Integer id) {
+    public boolean deleteProductReview(Integer id) {
         try {
-            reviewRepository.delete(id);
+            Review review = selectModel(id);
+            Product product = null;
+            if (review != null) {
+                product = review.getProduct();
+                reviewRepository.delete(review);
+            }
+            if (product != null) {
+                product.setRating(getProductAvgRating(product.getId()));
+                productService.save(product);
+            }
             return true;
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
+    }
+
+
+    /**
+     * Method adds new review of product
+     */
+    @Transactional
+    @Override
+    public void addProductReview(ReviewDTO reviewDTO) throws Exception {
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        if (validate(reviewDTO, validator)) {
+            Product product = productService.selectModel(reviewDTO.getProduct());
+            if (product == null) throw new Exception("No product found");
+            Review review = save(new Review(reviewDTO.getComment(), reviewDTO.getRating(), new Date(), false, product, customerService.selectAuth()));
+            List<Review> reviews = new ArrayList<>();
+            reviews.add(review);
+            product.setReviews(reviews);
+            productService.save(product);
+        }
+    }
+
+
+    @Transactional
+    public Double getProductAvgRating(Integer id) {
+        Double rating = reviewRepository.getProductAvgRating(id);
+        if (rating == null) return (double)0;
+        return rating;
+    }
+
+    @Override
+    public List<Review> selectActiveProductReviews(Integer id) {
+        return reviewRepository.getByActiveTrueAndProductId(id);
     }
 
     @Transactional(readOnly = true)
@@ -165,8 +223,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Transactional
-    private void save(Review review) {
-        reviewRepository.save(review);
+    public Review save(Review review) {
+        return reviewRepository.save(review);
     }
 
     @Transactional(readOnly = true)

@@ -23,6 +23,11 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     @Query("select count(r) from Review r where r.customer.id = :id")
     long getCustomerReviewCount(@Param("id") Integer id);
 
-    @Query("select count(r) from Review r where r.product.id = :id")
+    @Query("select count(r) from Review r where r.product.id = :id and r.active = true")
     long getProductReviewCount(@Param("id")Integer id);
+
+    @Query("select avg(r.rating) from Review r where r.product.id = :id and r.active = true")
+    Double getProductAvgRating(@Param("id")Integer id);
+
+    List<Review> getByActiveTrueAndProductId(Integer id);
 }

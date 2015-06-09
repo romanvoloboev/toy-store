@@ -2777,54 +2777,7 @@ body,
 .quantity a img {
   top: 0px !important;
 }
-.pattern1 {
-  background-image: url('../image/pattern/pattern1.png');
-}
-.pattern2 {
-  background-image: url('../image/pattern/pattern2.png');
-}
-.pattern3 {
-  background-image: url('../image/pattern/pattern3.png');
-}
-.pattern4 {
-  background-image: url('../image/pattern/pattern4.png');
-}
-.pattern5 {
-  background-image: url('../image/pattern/pattern5.png');
-}
-.pattern6 {
-  background-image: url('../image/pattern/pattern6.png');
-}
-.pattern7 {
-  background-image: url('../image/pattern/pattern7.png');
-}
-.pattern8 {
-  background-image: url('../image/pattern/pattern8.png');
-}
-.pattern9 {
-  background-image: url('../image/pattern/pattern9.png');
-}
-.pattern10 {
-  background-image: url('../image/pattern/pattern10.png');
-}
-.pattern11 {
-  background-image: url('../image/pattern/pattern11.png');
-}
-.pattern12 {
-  background-image: url('../image/pattern/pattern12.png');
-}
-.pattern13 {
-  background-image: url('../image/pattern/pattern13.png');
-}
-.pattern14 {
-  background-image: url('../image/pattern/pattern14.png');
-}
-.pattern15 {
-  background-image: url('../image/pattern/pattern15.png');
-}
-.pattern16 {
-  background-image: url('../image/pattern/pattern16.png');
-}
+
 @media only screen and (min-width: 980px) {
   #menu-offcanvas {
     display: none;

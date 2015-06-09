@@ -1,3 +1,4 @@
+var productId = 0;
 function getNumEnding(iNumber) {
     var aEndings = [' отзыв',' отзыва',' отзывов'];
 
@@ -24,7 +25,56 @@ function setReviewsCount(count) {
     $("#reviews-count").html("<em>("+count+getNumEnding(count)+")</em>");
 }
 
+function setProductId(id) {
+    productId = id;
+}
+
 $(function(){
+    $("#add-new-review").on("click", function() {
+        var coment = $("#comment").val();
+        var rating = $('#product-rating').raty('score');
+        console.log(rating, coment, productId);
+        if (rating >= 0 && coment.length != 0 && productId != 0) {
+            $.ajax({
+                type: "post",
+                url: "/add_review",
+                data: JSON.stringify({comment:coment, rating:rating, product:productId}),
+                contentType: "application/json; charset=utf-8",
+                success: function(response) {
+                    if (response.status == "ok") {
+                        $.notify("<b>Спасибо за отзыв! Он отправлен на модерацию и появиться позже.</b>",
+                            {
+                                type: "success",
+                                delay: 1500,
+                                onClose: function(){
+                                    location.reload();
+                                }
+                            });
+                    } else if (response.status == "validationError") {
+                        $.notify("<b>Невозможно добавить отзыв, неверный формат данных!</b>",
+                            {
+                                type: "danger",
+                                delay: 1000
+                            });
+                    } else {
+                        $.notify("<b>Ошибка при добавлении отзыва.</b>",
+                            {
+                                type: "danger",
+                                delay: 1000
+                            });
+                    }
+
+                }
+            });
+        } else {
+            $.notify("<b>Вы не ввели отзыв или не оставили оценку</b>",
+                {
+                    type: "danger",
+                    delay: 1000
+                });
+        }
+
+    });
 
     $('#image-additional .item:first').addClass('active');
     $('#image-additional').carousel({interval:false});
@@ -33,7 +83,11 @@ $(function(){
         cursor: 'pointer',
         galleryActiveClass: 'active' } );
 
-    $('div.product-rating').rating();
+    $('#product-rating').raty({
+        score: function() {
+            return $(this).attr('data-score');
+        }
+    });
 
     $("#reviews-link").on("click", function(){
         if ($("#tab-review").css("display") == "none") {

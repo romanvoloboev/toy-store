@@ -7,14 +7,15 @@
 <head>
     <title>${product.name} - ToyStore</title>
     <%@include file="includes/head.jsp"%>
-    <link href="../../webres/store/css/jquery.rating.css" rel="stylesheet">
+    <link href="../../webres/store/css/jquery.raty.css" rel="stylesheet">
     <script type="text/javascript">
         $(function(){
             setReviewsCount(${product.reviewsCount});
+            setProductId(${product.id});
         });
     </script>
     <script src="../../webres/store/js/product.js"></script>
-    <script type="text/javascript" src="../../webres/store/js/jquery.rating-2.0.js"></script>
+    <script type="text/javascript" src="../../webres/store/js/jquery.raty.js"></script>
     <script type="text/javascript" src="../../webres/store/js/elevatezoom-min.js"></script>
 </head>
 <body id="offcanvas-container" class="nokeep-header offcanvas-container layout-fullwidth fs12 page-product" data-twttr-rendered="true">
@@ -130,23 +131,25 @@
                                                 <span>Размер:</span> ${product.width} x ${product.height} x ${product.length} см.
                                             </c:if>
                                         </div>
-                                        <div class="price-cart">
+                                        <div class="price-cart" style="padding-left: 5px;">
                                             <div class="product-extra">
                                                 <c:choose>
                                                     <c:when test="${product.promotion}">
-                                                        <div class="pull-left">
+                                                        <div class="pull-left col-md-12" style="padding: 0;">
                                                             <span class="price-old">${product.price} грн.</span>
                                                             <span class="price">${product.promotionPrice} грн.</span>
                                                         </div>
-
+                                                        <div class="col-md-12" style="padding-left: 0; padding-right: 0;">
+                                                            <span style="color: #d50300; font-weight: bold;">Скидка действует до:</span> <b>${product.promotionEnd}</b>
+                                                        </div>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <div class="pull-left">
-                                                            <span class="price">${product.price} грн.</span>
+                                                        <div class="pull-left col-md-12" style="padding: 0;">
+                                                            <span class="price" style="padding-left: 0;">${product.price} грн.</span>
                                                         </div>
                                                     </c:otherwise>
                                                 </c:choose>
-                                                <div class="pull-left" style="margin-left: 5px;">
+                                                <div class="pull-left" style="padding-top: 20px;">
                                                     <div class="pull-left">
                                                         <button class="btn btn-shopping-cart" id="button-cart">
                                                             <span class="fa fa-shopping-cart"></span>
@@ -206,30 +209,38 @@
                                             </div>
                                         </c:forEach>
                                     </c:if>
-                                    <security:authorize access="isAuthenticated()">
-                                        <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-left: 0; padding-right: 0;">
-                                            <div class="inner">
-                                                <h2>Оставьте отзыв о товаре</h2>
-                                                <form action="<c:url value=""/>" method="post">
-                                                    <fieldset>
-                                                        <div class="form-group">
-                                                            <textarea required name="comment" placeholder="Ваш комментарий" style="width: 50%; height: 140px;"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <b>Оцените товар по 5-ти бальной шкале</b>
-                                                            <div class="product-rating"></div>
-                                                        </div>
 
-                                                        <div class="form-group">
-                                                            <button type="submit" class="btn btn-shopping-cart">
-                                                                <span class="fa fa-check"></span> Отправить
-                                                            </button>
-                                                        </div>
-                                                    </fieldset>
-                                                </form>
+                                    <security:authorize access="isAuthenticated()" var="isAuth" />
+
+                                    <c:choose>
+                                        <c:when test="${isAuth}">
+                                            <div class="col-lg-12 col-sm-12 col-xs-12" style="padding-left: 0; padding-right: 0;">
+                                                <div class="inner">
+                                                    <h2>Оставьте отзыв о товаре</h2>
+                                                    <form action="<c:url value=""/>" method="post">
+                                                        <fieldset>
+                                                            <div class="form-group">
+                                                                <textarea id="comment" required name="comment" placeholder="Ваш комментарий" style="width: 50%; height: 140px;"></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <b>Оцените товар по 5-ти бальной шкале</b>
+                                                                <div id="product-rating"></div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <button type="button" class="btn btn-shopping-cart" id="add-new-review">
+                                                                    <span class="fa fa-check"></span> Добавить
+                                                                </button>
+                                                            </div>
+                                                        </fieldset>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </security:authorize>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div><b>Вы не можете оставлять комментарии, пожалуйста войдите в систему.</b></div>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>

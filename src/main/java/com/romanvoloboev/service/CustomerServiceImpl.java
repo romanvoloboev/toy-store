@@ -93,24 +93,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
     }
 
-    @Transactional
-    @Override
-    public CustomerDTO prepareDTO(Customer customer, String name, String phone, String city, String street,
-                                  String house, String flat) throws Exception {
-        List<AddressDTO> addressDTOs = null;
-        if (name.equals("")) name = customer.getName();
-        if (phone.equals("")) phone = customer.getPhone();
-        if(!city.equals("") && !street.equals("") && !house.equals("")) {
-            AddressDTO addressDTO = new AddressDTO(city, street, house, flat);
-            if (addressService.isValid(addressDTO)) {
-                addressDTOs = new ArrayList<>();
-                addressDTOs.add(addressDTO);
-            }
-        }
-        return new CustomerDTO(customer.getId(), name, customer.getEmail(), customer.getPassword(), stringToPhone(phone),
-                customer.isActive(), getRoleFromModel(customer.getRole()), addressDTOs);
-    }
-
     @Transactional(readOnly = true)
     @Override
     public List<SimpleDTO> selectSimpleDTOsByName(String name, short role) throws Exception {
@@ -252,13 +234,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional
     @Override
-    public void updateProfile(CustomerDTO customerDTO, Customer customer) throws Exception {
-        if (customerDTO == null) throw new Exception();
+    public void updateProfile(CustomerDTO customerDTO) throws Exception {
+        Customer customer = selectAuth();
+        customerDTO.setEmail(customer.getEmail());
+        customerDTO.setPassword(customer.getPassword());
+        if (customerDTO.getName() == null) customerDTO.setName(customer.getName());
+        if (customerDTO.getPhone() == null) customerDTO.setPhone(customer.getPhone());
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         if(validate(customerDTO, validator)) {
             customer.setName(customerDTO.getName());
             if (!customerDTO.getPhone().equals("")) {
-                customer.setPhone(customerDTO.getPhone());
+                customer.setPhone(stringToPhone(customerDTO.getPhone()));
             }
             List<AddressDTO> addressDTOs = customerDTO.getAddressesList();
             if(addressDTOs != null) {
@@ -347,6 +333,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional(readOnly = true)
     @Override
     public List<String> selectCities(Integer id) {
+        if (id == -1) {
+            Customer customer = selectAuth();
+            return addressRepository.getCitiesByCustomer(customer.getId());
+        }
         return addressRepository.getCitiesByCustomer(id);
     }
 

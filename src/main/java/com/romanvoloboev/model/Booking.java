@@ -13,36 +13,23 @@ import java.util.List;
 @Table(name = "booking")
 public class Booking {
     private Integer id;
-    private Float amount;
+    private double amount;
     private Date date;
     private Short status;
     private Short deliveryType;
     private Short deliveryService;
     private Short paymentType;
-    private Customer customer;
     private String customerAddress;
+    private String customerPhone;
+    private String customerName;
+    private Customer customer;
     private List<BookingItem> items = new ArrayList<>();
 
     public Booking() {
     }
 
-    public Booking(Integer id, Float amount, Date date, Short status, Short deliveryType, Short deliveryService,
-                   Short paymentType, Customer customer, String customerAddress,
-                   List<BookingItem> items) {
-        this.id = id;
-        this.amount = amount;
-        this.date = date;
-        this.status = status;
-        this.deliveryType = deliveryType;
-        this.deliveryService = deliveryService;
-        this.paymentType = paymentType;
-        this.customer = customer;
-        this.customerAddress = customerAddress;
-        this.items = items;
-    }
-
-    public Booking(Float amount, Date date, Short status, Short deliveryType, Short deliveryService,
-                   Short paymentType, Customer customer, String customerAddress,
+    public Booking(double amount, Date date, Short status, Short deliveryType, Short deliveryService,
+                   Short paymentType, Customer customer, String customerAddress, String customerPhone, String customerName,
                    List<BookingItem> items) {
         this.amount = amount;
         this.date = date;
@@ -52,6 +39,8 @@ public class Booking {
         this.paymentType = paymentType;
         this.customer = customer;
         this.customerAddress = customerAddress;
+        this.customerPhone = customerPhone;
+        this.customerName = customerName;
         this.items = items;
     }
 
@@ -67,10 +56,10 @@ public class Booking {
     }
 
     @Column(name = "amount", nullable = false)
-    public Float getAmount() {
+    public double getAmount() {
         return amount;
     }
-    public void setAmount(Float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -120,6 +109,22 @@ public class Booking {
     }
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    @Column(name = "customer_phone", nullable = false)
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    @Column(name = "customer_name", nullable = false)
+    public String getCustomerName() {
+        return customerName;
+    }
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     @ManyToOne

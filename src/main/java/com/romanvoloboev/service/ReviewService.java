@@ -1,6 +1,7 @@
 package com.romanvoloboev.service;
 
 import com.romanvoloboev.dto.ReviewDTO;
+import com.romanvoloboev.model.Review;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
@@ -56,5 +57,9 @@ public interface ReviewService {
     Short selectNewReviewsCount();
     List<ReviewDTO> selectDTOsByStatus(boolean status);
     long getCustomerReviewCount(Integer id);
-    long getProductReviewCount(Integer id);
+    long selectActiveProductReviewsCount(Integer id);
+    Review save(Review review) throws Exception;
+    Double getProductAvgRating(Integer id);
+    List<Review> selectActiveProductReviews(Integer id);
+    void addProductReview(ReviewDTO reviewDTO) throws Exception;
 }

@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public void save(Product product) throws Exception {
+    public void save(Product product) {
         productRepository.save(product);
     }
 
@@ -37,6 +37,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Integer id) throws Exception {
         productRepository.delete(id);
+    }
+
+    @Override
+    public boolean exists(Integer id) {
+        return productRepository.exists(id);
     }
 
     @Transactional
@@ -148,7 +153,8 @@ public class ProductServiceImpl implements ProductService {
         }
         if (product == null) return null;
 
-        long reviewsCount = reviewService.getProductReviewCount(id);
+        long reviewsCount = reviewService.selectActiveProductReviewsCount(id);
+        List<Review> reviews = reviewService.selectActiveProductReviews(id);
         Subcategory subcategory = product.getSubcategory();
         Category category = product.getSubcategory().getCategory();
 
@@ -156,11 +162,11 @@ public class ProductServiceImpl implements ProductService {
                 product.getCode(), product.getPrice(), product.isPromotion(), product.getPromotionPrice(), formatDateToString(product.getPromotionStart()),
                 formatDateToString(product.getPromotionEnd()), product.getRating(), reviewsCount, product.getMaterial(), product.getWidth(), product.getHeight(),
                 product.getLength(), product.getBrand().getId(), product.getBrand().getName(), product.getBrand().getCountry(), category.getId(),
-                subcategory.getId(), category.getName(), subcategory.getName(), selectImages(product.getImages()), selectReviews(product.getReviews()));
+                subcategory.getId(), category.getName(), subcategory.getName(), selectImages(product.getImages()), selectReviewsDTO(reviews));
     }
 
     @Transactional
-    private List<ReviewDTO> selectReviews(List<Review> reviews) {
+    private List<ReviewDTO> selectReviewsDTO(List<Review> reviews) {
         List<ReviewDTO> reviewDTO = new ArrayList<>();
         if (reviews != null) {
             for (Review review:reviews) {
@@ -267,7 +273,7 @@ public class ProductServiceImpl implements ProductService {
         return imageList;
     }
 
-    private long[] selectImages(List<Image> images) {
+    public long[] selectImages(List<Image> images) {
         long[] ids = new long[0];
         if (images != null) {
             ids = new long[images.size()];

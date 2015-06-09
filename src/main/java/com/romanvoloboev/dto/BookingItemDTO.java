@@ -1,5 +1,7 @@
 package com.romanvoloboev.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Roman Voloboev
  */
@@ -7,15 +9,16 @@ package com.romanvoloboev.dto;
 public class BookingItemDTO {
     private int id;
     private short quantity;
-    private float price;
-    private float totalItemPrice;
+    private double price;
+    private double totalItemPrice;
     private int product;
+    private long productImage;
     private String productName;
 
     public BookingItemDTO() {
     }
 
-    public BookingItemDTO(short quantity, float price, float totalItemPrice, String productName, int product) {
+    public BookingItemDTO(short quantity, double price, double totalItemPrice, String productName, int product) {
         this.quantity = quantity;
         this.price = price;
         this.totalItemPrice = totalItemPrice;
@@ -23,6 +26,16 @@ public class BookingItemDTO {
         this.product = product;
     }
 
+    public BookingItemDTO(short quantity, double price, double totalItemPrice, String productName, int product, long productImage) {
+        this.quantity = quantity;
+        this.price = price;
+        this.totalItemPrice = totalItemPrice;
+        this.product = product;
+        this.productImage = productImage;
+        this.productName = productName;
+    }
+
+    @JsonIgnore
     public int getId() {
         return id;
     }
@@ -37,17 +50,17 @@ public class BookingItemDTO {
         this.quantity = quantity;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public float getTotalItemPrice() {
+    public double getTotalItemPrice() {
         return totalItemPrice;
     }
-    public void setTotalItemPrice(float totalItemPrice) {
+    public void setTotalItemPrice(double totalItemPrice) {
         this.totalItemPrice = totalItemPrice;
     }
 
@@ -63,5 +76,13 @@ public class BookingItemDTO {
     }
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public long getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(long productImage) {
+        this.productImage = productImage;
     }
 }

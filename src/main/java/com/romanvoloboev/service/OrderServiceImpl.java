@@ -47,8 +47,9 @@ public class OrderServiceImpl implements OrderService {
         List<Booking> bookings = selectModels();
         List<BookingDTO> bookingDTOs = new ArrayList<>();
         for (Booking booking:bookings) {
+            double amount = Math.round(booking.getAmount() * 100);
             bookingDTOs.add(new BookingDTO(booking.getId(), booking.getCustomer().getName(),
-                    formatStatusToString(booking.getStatus()), booking.getAmount(), formatDateToString(booking.getDate())));
+                    formatStatusToString(booking.getStatus()), amount/100, formatDateToString(booking.getDate())));
         }
         return bookingDTOs;
     }
@@ -64,26 +65,30 @@ public class OrderServiceImpl implements OrderService {
         Booking booking = selectModel(id);
         BookingDTO bookingDTO = null;
         if (booking != null) {
-            bookingDTO = new BookingDTO(booking.getId(), booking.getAmount(), formatDateToString(booking.getDate()),
+            double amount = Math.round(booking.getAmount() * 100);
+            bookingDTO = new BookingDTO(booking.getId(), amount/100, formatDateToString(booking.getDate()),
                     formatStatusToString(booking.getStatus()), formatDeliveryServiceToString(booking.getDeliveryService()),
                     formatDeliveryTypeToString(booking.getDeliveryType()), formatPaymentTypeToString(booking.getPaymentType()),
-                    booking.getCustomer().getName(), booking.getCustomer().getEmail(), phoneToString(booking.getCustomer().getPhone()),
+                    booking.getCustomerName(), booking.getCustomer().getEmail(), phoneToString(booking.getCustomerPhone()),
                     booking.getCustomerAddress(), getBookingItemsDTO(booking.getItems()));
         }
         return bookingDTO;
     }
 
     /**
-     * Method save new booking, using for /cp/order/save
+     * Method save new booking, using for /order/save
      */
     @Transactional
     @Override
     public void save(BookingDTO bookingDTO) throws Exception {
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         if (validate(bookingDTO, validator)) {
+            if (bookingDTO.getCustomer() == 0) bookingDTO.setCustomer(customerService.selectAuth().getId());
             Customer customer = customerService.selectModel(bookingDTO.getCustomer());
-            Booking booking = new Booking(bookingDTO.getAmount(), new Date(), (short)1, bookingDTO.getDeliveryType(),
-                    bookingDTO.getDeliveryService(), bookingDTO.getPaymentType(), customer, bookingDTO.getCustomerAddress(), null);
+            double amount = Math.round(bookingDTO.getAmount() * 100);
+            Booking booking = new Booking(amount/100, new Date(), (short)1, bookingDTO.getDeliveryType(),
+                    bookingDTO.getDeliveryService(), bookingDTO.getPaymentType(), customer, bookingDTO.getCustomerAddress(),
+                    stringToPhone(bookingDTO.getCustomerPhone()), bookingDTO.getCustomerName(), null);
             Booking savedBooking = save(booking);
             List<BookingItem> items = getBookingItems(bookingDTO.getItems(), savedBooking);
             savedBooking.setItems(items);
@@ -124,7 +129,7 @@ public class OrderServiceImpl implements OrderService {
 
     /**
      * Transforms List of BookingItemDTO to List of BookingItem model.
-     * Used when new booking added.
+     * Using when new booking adding.
      * @param items - dto
      * @param booking - currently created booking
      * @return List of BookingItem model
@@ -135,7 +140,9 @@ public class OrderServiceImpl implements OrderService {
             Product product;
             for (BookingItemDTO itemDTO:items) {
                 product = productService.selectModel(itemDTO.getProduct());
-                bookingItems.add(new BookingItem(itemDTO.getQuantity(), itemDTO.getPrice(), itemDTO.getTotalItemPrice(), booking, product));
+                double itemPrice = Math.round(itemDTO.getPrice() * 100);
+                double totalItemPrice = Math.round(itemDTO.getTotalItemPrice() * 100);
+                bookingItems.add(new BookingItem(itemDTO.getQuantity(), itemPrice/100, totalItemPrice/100, booking, product));
             }
         }
         return bookingItems;
@@ -150,8 +157,10 @@ public class OrderServiceImpl implements OrderService {
         List<BookingItemDTO> itemDTOs = new ArrayList<>();
         if (items != null) {
             for (BookingItem bookingItem:items) {
-                itemDTOs.add(new BookingItemDTO(bookingItem.getQuantity(), bookingItem.getPrice(),
-                        bookingItem.getTotalPrice(), bookingItem.getProduct().getName(), bookingItem.getProduct().getId()));
+                double price = Math.round(bookingItem.getPrice() * 100);
+                double totalPrice = Math.round(bookingItem.getTotalPrice() * 100);
+                itemDTOs.add(new BookingItemDTO(bookingItem.getQuantity(), price/100,
+                        totalPrice/100, bookingItem.getProduct().getName(), bookingItem.getProduct().getId()));
             }
         }
         return itemDTOs;
@@ -170,8 +179,9 @@ public class OrderServiceImpl implements OrderService {
         List<Booking> bookings = orderRepository.getFirst5ByOrderByDateDesc();
         List<BookingDTO> bookingDTOs = new ArrayList<>();
         for (Booking booking:bookings) {
+            double amount = Math.round(booking.getAmount() * 100);
             bookingDTOs.add(new BookingDTO(booking.getId(), booking.getCustomer().getName(),
-                    formatStatusToString(booking.getStatus()), booking.getAmount(), formatDateToString(booking.getDate())));
+                    formatStatusToString(booking.getStatus()), amount/100, formatDateToString(booking.getDate())));
         }
         return bookingDTOs;
     }

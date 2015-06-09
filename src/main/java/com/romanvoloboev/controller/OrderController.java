@@ -20,17 +20,18 @@ import java.util.logging.Logger;
  */
 
 @Controller
-@PreAuthorize("hasRole('ROLE_EMPLOYEE')")
 public class OrderController {
     private static final Logger LOGGER = Logger.getLogger(OrderController.class.getName());
 
     @Autowired private OrderServiceImpl orderService;
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping("/cp/order/add")
     public ModelAndView orderAdd() {
         return new ModelAndView("cp/order_add");
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/order")
     public ModelAndView showOrders() {
         ModelAndView modelAndView = new ModelAndView("cp/order");
@@ -38,8 +39,9 @@ public class OrderController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @ResponseBody
-    @RequestMapping(value = "/cp/order/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/order/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Map<String, String> saveOrder(@RequestBody BookingDTO bookingDTO) {
         Map<String, String> response = new HashMap<>();
         try {
@@ -56,6 +58,7 @@ public class OrderController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/order/details", method = RequestMethod.GET)
     public ModelAndView orderInfo(@RequestParam("id")int id) {
         ModelAndView modelAndView = new ModelAndView("cp/order_details");
@@ -68,6 +71,7 @@ public class OrderController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @ResponseBody
     @RequestMapping(value = "/cp/order/delete", method = RequestMethod.POST)
     public Map<String, String> deleteOrder(@RequestParam("id")int id) {
@@ -82,6 +86,7 @@ public class OrderController {
         return response;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @ResponseBody
     @RequestMapping(value = "/cp/order/change_status", method = RequestMethod.POST)
     public Map<String, String> changeOrderStatus(@RequestParam("id")int id, @RequestParam("status")short status) {
@@ -96,6 +101,7 @@ public class OrderController {
         return response;
     }
 
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
     @RequestMapping(value = "/cp/order/search_by", method = RequestMethod.GET)
     public ModelAndView searchOrder(@RequestParam(value = "order", required = false, defaultValue = "0")int orderId,
                                     @RequestParam(value = "status", required = false, defaultValue = "0")short status,

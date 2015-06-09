@@ -4,7 +4,6 @@ $(function(){
     $.ajax({
         type: "post",
         url: "/load_categories_menu",
-        contentType: "application/json; charset=utf-8",
         success: function(response) {
             $.each(response, function() {
                 if (this.subcategories.length > 0) {

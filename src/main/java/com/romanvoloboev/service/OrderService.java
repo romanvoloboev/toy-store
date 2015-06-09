@@ -31,6 +31,13 @@ public interface OrderService {
         return phone;
     }
 
+    default String stringToPhone(String phone) {
+        if (!phone.equals("")) {
+            return phone.replace("+", "").replace("(", "").replace(")", "").replace("-", "").replace("-", "");
+        }
+        return phone;
+    }
+
     default String formatStatusToString(short status) {
         switch (status) {
             case 1: return "Открыт";

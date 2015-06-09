@@ -91,7 +91,7 @@ public class AddressServiceImpl implements AddressService {
             if (dataItemDTOs.size() > 0) {
                 cityRef = dataItemDTOs.get(0).getRef();
             } else {
-                offices.add("No offices for city found. Check if city is correct.");
+                offices.add("Офисов не найдено. Возможно, у компании нет офисов в этом городе.");
                 return offices;
             }
 
@@ -103,7 +103,7 @@ public class AddressServiceImpl implements AddressService {
                 }
             }
         } else {
-            offices.add("No offices. Some error while request processing...");
+            offices.add("Произошла неопределенная ошибка при загрузке списка офисов...");
         }
         return offices;
     }
@@ -171,7 +171,13 @@ public class AddressServiceImpl implements AddressService {
     @Transactional
     @Override
     public List<AddressDTO> selectDTOs(Integer id) {
-        List<Address> addresses = selectModels(id);
+        List<Address> addresses;
+        if (id == -1) {
+            Customer customer = customerService.selectAuth();
+            addresses = selectModels(customer.getId());
+        } else {
+            addresses = selectModels(id);
+        }
         List<AddressDTO> addressDTOs = new ArrayList<>();
         if (addresses != null) {
             for (Address address : addresses) {

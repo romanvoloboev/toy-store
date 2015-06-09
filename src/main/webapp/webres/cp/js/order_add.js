@@ -37,7 +37,7 @@ function saveOrder() {
 
         $.ajax({
             type: "post",
-            url: "/cp/order/save",
+            url: "/order/save",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(order),

@@ -91,8 +91,7 @@ public interface CustomerService {
     Customer selectModel(Integer id);
     Customer selectAuth();
     CustomerDTO selectSimpleDto(Customer customer) throws Exception;
-    void updateProfile(CustomerDTO customerDTO, Customer customer) throws Exception;
-    CustomerDTO prepareDTO(Customer customer, String name, String phone, String city, String street, String house, String flat) throws Exception;
+    void updateProfile(CustomerDTO customerDTO) throws Exception;
     List<SimpleDTO> selectSimpleDTOsByName(String name, short role) throws Exception;
     List<Customer> selectModelsByNameContainsAndRole(String name, Role role) throws Exception;
     List<SimpleDTO> selectSimpleDTOsByEmail(String email, short role) throws Exception;

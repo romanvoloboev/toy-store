@@ -39,16 +39,6 @@ public class PageCrossController {
         return new ModelAndView("store/order_details");
     }
 
-    @RequestMapping("/cart")
-    public ModelAndView cart() {
-        return new ModelAndView("store/cart");
-    }
-
-    @RequestMapping("/checkout")
-    public ModelAndView checkout() {
-        return new ModelAndView("store/checkout");
-    }
-
     @RequestMapping("/search_results")
     public ModelAndView search_results() {
         return new ModelAndView("store/search_results");

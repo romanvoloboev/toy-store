@@ -1,10 +1,8 @@
 package com.romanvoloboev.dto;
 
-import com.romanvoloboev.service.ReviewServiceImpl;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -22,6 +20,9 @@ public class ReviewDTO {
     private String customerName;
     private String productName;
 
+    public ReviewDTO() {
+    }
+
     public ReviewDTO(String comment, float rating, int customer, int product) {
         this.comment = comment;
         this.rating = rating;
@@ -29,7 +30,13 @@ public class ReviewDTO {
         this.product = product;
     }
 
-    public ReviewDTO(int id, String comment, float rating, String date, boolean active, String customerName, String productName) {
+    public ReviewDTO(String comment, float rating, int product) {
+        this.comment = comment;
+        this.rating = rating;
+        this.product = product;
+    }
+
+    public ReviewDTO(int id, String comment, float rating, String date, boolean active, String customerName, String productName, int product) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
@@ -37,6 +44,7 @@ public class ReviewDTO {
         this.active = active;
         this.customerName = customerName;
         this.productName = productName;
+        this.product = product;
     }
 
     public ReviewDTO(int id, String comment, float rating) {
@@ -52,7 +60,6 @@ public class ReviewDTO {
         this.rating = rating;
     }
 
-    @NotNull
     public int getId() {
         return id;
     }
@@ -99,6 +106,7 @@ public class ReviewDTO {
         this.customer = customer;
     }
 
+    @NotNull
     public int getProduct() {
         return product;
     }

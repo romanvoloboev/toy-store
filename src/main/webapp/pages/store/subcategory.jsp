@@ -54,7 +54,7 @@
                         <div>
                             <ol class="breadcrumb" style="margin: 0; padding: 0;">
                                 <li><a href="<c:url value="/"/>">Главная</a></li>
-                                <li><a href="<c:url value="/category?id=${subcategory.category}"/>">Категория</a></li>
+                                <li><a href="<c:url value="/category?id=${subcategory.category}"/>">${subcategory.categoryName}</a></li>
                                 <li>${subcategory.name}</li>
                             </ol>
                         </div>
@@ -125,7 +125,7 @@
                                                                     </c:choose>
                                                                 </div>
                                                                 <div class="cart">
-                                                                    <button type="submit" class="btn btn-shopping-cart">
+                                                                    <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${p.id})">
                                                                         <span class="fa fa-shopping-cart icon"></span> Купить
                                                                     </button>
                                                                 </div>

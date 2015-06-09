@@ -27,6 +27,12 @@ public class CustomerDTO {
     public CustomerDTO() {
     }
 
+    public CustomerDTO(String name, String phone, List<AddressDTO> addressesList) {
+        this.name = name;
+        this.phone = phone;
+        this.addressesList = addressesList;
+    }
+
     public CustomerDTO(int id, String name, String email, String password, String phone, boolean isActive,
                        short role, List<AddressDTO> addressesList) {
         this.id = id;

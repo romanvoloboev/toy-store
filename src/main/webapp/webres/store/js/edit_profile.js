@@ -65,6 +65,8 @@ $(function(){
             }
         }
 
+        var address = {};
+        var addr = [];
         if ($("#new-address-form").css('display') != 'none') {
             city = $('#newCityInput').val().trim();
             street = $('#newStreetInput').val().trim();
@@ -80,33 +82,57 @@ $(function(){
                         });
                     return;
                 }
+                address.city = city;
+                address.street = street;
+                address.house = house;
+                address.flat = flat;
+                addr.push(address);
             }
         }
 
-        $.post('/customer_update_profile', {name: name, phone: phone, city: city, street: street, house: house, flat: flat}, function(response) {
-            if(response.status == 'ok') {
-                $.notify("<b>Ваши личные данные успешно изменены</b>",
-                    {
-                        delay: 1500,
-                        onClose: function(){
-                            location.reload();
-                        }
-                    });
-            } else if(response.status == "wrongParams") {
-                $.notify("<b>Вы ввели недопустимые значения имени или адреса</b>",
-                    {
-                        type: "danger",
-                        delay: 1500
-                    });
-            } else {
-                $.notify("<b>Невозможно сохранить данные, повторите попытку позже</b>",
+        var data = {};
+        data.name = name;
+        data.phone = phone;
+        data.addressesList = addr;
+
+        $.ajax({
+            type: "post",
+            url: "/customer_update_profile",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+
+            success: function(response) {
+                if(response.status == 'ok') {
+                    $.notify("<b>Ваши личные данные успешно изменены</b>",
+                        {
+                            type: "success",
+                            delay: 1500,
+                            onClose: function(){
+                                location.reload();
+                            }
+                        });
+                } else if(response.status == "wrongParams") {
+                    $.notify("<b>Вы ввели недопустимые значения имени или адреса</b>",
+                        {
+                            type: "danger",
+                            delay: 1500
+                        });
+                } else {
+                    $.notify("<b>Невозможно сохранить данные, повторите попытку позже</b>",
+                        {
+                            type: "danger",
+                            delay: 1000
+                        });
+                }
+            },
+            error: function() {
+                $.notify("<b>Неизвестная ошибка при сохранении</b>",
                     {
                         type: "danger",
                         delay: 1000
                     });
             }
         });
-
     });
 });
 

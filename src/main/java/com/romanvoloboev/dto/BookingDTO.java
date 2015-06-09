@@ -12,7 +12,7 @@ import java.util.List;
 
 public class BookingDTO {
     private int id;
-    private float amount;
+    private double amount;
     private String date;
     private short status;
     private short deliveryService;
@@ -32,7 +32,7 @@ public class BookingDTO {
     public BookingDTO() {
     }
 
-    public BookingDTO(int id, float amount, String date, String statusName, String deliveryServiceName, String deliveryTypeName,
+    public BookingDTO(int id, double amount, String date, String statusName, String deliveryServiceName, String deliveryTypeName,
                       String paymentTypeName, String customerName, String customerEmail, String customerPhone,
                       String customerAddress, List<BookingItemDTO> items) {
         this.id = id;
@@ -49,7 +49,7 @@ public class BookingDTO {
         this.items = items;
     }
 
-    public BookingDTO(float amount, short deliveryService, short deliveryType, short paymentType,
+    public BookingDTO(double amount, short deliveryService, short deliveryType, short paymentType,
                       int customer, String customerAddress, List<BookingItemDTO> items) {
         this.amount = amount;
         this.deliveryService = deliveryService;
@@ -60,7 +60,7 @@ public class BookingDTO {
         this.items = items;
     }
 
-    public BookingDTO(int id, String customerName, String statusName, float amount, String date) {
+    public BookingDTO(int id, String customerName, String statusName, double amount, String date) {
         this.id = id;
         this.customerName = customerName;
         this.statusName = statusName;
@@ -79,10 +79,10 @@ public class BookingDTO {
     }
 
     @NotNull
-    public float getAmount() {
+    public double getAmount() {
         return amount;
     }
-    public void setAmount(float amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

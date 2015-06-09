@@ -1,7 +1,9 @@
 package com.romanvoloboev.service;
 
 import com.romanvoloboev.dto.ProductDTO;
+import com.romanvoloboev.dto.ReviewDTO;
 import com.romanvoloboev.dto.SimpleDTO;
+import com.romanvoloboev.model.Image;
 import com.romanvoloboev.model.Product;
 
 import javax.validation.ConstraintViolation;
@@ -64,8 +66,9 @@ public interface ProductService {
     }
 
     void save(ProductDTO productDTO) throws Exception;
-    void save(Product product) throws Exception;
+    void save(Product product);
     void delete(Integer id) throws Exception;
+    boolean exists(Integer id);
     Product selectModel(Integer id);
     List<ProductDTO> selectDTOs() throws Exception;
     List<Product> selectModels() throws Exception;
@@ -78,4 +81,5 @@ public interface ProductService {
     List<ProductDTO> selectDTOsBySubcategorySortBy(Integer id, String sortType);
     List<Product> selectModelsBySubcategory(Integer id);
     List<ProductDTO> selectSimilarDTO(Integer subcategory, Integer currentProduct);
+    long[] selectImages(List<Image> images);
 }
