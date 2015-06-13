@@ -152,4 +152,19 @@ public class ProductController {
         }
         return modelAndView;
     }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @RequestMapping(value = "/product/add_to_wishlist", method = RequestMethod.POST)
+    public Map<String, String> addToWish(@RequestParam("id")int id) {
+        return productService.addProductToWishList(id);
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @RequestMapping(value = "/product/remove_from_wishlist", method = RequestMethod.POST)
+    public Map<String, String> removeFromWish(@RequestParam("id")int id) {
+        return productService.removeProductFromWishList(id);
+    }
+
 }

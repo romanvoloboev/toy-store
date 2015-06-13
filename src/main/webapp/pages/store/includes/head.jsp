@@ -28,7 +28,6 @@
 <script type="text/javascript" src="../../../webres/store/js/sidebarmenu.js"></script>
 <script type="text/javascript" src="../../../webres/store/js/index.js"></script>
 
-<script src="../../webres/store/js/cart.js"></script>
 
 
 <script type="text/javascript">

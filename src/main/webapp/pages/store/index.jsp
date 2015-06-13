@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title>Floral Store</title>
-    <meta name="description" content="My Store">
+    <title>Главная - ToyStore</title>
 
     <%@include file="includes/head.jsp"%>
     <link href="../../webres/store/css/productcarousel.css" rel="stylesheet">
@@ -46,160 +46,123 @@
                                     <a class="carousel-control right" href="#productcarousel415422" data-slide="next">›</a>
                                 </div>
                                 <div class="carousel-inner">
-                                    <div class="item active">
-                                        <div class="row box-product">
-                                            <div class="col-lg-12 col-sm-12 col-xs-12 ">
-                                                <div class="product-block">
-                                                    <div class="image">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product10-480x360.jpg" title="Nemo enim ipsam" alt="Nemo enim ipsam" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Nemo enim ipsam</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                        <div class="description">Intel Core 2 Duo processor Powered by an Intel Core 2...</div>
-                                                        <div class="price">$589.50</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row box-product">
-                                            <div class="col-lg-12 col-sm-12 col-xs-12 ">
-                                                <div class="product-block">
-                                                    <div class="image">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=40" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product06-480x360.jpg" title="Expound the actua" alt="Expound the actua" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=40">Expound the actua</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                        <div class="description">iPhone is a revolutionary new mobile phone that allows ...</div>
-                                                        <div class="price">$120.68</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row box-product">
-                                            <div class="col-lg-12 col-sm-12 col-xs-12">
-                                                <div class="product-block">
-                                                    <div class="image">
-                                                        <span class="product-label-special label">Распродажа</span>
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product01-480x360.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                        <div class="description">The 30-inch Apple Cinema HD Display delivers an amazing...</div>
-                                                        <div class="price">
-                                                            <span class="price-old">$119.50</span>
-                                                            <span class="price-new">$107.75</span>
-                                                        </div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
+                                    <c:forEach var="i" begin="0" end="${fn:length(popularProducts)-1}" step="2">
+                                        <div class="item <c:out value="${i==0 ? 'active' : ''}"/> ">
+                                            <c:if test="${popularProducts[i] != null}">
+                                                <div class="row box-product">
+                                                    <div class="col-lg-12 col-sm-12 col-xs-12 ">
+                                                        <div class="product-block">
+                                                            <div class="image">
+                                                                <c:if test="${popularProducts[i].promotion}">
+                                                                    <span class="product-label-special label">Акция</span>
+                                                                </c:if>
+                                                                <div class="image_container" style="padding: 5px;">
+                                                                    <a href="<c:url value="/product?id=${popularProducts[i].id}"/>" class="img front">
+                                                                        <img src="<c:url value="/image/load?id=${popularProducts[i].images[0]}"/>" class="img-responsive" style="max-height: 190px !important;">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-meta">
+                                                                <div class="name"><a href="<c:url value="/product?id=${popularProducts[i].id}"/>">${popularProducts[i].name}</a></div>
+                                                                <c:choose>
+                                                                    <c:when test="${popularProducts[i].rating < 1}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i].rating >= 1 && popularProducts[i].rating < 2}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i].rating >= 2 && popularProducts[i].rating < 3}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i].rating >= 3 && popularProducts[i].rating < 4}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i].rating >= 4 && popularProducts[i].rating < 5}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="description">${popularProducts[i].description}</div>
+                                                                <c:choose>
+                                                                    <c:when test="${popularProducts[i].promotion}">
+                                                                        <span class="price-old">${popularProducts[i].price} грн.</span>
+                                                                        <span class="price" style="display: inline-block;">${popularProducts[i].promotionPrice} грн.</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="price">${popularProducts[i].price} грн.</div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="cart">
+                                                                    <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${popularProducts[i].id})">
+                                                                        <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="row box-product">
-                                            <div class="col-lg-12 col-sm-12 col-xs-12">
-                                                <div class="product-block">
-                                                    <div class="image ">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product17-480x360.jpg" title="The master-builder" alt="The master-builder" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49">The master-builder</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                        <div class="description">Samsung Galaxy Tab 10.1, is the world’s thinnest tablet, m...</div>
-                                                        <div class="price">$236.99</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row box-product">
-                                            <div class="col-lg-12 col-sm-12 col-xs-12">
-                                                <div class="product-block">
-                                                    <div class="image ">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46">Voluptate velit esse</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                        <div class="description">Unprecedented power. The next generation of processing tec...</div>
-                                                        <div class="price">$1,177.00</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row box-product">
-                                            <div class="col-lg-12 col-sm-12 col-xs-12">
-                                                <div class="product-block">
-                                                    <div class="image ">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47">Dolorem eum fugiat</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                        <div class="description">Stop your co-workers in their tracks with the stunning new...</div>
-                                                        <div class="price">$119.50</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
+                                            </c:if>
+
+                                            <c:if test="${popularProducts[i+1] != null}">
+                                                <div class="row box-product">
+                                                    <div class="col-lg-12 col-sm-12 col-xs-12 ">
+                                                        <div class="product-block">
+                                                            <div class="image">
+                                                                <c:if test="${popularProducts[i+1].promotion}">
+                                                                    <span class="product-label-special label">Акция</span>
+                                                                </c:if>
+                                                                <div class="image_container" style="padding: 5px;">
+                                                                    <a href="<c:url value="/product?id=${popularProducts[i+1].id}"/>" class="img front">
+                                                                        <img src="<c:url value="/image/load?id=${popularProducts[i+1].images[0]}"/>" class="img-responsive" style="max-height: 190px !important;">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-meta">
+                                                                <div class="name"><a href="<c:url value="/product?id=${popularProducts[i+1].id}"/>">${popularProducts[i+1].name}</a></div>
+                                                                <c:choose>
+                                                                    <c:when test="${popularProducts[i+1].rating < 1}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i+1].rating >= 1 && popularProducts[i+1].rating < 2}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i+1].rating >= 2 && popularProducts[i+1].rating < 3}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i+1].rating >= 3 && popularProducts[i+1].rating < 4}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${popularProducts[i+1].rating >= 4 && popularProducts[i+1].rating < 5}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="description">${popularProducts[i+1].description}</div>
+                                                                <c:choose>
+                                                                    <c:when test="${popularProducts[i+1].promotion}">
+                                                                        <span class="price-old">${popularProducts[i+1].price} грн.</span>
+                                                                        <span class="price" style="display: inline-block;">${popularProducts[i+1].promotionPrice} грн.</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="price">${popularProducts[i+1].price} грн.</div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="cart">
+                                                                    <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${popularProducts[i+1].id})">
+                                                                        <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </c:if>
                                         </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -209,7 +172,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="box-product pink horizontal box productcarousel">
                         <div class="box-heading">
-                            <span>Скидки</span>
+                            <span>Акционные товары</span>
                         </div>
                         <div class="box-content">
                             <div class="box-products slide" id="productcarousel2be500">
@@ -218,158 +181,121 @@
                                     <a class="carousel-control right" href="#productcarousel2be500" data-slide="next">›</a>
                                 </div>
                                 <div class="carousel-inner">
-                                    <div class="item">
-                                        <div class="row box-product">
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <div class="product-block">
-                                                    <div class="image ">
-                                                        <span class="product-label-special label">Распродажа</span>
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product01-480x360.jpg" title="Adipisicing elit sed" alt="Adipisicing elit sed" class="img-responsive">
-                                                            </a>
+                                    <c:forEach var="i" begin="0" end="${fn:length(promotionProducts)-1}" step="2">
+                                        <div class="item <c:out value="${i==0 ? 'active' : ''}"/> ">
+
+                                            <div class="row box-product">
+                                                <c:if test="${promotionProducts[i] != null}">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                                        <div class="product-block">
+                                                            <div class="image">
+                                                                <c:if test="${promotionProducts[i].promotion}">
+                                                                    <span class="product-label-special label">Акция</span>
+                                                                </c:if>
+                                                                <div class="image_container" style="padding: 5px;">
+                                                                    <a href="<c:url value="/product?id=${promotionProducts[i].id}"/>" class="img front">
+                                                                        <img src="<c:url value="/image/load?id=${promotionProducts[i].images[0]}"/>" class="img-responsive" style="max-height: 195px !important;">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-meta">
+                                                                <div class="name"><a href="<c:url value="/product?id=${promotionProducts[i].id}"/>">${promotionProducts[i].name}</a></div>
+                                                                <c:choose>
+                                                                    <c:when test="${promotionProducts[i].rating < 1}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i].rating >= 1 && promotionProducts[i].rating < 2}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i].rating >= 2 && promotionProducts[i].rating < 3}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i].rating >= 3 && promotionProducts[i].rating < 4}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i].rating >= 4 && promotionProducts[i].rating < 5}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="description">${promotionProducts[i].description}</div>
+                                                                <c:choose>
+                                                                    <c:when test="${promotionProducts[i].promotion}">
+                                                                        <span class="price-old">${promotionProducts[i].price} грн.</span>
+                                                                        <span class="price" style="display: inline-block;">${promotionProducts[i].promotionPrice} грн.</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="price">${promotionProducts[i].price} грн.</div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="cart">
+                                                                    <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${promotionProducts[i].id})">
+                                                                        <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=42">Adipisicing elit sed</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                        <div class="description">The 30-inch Apple Cinema HD Display delivers an amazing...</div>
-                                                        <div class="price">
-                                                            <span class="price-old">$119.50</span>
-                                                            <span class="price-new">$107.75</span>
-                                                        </div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                                <div class="product-block">
-                                                    <div class="image ">
-                                                        <span class="product-label-special label">Sale</span>
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=30" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product02-480x360.jpg" title="Dignissimos ducimus" alt="Dignissimos ducimus" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=30">Dignissimos ducimus</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                        <div class="description">Canon's press material for the EOS 5D states that it 'defi...</div>
-                                                        <div class="price">
-                                                            <span class="price-old">$119.50</span>
-                                                            <span class="price-new">$96.00</span>
-                                                        </div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="row box-product">
-                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                                <div class="product-block">
-                                                    <div class="image ">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product10-480x360.jpg" title="Nemo enim ipsam" alt="Nemo enim ipsam" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Nemo enim ipsam</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                        <div class="description">Intel Core 2 Duo processor Powered by an Intel Core 2...</div>
-                                                        <div class="price">$589.50</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
+                                                </c:if>
+                                                <c:if test="${promotionProducts[i+1] != null}">
+                                                    <div class="col-md-6 col-sm-6 col-xs-12 ">
+                                                        <div class="product-block">
+                                                            <div class="image">
+                                                                <c:if test="${promotionProducts[i+1].promotion}">
+                                                                    <span class="product-label-special label">Акция</span>
+                                                                </c:if>
+                                                                <div class="image_container" style="padding: 5px;">
+                                                                    <a href="<c:url value="/product?id=${promotionProducts[i+1].id}"/>" class="img front">
+                                                                        <img src="<c:url value="/image/load?id=${promotionProducts[i+1].images[0]}"/>" class="img-responsive" style="max-height: 195px !important;">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="product-meta">
+                                                                <div class="name"><a href="<c:url value="/product?id=${promotionProducts[i+1].id}"/>">${promotionProducts[i+1].name}</a></div>
+                                                                <c:choose>
+                                                                    <c:when test="${promotionProducts[i+1].rating < 1}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i+1].rating >= 1 && promotionProducts[i+1].rating < 2}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i+1].rating >= 2 && promotionProducts[i+1].rating < 3}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i+1].rating >= 3 && promotionProducts[i+1].rating < 4}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                    </c:when>
+                                                                    <c:when test="${promotionProducts[i+1].rating >= 4 && promotionProducts[i+1].rating < 5}">
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="description">${promotionProducts[i+1].description}</div>
+                                                                <c:choose>
+                                                                    <c:when test="${promotionProducts[i+1].promotion}">
+                                                                        <span class="price-old">${promotionProducts[i+1].price} грн.</span>
+                                                                        <span class="price" style="display: inline-block;">${promotionProducts[i+1].promotionPrice} грн.</span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <div class="price">${promotionProducts[i+1].price} грн.</div>
+                                                                    </c:otherwise>
+                                                                </c:choose>
+                                                                <div class="cart">
+                                                                    <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${promotionProducts[i+1].id})">
+                                                                        <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                                <div class="product-block">
-                                                    <div class="image ">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47">Dolorem eum fugiat</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                        <div class="description">Stop your co-workers in their tracks with the stunning new...</div>
-                                                        <div class="price">$119.50</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item active">
-                                        <div class="row box-product">
-                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                                <div class="product-block">
-                                                    <div class="image">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46">Voluptate velit esse</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                        <div class="description">Unprecedented power. The next generation of processing tec...</div>
-                                                        <div class="price">$1,177.00</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-sm-6 col-xs-12 ">
-                                                <div class="product-block">
-                                                    <div class="image">
-                                                        <div class="image_container">
-                                                            <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=44" class="img front">
-                                                                <img src="../../webres/store/image/cache/data/demo/product12-480x360.jpg" title="Occur in which toil" alt="Occur in which toil" class="img-responsive">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-meta">
-                                                        <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=44">Occur in which toil</a></div>
-                                                        <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                        <div class="description">MacBook Air is ultrathin, ultraportable, and ultra unli...</div>
-                                                        <div class="price">$1,177.00</div>
-                                                        <div class="cart">
-                                                            <button class="btn btn-shopping-cart">
-                                                                <span class="fa fa-shopping-cart icon"></span> Купить
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </c:if>
                                             </div>
                                         </div>
-                                    </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -387,7 +313,7 @@
                         <div id="content">
                             <div class="content-top">
                                 <div class="box-product yellow horizontal box productcarousel">
-                                    <div class="box-heading"><span>Новинки</span></div>
+                                    <div class="box-heading"><span>Последние поступления</span></div>
                                     <div class="box-content">
                                         <div class="box-products slide" id="productcarousel8cd118">
                                             <div class="carousel-controls">
@@ -395,196 +321,231 @@
                                                 <a class="carousel-control right" href="#productcarousel8cd118" data-slide="next">›</a>
                                             </div>
                                             <div class="carousel-inner">
-                                                <div class="item active">
-                                                    <div class="row box-product">
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product17-480x360.jpg" title="The master-builder" alt="The master-builder" class="img-responsive">
-                                                                        </a>
+                                                <c:forEach var="i" begin="0" end="${fn:length(newProducts)-1}" step="4">
+                                                    <div class="item <c:out value="${i==0 ? 'active' : ''}"/> ">
+                                                        <div class="row box-product">
+                                                            <c:if test="${newProducts[i] != null}">
+                                                                <div class="col-lg-3 col-sm-3 col-xs-12 ">
+                                                                    <div class="product-block">
+                                                                        <div class="image">
+                                                                            <c:if test="${newProducts[i].promotion}">
+                                                                                <span class="product-label-special label">Акция</span>
+                                                                            </c:if>
+                                                                            <div class="image_container" style="padding: 5px;">
+                                                                                <a href="<c:url value="/product?id=${newProducts[i].id}"/>" class="img front">
+                                                                                    <img src="<c:url value="/image/load?id=${newProducts[i].images[0]}"/>" class="img-responsive" style="max-height: 195px !important;">
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-meta">
+                                                                            <div class="name"><a href="<c:url value="/product?id=${newProducts[i].id}"/>">${newProducts[i].name}</a></div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i].rating < 1}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i].rating >= 1 && newProducts[i].rating < 2}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i].rating >= 2 && newProducts[i].rating < 3}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i].rating >= 3 && newProducts[i].rating < 4}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i].rating >= 4 && newProducts[i].rating < 5}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="description">${newProducts[i].description}</div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i].promotion}">
+                                                                                    <span class="price-old">${newProducts[i].price} грн.</span>
+                                                                                    <span class="price" style="display: inline-block;">${newProducts[i].promotionPrice} грн.</span>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="price">${newProducts[i].price} грн.</div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="cart">
+                                                                                <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${newProducts[i].id})">
+                                                                                    <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=49">The master-builder</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                                    <div class="description">Samsung Galaxy Tab 10.1, is the world’s thinnest tablet, m...</div>
-                                                                    <div class="price">$236.99</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            </c:if>
 
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image ">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=48" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product07-480x360.jpg" title="Lorem ipsum dolor" alt="Lorem ipsum dolor" class="img-responsive">
-                                                                        </a>
+                                                            <c:if test="${newProducts[i+1] != null}">
+                                                                <div class="col-lg-3 col-sm-3 col-xs-12 ">
+                                                                    <div class="product-block">
+                                                                        <div class="image">
+                                                                            <c:if test="${newProducts[i+1].promotion}">
+                                                                                <span class="product-label-special label">Акция</span>
+                                                                            </c:if>
+                                                                            <div class="image_container" style="padding: 5px;">
+                                                                                <a href="<c:url value="/product?id=${newProducts[i+1].id}"/>" class="img front">
+                                                                                    <img src="<c:url value="/image/load?id=${newProducts[i+1].images[0]}"/>" class="img-responsive" style="max-height: 195px !important;">
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-meta">
+                                                                            <div class="name"><a href="<c:url value="/product?id=${newProducts[i+1].id}"/>">${newProducts[i+1].name}</a></div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i+1].rating < 1}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+1].rating >= 1 && newProducts[i+1].rating < 2}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+1].rating >= 2 && newProducts[i+1].rating < 3}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+1].rating >= 3 && newProducts[i+1].rating < 4}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+1].rating >= 4 && newProducts[i+1].rating < 5}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="description">${newProducts[i+1].description}</div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i+1].promotion}">
+                                                                                    <span class="price-old">${newProducts[i+1].price} грн.</span>
+                                                                                    <span class="price" style="display: inline-block;">${newProducts[i+1].promotionPrice} грн.</span>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="price">${newProducts[i+1].price} грн.</div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="cart">
+                                                                                <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${newProducts[i+1].id})">
+                                                                                    <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=48">Lorem ipsum dolor</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                                    <div class="description">More room to move.With 80GB or 160GB ...</div>
-                                                                    <div class="price">$119.50</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            </c:if>
 
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image ">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product03-480x360.jpg" title="Dolorem eum fugiat" alt="Dolorem eum fugiat" class="img-responsive">
-                                                                        </a>
+                                                            <c:if test="${newProducts[i+2] != null}">
+                                                                <div class="col-lg-3 col-sm-3 col-xs-12 ">
+                                                                    <div class="product-block">
+                                                                        <div class="image">
+                                                                            <c:if test="${newProducts[i+2].promotion}">
+                                                                                <span class="product-label-special label">Акция</span>
+                                                                            </c:if>
+                                                                            <div class="image_container" style="padding: 5px;">
+                                                                                <a href="<c:url value="/product?id=${newProducts[i+2].id}"/>" class="img front">
+                                                                                    <img src="<c:url value="/image/load?id=${newProducts[i+2].images[0]}"/>" class="img-responsive" style="max-height: 195px !important;">
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-meta">
+                                                                            <div class="name"><a href="<c:url value="/product?id=${newProducts[i+2].id}"/>">${newProducts[i+2].name}</a></div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i+2].rating < 1}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+2].rating >= 1 && newProducts[i+2].rating < 2}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+2].rating >= 2 && newProducts[i+2].rating < 3}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+2].rating >= 3 && newProducts[i+2].rating < 4}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+2].rating >= 4 && newProducts[i+2].rating < 5}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="description">${newProducts[i+2].description}</div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i+2].promotion}">
+                                                                                    <span class="price-old">${newProducts[i+2].price} грн.</span>
+                                                                                    <span class="price" style="display: inline-block;">${newProducts[i+2].promotionPrice} грн.</span>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="price">${newProducts[i+2].price} грн.</div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="cart">
+                                                                                <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${newProducts[i+2].id})">
+                                                                                    <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=47">Dolorem eum fugiat</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                                    <div class="description">Stop your co-workers in their tracks with the stunning new...</div>
-                                                                    <div class="price">$119.50</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                            </c:if>
 
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product19-480x360.jpg" title="Voluptate velit esse" alt="Voluptate velit esse" class="img-responsive">
-                                                                        </a>
+                                                            <c:if test="${newProducts[i+3] != null}">
+                                                                <div class="col-lg-3 col-sm-3 col-xs-12 ">
+                                                                    <div class="product-block">
+                                                                        <div class="image">
+                                                                            <c:if test="${newProducts[i+3].promotion}">
+                                                                                <span class="product-label-special label">Акция</span>
+                                                                            </c:if>
+                                                                            <div class="image_container" style="padding: 5px;">
+                                                                                <a href="<c:url value="/product?id=${newProducts[i+3].id}"/>" class="img front">
+                                                                                    <img src="<c:url value="/image/load?id=${newProducts[i+3].images[0]}"/>" class="img-responsive" style="max-height: 195px !important;">
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="product-meta">
+                                                                            <div class="name"><a href="<c:url value="/product?id=${newProducts[i+3].id}"/>">${newProducts[i+3].name}</a></div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i+3].rating < 1}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-0.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+3].rating >= 1 && newProducts[i+3].rating < 2}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-1.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+3].rating >= 2 && newProducts[i+3].rating < 3}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-2.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+3].rating >= 3 && newProducts[i+3].rating < 4}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-3.png"></div>
+                                                                                </c:when>
+                                                                                <c:when test="${newProducts[i+3].rating >= 4 && newProducts[i+3].rating < 5}">
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png"></div>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="rating"><img src="../../webres/store/image/stars-5.png"></div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="description">${newProducts[i+3].description}</div>
+                                                                            <c:choose>
+                                                                                <c:when test="${newProducts[i+3].promotion}">
+                                                                                    <span class="price-old">${newProducts[i+3].price} грн.</span>
+                                                                                    <span class="price" style="display: inline-block;">${newProducts[i+3].promotionPrice} грн.</span>
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                    <div class="price">${newProducts[i+3].price} грн.</div>
+                                                                                </c:otherwise>
+                                                                            </c:choose>
+                                                                            <div class="cart">
+                                                                                <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${newProducts[i+3].id})">
+                                                                                    <span class="fa fa-shopping-cart icon"></span> Купить
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=46">Voluptate velit esse</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-5.png" alt="text_reviews"></div>
-                                                                    <div class="description">Unprecedented power. The next generation of processing tec...</div>
-                                                                    <div class="price">$1,177.00</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                            </c:if>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="item">
-                                                    <div class="row box-product">
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image ">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                                    <div class="description">Latest Intel mobile architecture Power...</div>
-                                                                    <div class="price">$2,000.00</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image ">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                                    <div class="description">Latest Intel mobile architecture Power...</div>
-                                                                    <div class="price">$2,000.00</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image ">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                                    <div class="description">Latest Intel mobile architecture Power...</div>
-                                                                    <div class="price">$2,000.00</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-lg-3 col-sm-3 col-xs-12 ">
-                                                            <div class="product-block">
-                                                                <div class="image ">
-                                                                    <div class="image_container">
-                                                                        <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45" class="img front">
-                                                                            <img src="../../webres/store/image/cache/data/demo/product13-480x360.jpg" title="Pursue pleasure rationally" alt="Pursue pleasure rationally" class="img-responsive">
-                                                                        </a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="product-meta">
-                                                                    <div class="name"><a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=45">Pursue pleasure rationally</a></div>
-                                                                    <div class="rating"><img src="../../webres/store/image/stars-4.png" alt="text_reviews"></div>
-                                                                    <div class="description">Latest Intel mobile architecture Power...</div>
-                                                                    <div class="price">$2,000.00</div>
-                                                                    <div class="cart">
-                                                                        <button class="btn btn-shopping-cart">
-                                                                            <span class="fa fa-shopping-cart icon"></span> Купить
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                     </div>

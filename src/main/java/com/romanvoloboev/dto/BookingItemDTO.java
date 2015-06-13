@@ -35,6 +35,16 @@ public class BookingItemDTO {
         this.productName = productName;
     }
 
+    public BookingItemDTO(int id, short quantity, double price, double totalItemPrice, String productName, int product, long productImage) {
+        this.id = id;
+        this.quantity = quantity;
+        this.price = price;
+        this.totalItemPrice = totalItemPrice;
+        this.product = product;
+        this.productImage = productImage;
+        this.productName = productName;
+    }
+
     @JsonIgnore
     public int getId() {
         return id;

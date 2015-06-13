@@ -36,7 +36,6 @@
                                         <li><a href="<c:url value="/profile"/>">Профиль</a></li>
                                         <li><a href="<c:url value="/wishlist"/>">Список желаний</a></li>
                                         <li><a href="<c:url value="/orders"/>">История заказов</a></li>
-                                        <li><a href="<c:url value="/cart"/>">Корзина</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -58,23 +57,34 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="image" style="text-align: left;">
-                                                    <span style="font-weight: normal;">88</span>
-                                                </td>
-                                                <td class="name">
-                                                    <span style="font-weight: normal;">30/01/2015</span>
-                                                </td>
-                                                <td class="price" style="text-align: left;">
-                                                    <span style="font-weight: normal;">1500.00 грн.</span>
-                                                </td>
-                                                <td class="stock" style="text-align: left;">
-                                                    <span style="font-weight: normal;">Выполнен</span>
-                                                </td>
-                                                <td class="action" style="text-align: center;">
-                                                    <a href="/order_details" title="Посмотреть детали заказа" onclick=""><span class="fa fa-info fa-lg"></span></a>
-                                                </td>
-                                            </tr>
+                                        <c:choose>
+                                            <c:when test="${not empty orders}">
+                                                <c:forEach items="${orders}" var="o">
+                                                    <tr>
+                                                        <td class="image" style="text-align: left;">
+                                                            <span style="font-weight: normal;">${o.id}</span>
+                                                        </td>
+                                                        <td class="name">
+                                                            <span style="font-weight: normal;">${o.date}</span>
+                                                        </td>
+                                                        <td class="price" style="text-align: left;">
+                                                            <span style="font-weight: normal;">${o.amount} грн.</span>
+                                                        </td>
+                                                        <td class="stock" style="text-align: left;">
+                                                            <span style="font-weight: normal;">${o.statusName}</span>
+                                                        </td>
+                                                        <td class="action" style="text-align: center;">
+                                                            <a href="<c:url value="/order_details?id=${o.id}"/>" title="Посмотреть детали заказа" onclick=""><span class="fa fa-info fa-lg"></span></a>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td colspan="4" class="text-center">Нет заказов</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
                                         </tbody>
                                     </table>
                                 </div>

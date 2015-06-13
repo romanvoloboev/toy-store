@@ -106,6 +106,15 @@ public class ProductDTO {
         this.images = images;
     }
 
+    public ProductDTO(int id, String name, double price, boolean promotion, double promotionPrice, long[] images) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.promotion = promotion;
+        this.promotionPrice = promotionPrice;
+        this.images = images;
+    }
+
     @NotNull
     public int getId() {
         return id;

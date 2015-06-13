@@ -36,7 +36,6 @@
                                         <li><a href="<c:url value="/profile"/>">Профиль</a></li>
                                         <li><a href="<c:url value="/wishlist"/>">Список желаний</a></li>
                                         <li><a href="<c:url value="/orders"/>">История заказов</a></li>
-                                        <li><a href="<c:url value="/cart"/>">Корзина</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -50,50 +49,52 @@
                                     <table>
                                         <thead>
                                         <tr>
-                                            <td class="image">Товар</td>
-                                            <td class="name"></td>
-                                            <td class="quantity">Количество</td>
-                                            <td class="price">Сумма</td>
+                                            <td class="image col-md-2"></td>
+                                            <td class="name col-md-4" style="text-align: left !important;">Название</td>
+                                            <td class="name col-md-2" style="text-align: center !important;">Цена</td>
+                                            <td class="quantity col-md-2" style="text-align: center !important;">Количество</td>
+                                            <td class="price col-md-2" style="text-align: center !important;">Сумма</td>
                                           </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="image">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product10-200x150.jpg">
-                                                    </a>
-                                                </td>
-                                                <td class="name">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Название</a>
-                                                </td>
-                                                <td class="price">
-                                                    <div class="price">1 шт.</div>
-                                                </td>
-                                                <td class="stock" style="text-align: right">1500.00 грн.</td>
-                                            </tr>
-
-                                            <tr>
-                                                <td class="image">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product10-200x150.jpg">
-                                                    </a>
-                                                </td>
-                                                <td class="name">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Название</a>
-                                                </td>
-                                                <td class="price">
-                                                    <div class="price">1 шт.</div>
-                                                </td>
-                                                <td class="stock" style="text-align: right">1500.00 грн.</td>
-                                            </tr>
+                                        <c:choose>
+                                            <c:when test="${not empty order}">
+                                                <c:forEach items="${orderItems}" var="o">
+                                                    <tr>
+                                                        <td class="image text-center" style="vertical-align: middle;">
+                                                            <a href="<c:url value="/product?id=${o.id}"/>">
+                                                                <img src="<c:url value="/image/load?id=${o.productImage}"/>" style="max-height: 50px;">
+                                                            </a>
+                                                        </td>
+                                                        <td class="name" style="vertical-align: middle;">
+                                                            <a href="<c:url value="/product?id=${o.id}"/>">${o.productName}</a>
+                                                        </td>
+                                                        <td class="price text-center" style="vertical-align: middle;">
+                                                            <div class="price">${o.price}</div>
+                                                        </td>
+                                                        <td class="price text-center" style="vertical-align: middle;">
+                                                            <div class="price">${o.quantity}</div>
+                                                        </td>
+                                                        <td class="stock text-center" style="vertical-align: middle;">${o.totalItemPrice} грн.</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td colspan="5" class="text-center">Нет данных</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
                                         </tbody>
-                                        <tfoot>
+                                        <c:if test="${not empty order}">
+                                            <tfoot>
                                             <tr>
-                                                <td colspan="2"></td>
-                                                <td style="text-align: right;"><b>Итого:</b></td>
-                                                <td style="text-align: right;">1500.00 грн.</td>
+                                                <td colspan="3"></td>
+                                                <td style="text-align: center;"><b>Итого:</b></td>
+                                                <td style="text-align: center;">${order.amount} грн.</td>
                                             </tr>
-                                        </tfoot>
+                                            </tfoot>
+                                        </c:if>
                                     </table>
                                 </div>
                             </div>

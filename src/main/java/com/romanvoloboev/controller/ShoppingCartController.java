@@ -22,7 +22,6 @@ public class ShoppingCartController {
 
     @Autowired private ShoppingCartServiceImpl shoppingCartService;
 
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping(value = "/cart/add", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, Object> addToCart(@RequestParam("id")int id, HttpSession session) {
@@ -31,7 +30,6 @@ public class ShoppingCartController {
         return response;
     }
 
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @RequestMapping(value = "/cart/load", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, Object> loadShoppingCart(HttpSession session) {

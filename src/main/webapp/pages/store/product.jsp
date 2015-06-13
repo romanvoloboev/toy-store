@@ -140,7 +140,7 @@
                                                             <span class="price">${product.promotionPrice} грн.</span>
                                                         </div>
                                                         <div class="col-md-12" style="padding-left: 0; padding-right: 0;">
-                                                            <span style="color: #d50300; font-weight: bold;">Скидка действует до:</span> <b>${product.promotionEnd}</b>
+                                                            <span style="color: #d50300; font-weight: bold;">Акция действует до:</span> <b>${product.promotionEnd}</b>
                                                         </div>
                                                     </c:when>
                                                     <c:otherwise>
@@ -151,15 +151,13 @@
                                                 </c:choose>
                                                 <div class="pull-left" style="padding-top: 20px;">
                                                     <div class="pull-left">
-                                                        <button class="btn btn-shopping-cart" id="button-cart">
-                                                            <span class="fa fa-shopping-cart"></span>
-                                                            <span>Купить</span>
+                                                        <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${product.id})">
+                                                            <span class="fa fa-shopping-cart icon"></span> Купить
                                                         </button>
                                                     </div>
                                                     <div class="pull-left" style="margin-left: 15px;">
-                                                        <button class="btn btn-shopping-cart" id="button-wishlist">
-                                                            <span class="fa fa-heart"></span>
-                                                            <span>В избранное</span>
+                                                        <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToWish(${product.id})">
+                                                            <span class="fa fa-heart"></span> В список желаний
                                                         </button>
                                                     </div>
                                                 </div>

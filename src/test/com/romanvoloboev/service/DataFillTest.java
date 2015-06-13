@@ -6,9 +6,13 @@ import com.romanvoloboev.model.Address;
 import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.model.Product;
 import com.romanvoloboev.model.enums.Role;
+import com.romanvoloboev.repository.BookingItemRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +28,6 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class DataFillTest {
     @Autowired private CustomerService customerService;
-    @Autowired private ProductServiceImpl productService;
     @Autowired private ReviewServiceImpl reviewService;
 
     @Test

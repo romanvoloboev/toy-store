@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -33,22 +34,6 @@ public interface ProductService {
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         dateFormat.setLenient(false);
         return dateFormat.parse(date);
-    }
-
-    default String getShortDescription(String descr) {
-        if (descr != null && descr.length() > 70) {
-            return descr.substring(0, 70) + "...";
-        } else {
-            return descr;
-        }
-    }
-
-    default String getShortName(String name) {
-        if (name != null && name.length() > 47) {
-            return name.substring(0, 47) + "...";
-        } else {
-            return name;
-        }
     }
 
     default boolean validate(Object object, Validator validator) throws ValidationException {
@@ -82,4 +67,8 @@ public interface ProductService {
     List<Product> selectModelsBySubcategory(Integer id);
     List<ProductDTO> selectSimilarDTO(Integer subcategory, Integer currentProduct);
     long[] selectImages(List<Image> images);
+    List<ProductDTO> selectDTOsForMainPage(byte criteriaType);
+    Map<String,String> addProductToWishList(int id);
+    Map<String, String> removeProductFromWishList(int id);
+    List<ProductDTO> selectCustomerWishlist();
 }

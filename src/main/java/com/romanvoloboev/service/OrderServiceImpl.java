@@ -6,6 +6,7 @@ import com.romanvoloboev.model.Booking;
 import com.romanvoloboev.model.BookingItem;
 import com.romanvoloboev.model.Customer;
 import com.romanvoloboev.model.Product;
+import com.romanvoloboev.repository.BookingItemRepository;
 import com.romanvoloboev.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired private OrderRepository orderRepository;
     @Autowired private CustomerService customerService;
     @Autowired private ProductService productService;
+    @Autowired private BookingItemRepository bookingItemRepository;
 
     private List<Booking> selectModels() {
         return orderRepository.getAllOrderByDate();
@@ -178,10 +180,12 @@ public class OrderServiceImpl implements OrderService {
     public List<BookingDTO> selectLastDTOs() {
         List<Booking> bookings = orderRepository.getFirst5ByOrderByDateDesc();
         List<BookingDTO> bookingDTOs = new ArrayList<>();
-        for (Booking booking:bookings) {
-            double amount = Math.round(booking.getAmount() * 100);
-            bookingDTOs.add(new BookingDTO(booking.getId(), booking.getCustomer().getName(),
-                    formatStatusToString(booking.getStatus()), amount/100, formatDateToString(booking.getDate())));
+        if (bookings != null) {
+            for (Booking booking:bookings) {
+                double amount = Math.round(booking.getAmount() * 100);
+                bookingDTOs.add(new BookingDTO(booking.getId(), booking.getCustomer().getName(),
+                        formatStatusToString(booking.getStatus()), amount/100, formatDateToString(booking.getDate())));
+            }
         }
         return bookingDTOs;
     }
@@ -194,6 +198,46 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Float selectTotalOrdersAmount() {
         return orderRepository.getTotalAmount();
+    }
+
+    @Override
+    public List<BookingDTO> selectCustomerOrders() {
+        Customer customer = customerService.selectAuth();
+        List<BookingDTO> dtos = new ArrayList<>();
+        List<Booking> bookings = orderRepository.getByCustomerIdOrderByDateDesc(customer.getId());
+        if (bookings != null) {
+            for (Booking booking:bookings) {
+                double amount = Math.round(booking.getAmount() * 100);
+                dtos.add(new BookingDTO(booking.getId(), amount/100,
+                        formatDateToString(booking.getDate()), formatStatusToString(booking.getStatus())));
+            }
+        }
+        return dtos;
+    }
+
+    @Transactional
+    @Override
+    public List<BookingItemDTO> selectOrderDetails(int id) {
+        List<BookingItemDTO> dtos = new ArrayList<>();
+        if (orderRepository.exists(id)) {
+            Customer customer = customerService.selectAuth();
+            List<Booking> customerBookings = customer.getBookings();
+            Booking booking = selectModel(id);
+            if (customerBookings.contains(booking)) {
+                List<BookingItem> bookingItems = bookingItemRepository.getByBookingId(id);
+                if (bookingItems != null) {
+                    for (BookingItem item:bookingItems) {
+                        Product product = item.getProduct();
+                        long[] imageId = selectImages(product.getImages());
+                        double price = Math.round(item.getPrice() * 100);
+                        double totalItemPrice = Math.round(item.getTotalPrice() * 100);
+                        dtos.add(new BookingItemDTO(product.getId(), item.getQuantity(), price/100, totalItemPrice/100,
+                                product.getName(), item.getId(), imageId[0]));
+                    }
+                }
+            }
+        }
+        return dtos;
     }
 
 }

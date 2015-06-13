@@ -1,6 +1,10 @@
 package com.romanvoloboev.service;
 
 import com.romanvoloboev.dto.BookingDTO;
+import com.romanvoloboev.dto.BookingItemDTO;
+import com.romanvoloboev.dto.ProductDTO;
+import com.romanvoloboev.model.BookingItem;
+import com.romanvoloboev.model.Image;
 
 
 import javax.validation.ConstraintViolation;
@@ -87,6 +91,18 @@ public interface OrderService {
         return true;
     }
 
+    default long[] selectImages(List<Image> images) {
+        long[] ids = new long[0];
+        if (images != null) {
+            ids = new long[images.size()];
+            int i = 0;
+            for (Image image:images) {
+                ids[i++] = image.getId();
+            }
+        }
+        return ids;
+    }
+
     List<BookingDTO> selectDTOs();
     BookingDTO selectDTO(Integer id) throws Exception;
     void save(BookingDTO bookingDTO) throws Exception;
@@ -97,4 +113,6 @@ public interface OrderService {
     List<BookingDTO> selectLastDTOs();
     Integer selectSoldProductsCount();
     Float selectTotalOrdersAmount();
+    List<BookingDTO> selectCustomerOrders();
+    List<BookingItemDTO> selectOrderDetails(int id);
 }

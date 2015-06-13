@@ -68,7 +68,12 @@ public class BookingDTO {
         this.date = date;
     }
 
-
+    public BookingDTO(int id, double amount, String date, String statusName) {
+        this.id = id;
+        this.amount = amount;
+        this.date = date;
+        this.statusName = statusName;
+    }
 
     @NotNull
     public int getId() {

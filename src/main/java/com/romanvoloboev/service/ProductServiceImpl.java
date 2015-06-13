@@ -4,8 +4,10 @@ import com.romanvoloboev.dto.ProductDTO;
 import com.romanvoloboev.dto.ReviewDTO;
 import com.romanvoloboev.dto.SimpleDTO;
 import com.romanvoloboev.model.*;
+import com.romanvoloboev.repository.BookingItemRepository;
 import com.romanvoloboev.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +28,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired private SubcategoryServiceImpl subcategoryService;
     @Autowired private ImageServiceImpl imageService;
     @Autowired private ReviewService reviewService;
+    @Autowired private BookingItemRepository bookingItemRepository;
+    @Autowired private CustomerService customerService;
 
     @Transactional
     @Override
@@ -158,11 +162,12 @@ public class ProductServiceImpl implements ProductService {
         Subcategory subcategory = product.getSubcategory();
         Category category = product.getSubcategory().getCategory();
 
-        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getQuantity(),
-                product.getCode(), product.getPrice(), product.isPromotion(), product.getPromotionPrice(), formatDateToString(product.getPromotionStart()),
-                formatDateToString(product.getPromotionEnd()), product.getRating(), reviewsCount, product.getMaterial(), product.getWidth(), product.getHeight(),
-                product.getLength(), product.getBrand().getId(), product.getBrand().getName(), product.getBrand().getCountry(), category.getId(),
-                subcategory.getId(), category.getName(), subcategory.getName(), selectImages(product.getImages()), selectReviewsDTO(reviews));
+        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getQuantity(), product.getCode(),
+                product.getPrice(), product.isPromotion(), product.getPromotionPrice(), formatDateToString(product.getPromotionStart()),
+                formatDateToString(product.getPromotionEnd()), product.getRating(), reviewsCount, product.getMaterial(),
+                product.getWidth(), product.getHeight(), product.getLength(), product.getBrand().getId(), product.getBrand().getName(),
+                product.getBrand().getCountry(), category.getId(), subcategory.getId(), category.getName(), subcategory.getName(),
+                selectImages(product.getImages()), selectReviewsDTO(reviews));
     }
 
     @Transactional
@@ -283,5 +288,100 @@ public class ProductServiceImpl implements ProductService {
             }
         }
         return ids;
+    }
+
+    /**
+     * Returns products DTO for main page by some search criteria
+     * @param criteriaType 1 - popular, 2 - with promo, 3 - by novelty
+     */
+    @Transactional
+    @Override
+    public List<ProductDTO> selectDTOsForMainPage(byte criteriaType) {
+        List<Product> products = null;
+        List<ProductDTO> productDTOs = new ArrayList<>();
+        switch (criteriaType) {
+            case 1: {
+                products = bookingItemRepository.getPopularTop10Products(new PageRequest(0, 10));
+                break;
+            }
+            case 2: {
+                products = productRepository.getByActiveTrueAndPromotionTrue(new PageRequest(0, 10));
+                break;
+            }
+            case 3: {
+                products = productRepository.getByActiveTrueOrderByDateDesc(new PageRequest(0, 12));
+                break;
+            }
+        }
+        if (products != null) {
+            for (Product product:products) {
+                productDTOs.add(new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(),
+                        product.isPromotion(), product.getPromotionPrice(), product.getRating(), selectImages(product.getImages())));
+            }
+        }
+        return productDTOs;
+    }
+
+    @Transactional
+    @Override
+    public Map<String, String> addProductToWishList(int id) {
+        Map<String, String> response = new HashMap<>();
+        if (productRepository.exists(id)) {
+            Product product = selectModel(id);
+            Customer customer = customerService.selectAuth();
+            List<Product> wishes = customer.getWishes();
+            if (wishes == null) wishes = new ArrayList<>();
+            wishes.add(product);
+            customer.setWishes(wishes);
+            response.put("status", "ok");
+        } else {
+            response.put("status", "No product was found");
+        }
+        return response;
+    }
+
+    @Transactional
+    @Override
+    public Map<String, String> removeProductFromWishList(int id) {
+        Map<String, String> response = new HashMap<>();
+        if (productRepository.exists(id)) {
+            Customer customer = customerService.selectAuth();
+            List<Product> wishes = customer.getWishes();
+            if (wishes == null) {
+                response.put("status", "No wishes for customer was found");
+                return response;
+            }
+            boolean wasFound = false;
+            for (Product wish:wishes) {
+                if (wish.getId() == id) {
+                    wasFound = true;
+                    wishes.remove(wish);
+                    response.put("status", "ok");
+                    break;
+                }
+            }
+            if (!wasFound) response.put("status", "No such wish was found in customer wishes");
+            return response;
+        } else {
+            response.put("status", "There is no such product");
+            return response;
+        }
+    }
+
+    @Transactional
+    @Override
+    public List<ProductDTO> selectCustomerWishlist() {
+        Customer customer = customerService.selectAuth();
+        List<ProductDTO> dtos = new ArrayList<>();
+        List<Product> wishes = customer.getWishes();
+        if (wishes != null) {
+            for (Product p:wishes) {
+                if (p.isActive()) {
+                    dtos.add(new ProductDTO(p.getId(), p.getName(), p.getPrice(), p.isPromotion(),
+                            p.getPromotionPrice(), selectImages(p.getImages())));
+                }
+            }
+        }
+        return dtos;
     }
 }

@@ -66,6 +66,58 @@ function addToCart(id) {
     });
 }
 
+function addToWish(id) {
+    $.ajax({
+        type: "post",
+        url: "/product/add_to_wishlist",
+        data: {id: id},
+        success: function (response) {
+            if (response.status == "ok") {
+                $.notify("<b>Товар добавлен в список желаний</b>", {
+                    type: "success",
+                    delay: 800
+                });
+            } else {
+                $.notify("<b>Не удалось добавить товар в список желаний</b>", {
+                    type: "danger",
+                    delay: 800
+                });
+            }
+        },
+        error: function () {
+            $.notify("<b>Неизвестная ошибка</b>", {
+                type: "danger",
+                delay: 800
+            });
+        }
+    });
+}
+
+function removeFromWish(id) {
+    $.ajax({
+        type: "post",
+        url: "/product/remove_from_wishlist",
+        data: {id: id},
+        success: function (response) {
+            if (response.status == "ok") {
+                $.notify("<b>Товар убран из списка желаний</b>", {
+                    type: "success",
+                    delay: 800,
+                    onClose: function(){
+                        location.reload();
+                    }
+                });
+            }
+        },
+        error: function () {
+            $.notify("<b>Неизвестная ошибка</b>", {
+                type: "danger",
+                delay: 800
+            });
+        }
+    });
+}
+
 function removeCartItem(id) {
     $.ajax({
         type: "post",

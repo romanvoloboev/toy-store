@@ -36,7 +36,6 @@
                                         <li><a href="<c:url value="/profile"/>">Профиль</a></li>
                                         <li><a href="<c:url value="/wishlist"/>">Список желаний</a></li>
                                         <li><a href="<c:url value="/orders"/>">История заказов</a></li>
-                                        <li><a href="<c:url value="/cart"/>">Корзина</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -50,32 +49,53 @@
                                     <table>
                                         <thead>
                                             <tr>
-                                                <td class="image">Товар</td>
-                                                <td class="name"></td>
-                                                <td class="price">Цена</td>
-                                                <td class="stock">Статус</td>
-                                                <td class="action"></td>
+                                                <td class="image col-md-1"></td>
+                                                <td class="name col-md-6" style="text-align: left !important;">Название</td>
+                                                <td class="price col-md-2" style="text-align: left !important;">Цена</td>
+                                                <td class="action col-md-3" style="text-align: center !important;">Действие</td>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="image">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">
-                                                        <img src="http://demopavothemes.com/pav_floral/image/cache/data/demo/product10-200x150.jpg">
-                                                    </a>
-                                                </td>
-                                                <td class="name">
-                                                    <a href="http://demopavothemes.com/pav_floral/index.php?route=product/product&amp;product_id=43">Название</a>
-                                                </td>
-                                                <td class="price">
-                                                    <div class="price">1500.00 грн.</div>
-                                                </td>
-                                                <td class="stock">В наличии</td>
-                                                <td class="action">
-                                                    <a href="" title="Добавить в корзину" onclick=""><i class="fa fa-shopping-cart fa-lg"></i></a>
-                                                    <a href="" style="margin-left: 10px;" title="Удалить из списка" onclick=""><i class="fa fa-times fa-lg"></i></a>
-                                                </td>
-                                            </tr>
+                                        <c:choose>
+                                            <c:when test="${not empty wishes}">
+                                                <c:forEach items="${wishes}" var="w">
+                                                    <tr>
+                                                        <td class="image">
+                                                            <a href="<c:url value="/product?id=${w.id}"/>">
+                                                                <img src="<c:url value="/image/load?id=${w.images[0]}"/>" style="max-height: 50px;">
+                                                            </a>
+                                                        </td>
+                                                        <td class="name" style="vertical-align: middle;">
+                                                            <a href="<c:url value="/product?id=${w.id}"/>">${w.name}</a>
+                                                        </td>
+                                                        <td class="price text-left" style="vertical-align: middle;">
+                                                            <c:choose>
+                                                                <c:when test="${w.promotion}">
+                                                                    <div class="price">${w.promotionPrice}</div>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <div class="price">${w.price}</div>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </td>
+                                                        <td class="action" style="vertical-align: middle;">
+                                                            <button type="button" class="btn btn-shopping-cart buy-product" onclick="addToCart(${w.id})">
+                                                                <span class="fa fa-shopping-cart icon"></span> В корзину
+                                                            </button>
+
+                                                            <button type="button" class="btn btn-shopping-cart buy-product" onclick="removeFromWish(${w.id})">
+                                                                <span class="fa fa-times icon"></span> Удалить
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td colspan="4" class="text-center">Список пуст</td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
                                         </tbody>
                                     </table>
                                 </div>
@@ -86,7 +106,6 @@
             </div>
         </div>
     </section>
-
     <%@include file="includes/footer.jsp"%>
 </section>
 </body>

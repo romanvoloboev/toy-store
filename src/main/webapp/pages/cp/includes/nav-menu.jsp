@@ -34,14 +34,14 @@
             <a href="<c:url value="/cp/employee"/>"><i class="fa fa-user-secret fa-fw"></i> <span>Администраторы</span></a>
         </li>
 
-        <%--заказов - сортировка по количеству совершенных заказов за промежуток времени--%>
-        <%--товаров - сортировка по товару, купленного больше всего--%>
-        <li id="reports">
-            <a class="parent"><i class="fa fa-bar-chart-o fa-fw"></i> <span>Статистика</span></a>
-            <ul class="collapse">
-                <li><a href="<c:url value="/cp/sale_report"/>">Заказов</a></li>
-                <li><a href="<c:url value="/cp/product_report"/>">Товаров</a></li>
-            </ul>
-        </li>
+        <%--&lt;%&ndash;заказов - сортировка по количеству совершенных заказов за промежуток времени&ndash;%&gt;--%>
+        <%--&lt;%&ndash;товаров - сортировка по товару, купленного больше всего&ndash;%&gt;--%>
+        <%--<li id="reports">--%>
+            <%--<a class="parent"><i class="fa fa-bar-chart-o fa-fw"></i> <span>Статистика</span></a>--%>
+            <%--<ul class="collapse">--%>
+                <%--<li><a href="<c:url value="/cp/sale_report"/>">Заказов</a></li>--%>
+                <%--<li><a href="<c:url value="/cp/product_report"/>">Товаров</a></li>--%>
+            <%--</ul>--%>
+        <%--</li>--%>
     </ul>
 </nav>

@@ -27,4 +27,6 @@ public interface OrderRepository extends JpaRepository<Booking, Integer> {
 
     @Query("select sum(b.amount) from Booking b where b.status = 3")
     Float getTotalAmount();
+
+    List<Booking> getByCustomerIdOrderByDateDesc(Integer id);
 }
